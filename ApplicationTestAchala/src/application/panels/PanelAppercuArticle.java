@@ -85,6 +85,7 @@ public class PanelAppercuArticle extends JPanel {
 
 		if (premierMots.length() < 30) {
 			premierMots = premierMots.substring(0);
+			
 			// remplisage par des espaces ... Question esthetique mais en fait
 			// c'est tjrs un peu moche
 			for (int i = premierMots.length(); i < 30; i++)

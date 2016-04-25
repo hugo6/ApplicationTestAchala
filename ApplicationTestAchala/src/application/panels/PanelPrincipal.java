@@ -66,7 +66,7 @@ public class PanelPrincipal extends JPanel {
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Article nouvelArticle = new Article(nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),new ArrayList<Commentaire>());
+				Article nouvelArticle = new Article(nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,new ArrayList<Commentaire>());
 		
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
@@ -84,7 +84,7 @@ public class PanelPrincipal extends JPanel {
 
 
 
-		tabbedPaneMenu.addTab("Chat", new PanelChat());
+		//tabbedPaneMenu.addTab("Chat", new PanelChat());
 
 	}
 }

@@ -68,9 +68,6 @@ public class ApplicationAchala {
 		lblBienvenue.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelConnexion.add(lblBienvenue);
 
-		JLabel lblBiatch = new JLabel("BIATCH !");
-		lblBiatch.setBounds(315, 27, 54, 14);
-		panelConnexion.add(lblBiatch);
 
 		JLabel lblNom = new JLabel("NOM");
 		lblNom.setBounds(180, 106, 29, 17);

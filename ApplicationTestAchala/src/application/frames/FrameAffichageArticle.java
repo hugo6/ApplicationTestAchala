@@ -26,7 +26,7 @@ public class FrameAffichageArticle extends JFrame {
 		affichage.setBounds(900, 100, 600, 450);
 
 		
-		PanelContenuArticle panelArticle = new PanelContenuArticle(a.getNomAuteur(),a.getPrenomAuteur(),a.getTitre(),a.getContenu());
+		PanelContenuArticle panelArticle = new PanelContenuArticle(a.getNomAuteur(),a.getPrenomAuteur(),a.getTitre(),a.getContenu(),a.getDate());
 		JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tabbedPane.add(scroll, "Article");

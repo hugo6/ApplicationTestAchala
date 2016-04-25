@@ -14,13 +14,13 @@ public class PanelContenuArticle extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelContenuArticle(String nom, String prenom, String titre, String contenu) {
+	public PanelContenuArticle(String nom, String prenom, String titre, String contenu, String date) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblTitre = new JLabel(titre);
 		add(lblTitre, BorderLayout.NORTH);
 		
-		JLabel lblDe = new JLabel("De : " +nom + " " + prenom);
+		JLabel lblDe = new JLabel("De : " +nom + " " + prenom + "le " + date);
 		add(lblDe, BorderLayout.SOUTH);
 		
 		JEditorPane editorPaneContenu = new JEditorPane();
