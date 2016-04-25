@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import utils.Article;
-import utils.Commentaire;
+import application.utils.Article;
+import application.utils.Commentaire;
 
 public class PanelArticle extends JPanel {
 

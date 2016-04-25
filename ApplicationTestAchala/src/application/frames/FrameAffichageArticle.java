@@ -1,4 +1,4 @@
-package applicationachala;
+package application.frames;
 
 import java.awt.BorderLayout;
 

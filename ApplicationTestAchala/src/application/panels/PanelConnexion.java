@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

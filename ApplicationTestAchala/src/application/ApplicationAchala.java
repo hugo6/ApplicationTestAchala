@@ -1,4 +1,4 @@
-package applicationachala;
+package application;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import jPanels.*;
+import application.panels.*;
 
 public class ApplicationAchala {
 

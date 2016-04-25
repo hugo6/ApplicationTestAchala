@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import applicationachala.FrameAffichageArticle;
-import utils.Article;
+import application.FrameAffichageArticle;
+import application.utils.Article;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;

@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-import utils.Commentaire;
+import application.utils.Commentaire;
 
 public class PanelCommentaire extends JPanel {
 

@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,8 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import utils.Article;
-import utils.Commentaire;
+import application.utils.Article;
+import application.utils.Commentaire;
 import java.awt.Scrollbar;
 import javax.swing.JScrollBar;
 import java.awt.ScrollPane;

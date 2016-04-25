@@ -1,4 +1,4 @@
-package jPanels;
+package application.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import utils.Article;
+import application.utils.Article;
 
 public class PanelEdition extends JPanel {
 
