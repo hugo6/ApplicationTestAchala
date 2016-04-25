@@ -68,9 +68,6 @@ public class PanelChat extends JPanel {
 		add(lblChat);
 
 		/* Panel scrollable */
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(57, 83, 624, 201);
-		add(scrollPane);
 		
 		/*Panel scrollable des Contacts*/
 		JLabel lblContacts = new JLabel("Contacts en ligne");
@@ -146,7 +143,7 @@ public class PanelChat extends JPanel {
 				validate();
 			}
 		});
-		btnEnvoyer.setBounds(566, 289, 115, 60);
+		btnEnvoyer.setBounds(443, 264, 115, 60);
 		add(btnEnvoyer);
 
 		/* bouton connecter */
@@ -166,21 +163,15 @@ public class PanelChat extends JPanel {
 				System.out.println("Connection au server ip :" + comboBoxIpServer.getSelectedItem().toString());
 			}
 		});
-		btnConnecter.setBounds(714, 79, 98, 34);
+		btnConnecter.setBounds(828, 79, 98, 34);
 		add(btnConnecter);
 
 		/* ComboBox des ip server */
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "192.168.12.55", "127.0.0.1" }));
 		/* TODO remplir la combox avec une list d'ip */
-		comboBox.setBounds(722, 98, 107, 34);
+		comboBox.setBounds(710, 79, 107, 34);
 		add(comboBox);
-		
-
-		/* label contact en ligne */
-		JLabel lblContactsEnLigne = new JLabel("Contacts en ligne");
-		lblContactsEnLigne.setBounds(783, 172, 92, 14);
-		add(lblContactsEnLigne);
 		
 		JList list = new JList();
 		String[] values2 = new String[] {"Luc_Ortiz", "Hugo_Vaillant", "Clarck_robinson", "Audrey_Claude", "Aur\u00E9lien_Fernandez"};
@@ -194,22 +185,9 @@ public class PanelChat extends JPanel {
 				return values[index];
 			}
 		});
-		list.setBounds(568, 180, 265, 143);
+		list.setBounds(570, 180, 265, 150);
 		add(list);
 		System.out.println("Numéro du contact selectionné" +list.getSelectedIndex());
-
-		/* ComboBox des contacts en ligne */
-		JComboBox comboBox_1 = new JComboBox();
-		/* TODO remplir la combox avec une list d'utilisateurs */
-	/*	PanelContact pc;
-		for (Contact c : ListContacts) {
-			pc = new PanelContact(c);
-			PanelListContact.add(pc);
-			panelContacts.add(pc);
-		}*/
-		comboBox_1.setEditable(true);
-		comboBox_1.setBounds(691, 190, 282, 150);
-		add(comboBox_1);
 		
 
 
