@@ -58,7 +58,7 @@ public class ApplicationAchala {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 700, 460);
+		frame.setBounds(100, 100, 1000, 460);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panelConnexion.setLayout(null);

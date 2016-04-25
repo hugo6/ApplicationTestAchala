@@ -1,5 +1,6 @@
 package application.panels;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -13,12 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import application.FrameAffichageArticle;
+import application.frames.FrameAffichageArticle;
 import application.utils.Article;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import javax.swing.JTextArea;
 
 public class PanelAppercuArticle extends JPanel {
 

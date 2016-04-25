@@ -1,6 +1,7 @@
 package application.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import application.utils.Article;
 import application.utils.Commentaire;
+import application.utils.Message;
 
 public class PanelPrincipal extends JPanel {
 
@@ -29,7 +31,6 @@ public class PanelPrincipal extends JPanel {
 	public String getPrenom() {
 		return prenom;
 	}
-
 	/**
 	 * Create the panel.
 	 */
@@ -37,6 +38,7 @@ public class PanelPrincipal extends JPanel {
 		this.nom = nomUser;
 		this.prenom = prenomUser;
 		setLayout(null);
+		this.setPreferredSize(new Dimension(1000,460));
 
 		JLabel lblUser = new JLabel("Bonjour " + prenom + " " + nom);
 		lblUser.setHorizontalAlignment(SwingConstants.LEFT);
@@ -50,7 +52,7 @@ public class PanelPrincipal extends JPanel {
 		add(lblDate);
 
 		JTabbedPane tabbedPaneMenu = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPaneMenu.setBounds(10, 41, 660, 368);
+		tabbedPaneMenu.setBounds(10, 41, 918, 368);
 		add(tabbedPaneMenu);
 
 		PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
@@ -84,7 +86,7 @@ public class PanelPrincipal extends JPanel {
 
 
 
-		tabbedPaneMenu.addTab("Chat", new PanelChat());
-
+		tabbedPaneMenu.addTab("Chat", new PanelChat(nomUser, prenomUser, new ArrayList<Message>()));
+		tabbedPaneMenu.setPreferredSize(new Dimension(1000,460));
 	}
 }
