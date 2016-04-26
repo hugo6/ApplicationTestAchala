@@ -16,6 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
+import application.panels.panelsArticle.PanelAppercuArticle;
+import application.panels.panelsArticle.PanelArticle;
+import application.panels.panelsArticle.PanelEdition;
+import application.panels.panelsChat.PanelChat;
 import application.utils.Article;
 import application.utils.Commentaire;
 import application.utils.Message;

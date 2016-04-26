@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import application.panels.PanelAfficheCommentaires;
-import application.panels.PanelContenuArticle;
+import application.panels.panelsArticle.PanelAfficheCommentaires;
+import application.panels.panelsArticle.PanelContenuArticle;
 import application.utils.Article;
 
 public class FrameAffichageArticle extends JFrame {

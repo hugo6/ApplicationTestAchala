@@ -1,4 +1,4 @@
-package application.panels;
+package application.panels.panelsArticle;
 
 import java.awt.Color;
 import java.awt.Component;
