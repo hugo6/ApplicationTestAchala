@@ -73,7 +73,7 @@ public class PanelPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				Article nouvelArticle = new Article(nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,new ArrayList<Commentaire>());
-		
+				
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();

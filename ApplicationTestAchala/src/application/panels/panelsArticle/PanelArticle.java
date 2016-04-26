@@ -21,10 +21,7 @@ import application.utils.Commentaire;
 public class PanelArticle extends JPanel {
 
 	private JPanel panelArticles;
-
-	public void setPanelArticles(JPanel panelArticles) {
-		this.panelArticles = panelArticles;
-	}
+	private ManagerApp ma = new ManagerApp());
 
 	private Article articlesList = new Article();
 	private List<PanelAppercuArticle> paaList = new ArrayList<PanelAppercuArticle>(30);
@@ -88,7 +85,9 @@ public class PanelArticle extends JPanel {
 		/*
 		 * initialisation des Articles
 		 */
-
+		
+		
+		
 		Article pa = new Article("Robinson", "Clarck", "Les allumettes",
 				" JE suis à l recherche d'une voiture volante rouge !!", "11/05/20154", ListComentaires1);
 		articlesList.getArticlesList().add(pa);
@@ -106,13 +105,13 @@ public class PanelArticle extends JPanel {
 		Article pa4 = new Article("Martinier", "Alexis", "7h30",
 				"J'adore l imag .... c'est pour cela que je viens a 7h30", "11/05/20154", ListComentaires1);
 		articlesList.getArticlesList().add(pa4);
-
+		
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
 		PanelAppercuArticle paa;
-		for (Article i : articlesList.getArticlesList()) {
-			paa = new PanelAppercuArticle(i, nomUser, prenomUser);
-			paaList.add(paa);
+		for (Article a : ma.Instance().getListArticles()) {
+			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
+			//paaList.add(paa);
 			panelArticles.add(paa);
 
 		}
