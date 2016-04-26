@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-import application.utils.Commentaire;
+//import application.utils.Commentaire;
 import application.utils.Message;
 
 public class PanelMessage extends JPanel {
