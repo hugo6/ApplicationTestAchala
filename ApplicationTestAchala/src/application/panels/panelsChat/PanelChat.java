@@ -29,13 +29,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import application.utils.Contact;
 import application.utils.Message;
 
 public class PanelChat extends JPanel {
 	
 	private JTextField txtmessage;
-	private List<Message> ListMessage = new ArrayList<Message>();
-	
+	private List<Message> _listMessage;
+	private List<Contact> _listContact = new ArrayList<Contact>();
 	/**
 	* Create the panel.
 	*/
@@ -44,10 +45,20 @@ public class PanelChat extends JPanel {
 		setLayout(null);
 		
 		/*Initialisation de la liste des messages*/
-		ListMessage.add(new Message("Luc_ortiz", "18/12/2016 15h12", "Salut =)"));
-		ListMessage.add(new Message("Hugo_Vaillant", "18/12/2016 15h16", "Salut =)"));
-		ListMessage.add(new Message("Luc_ortiz", "18/12/2016 15h18", "comment vas tu ?!"));
-		ListMessage.add(new Message("Hugo_Vaillant", "18/12/2016 15h18", "Bien, Merci Luc !"));
+		//TODO LIRE DANS UN FICHIER
+		_listMessage = new ArrayList<Message>();
+		_listMessage.add(new Message("Luc_ortiz", "18/12/2016 15h12", "Salut =)"));
+		_listMessage.add(new Message("Hugo_Vaillant", "18/12/2016 15h16", "Salut =)"));
+		_listMessage.add(new Message("Luc_ortiz", "18/12/2016 15h18", "comment vas tu ?!"));
+		_listMessage.add(new Message("Hugo_Vaillant", "18/12/2016 15h18", "Bien, Merci Luc !"));
+		
+		
+		/*Initialisation de la liste des contacts*/
+		//TODO charger les contacts de la personne connectée
+		_listContact = new ArrayList<Contact>();
+		_listContact.add(new Contact("Luc_ortiz"));
+		
+		
 		
 		
 		/**
@@ -83,7 +94,7 @@ public class PanelChat extends JPanel {
 
 		/*INITIALISATION MESSAGES*/
 		PanelMessage pmsg;
-		for (Message m : ListMessage) {
+		for (Message m : _listMessage) {
 			pmsg = new PanelMessage(m);
 			panelChat.add(pmsg);
 		}
@@ -141,13 +152,13 @@ public class PanelChat extends JPanel {
 		add(lblContact);
 		
 		/*LISTE CONTACT*/
-		JList<Component> listContact = new JList();
-		listContact.addKeyListener(new KeyAdapter() {
+		JList<Component> jlistContact = new JList();
+		jlistContact.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getID() == 401){
 					System.out.println("touche entrée préssée");
-					String s = "" + listContact.getModel().getElementAt(listContact.getSelectedIndex());
+					String s = "" + jlistContact.getModel().getElementAt(jlistContact.getSelectedIndex());
 					lblNametoChat.setText(s);
 					//charger messages du contact(modifier une liste locale)
 				}
@@ -155,8 +166,8 @@ public class PanelChat extends JPanel {
 			}
 			
 		});
-		listContact.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listContact.setModel(new AbstractListModel() {
+		jlistContact.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jlistContact.setModel(new AbstractListModel() {
 			Object[] values = new Object[] {"Luc_Ortiz", "Hugo_Vaillant", "Clarck_robinson", "Audrey_Claude", "Aur\u00E9lien_Fernandez"};
 			//list d'objets
 			public int getSize() {
@@ -166,8 +177,8 @@ public class PanelChat extends JPanel {
 				return values[index];
 			}
 		});
-		listContact.setBounds(568, 180, 265, 150);
-		add(listContact);
+		jlistContact.setBounds(568, 180, 265, 150);
+		add(jlistContact);
 		
 		
 		/**
