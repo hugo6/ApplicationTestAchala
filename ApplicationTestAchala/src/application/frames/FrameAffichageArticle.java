@@ -8,7 +8,7 @@ import javax.swing.JTabbedPane;
 
 import application.panels.panelsArticle.PanelAfficheCommentaires;
 import application.panels.panelsArticle.PanelContenuArticle;
-import application.utils.Article;
+import application.publication.metier.Article;
 
 public class FrameAffichageArticle extends JFrame {
 	private JFrame affichage;
@@ -26,7 +26,7 @@ public class FrameAffichageArticle extends JFrame {
 		affichage.setBounds(900, 100, 600, 450);
 
 		
-		PanelContenuArticle panelArticle = new PanelContenuArticle(a.getNomAuteur(),a.getPrenomAuteur(),a.getTitre(),a.getContenu(),a.getDate());
+		PanelContenuArticle panelArticle = new PanelContenuArticle(a.getNomAuteur(),a.getTitre(),a.getContenu(),a.getDate());
 		JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tabbedPane.add(scroll, "Article");

@@ -16,12 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
+import application.publication.metier.Article;
+import application.publication.metier.ManagerApp;
 import application.panels.panelsArticle.PanelAppercuArticle;
 import application.panels.panelsArticle.PanelArticle;
 import application.panels.panelsArticle.PanelEdition;
 import application.panels.panelsChat.PanelChat;
-import application.utils.Article;
-import application.utils.Commentaire;
+
 import application.utils.Message;
 
 public class PanelPrincipal extends JPanel {
@@ -72,8 +73,9 @@ public class PanelPrincipal extends JPanel {
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Article nouvelArticle = new Article(nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,new ArrayList<Commentaire>());
+				Article nouvelArticle = new Article(int id, nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,new ArrayList<Commentaire>());
 				
+				ManagerApp.Instance().getListArticles().add(nouvelArticle);
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();

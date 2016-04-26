@@ -15,15 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import application.utils.Article;
-import application.utils.Commentaire;
+import application.publication.metier.*;
+
+
 
 public class PanelArticle extends JPanel {
 
 	private JPanel panelArticles;
-	private ManagerApp ma = new ManagerApp());
+	
 
-	private Article articlesList = new Article();
+
 	private List<PanelAppercuArticle> paaList = new ArrayList<PanelAppercuArticle>(30);
 
 	/**
@@ -66,7 +67,7 @@ public class PanelArticle extends JPanel {
 		 * initialisation des commentaires
 		 * 
 		 */
-		List<Commentaire> ListComentaires1 = new ArrayList<Commentaire>();
+	/*	List<Commentaire> ListComentaires1 = new ArrayList<Commentaire>();
 		Commentaire c = new Commentaire("Blandin", "Bob", "11/04/2056", " first!");
 		ListComentaires1.add(c);
 		Commentaire c1 = new Commentaire("Mathias", "Gandit", "11/04/2056", "fake");
@@ -81,12 +82,12 @@ public class PanelArticle extends JPanel {
 		ListComentaires2.add(c);
 		c = new Commentaire("Martinier", "Alexis", "11/04/2556", " fake!");
 		ListComentaires2.add(c);
-
+		*/
 		/*
 		 * initialisation des Articles
 		 */
 		
-		
+	/*	
 		
 		Article pa = new Article("Robinson", "Clarck", "Les allumettes",
 				" JE suis à l recherche d'une voiture volante rouge !!", "11/05/20154", ListComentaires1);
@@ -105,11 +106,13 @@ public class PanelArticle extends JPanel {
 		Article pa4 = new Article("Martinier", "Alexis", "7h30",
 				"J'adore l imag .... c'est pour cela que je viens a 7h30", "11/05/20154", ListComentaires1);
 		articlesList.getArticlesList().add(pa4);
+		*/
+		
 		
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
 		PanelAppercuArticle paa;
-		for (Article a : ma.Instance().getListArticles()) {
+		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
 			//paaList.add(paa);
 			panelArticles.add(paa);

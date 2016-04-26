@@ -2,9 +2,11 @@ package application.panels.panelsArticle;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,16 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import application.utils.Article;
-import application.utils.Commentaire;
-import java.awt.Scrollbar;
-import javax.swing.JScrollBar;
-import java.awt.ScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.awt.event.ActionEvent;
+import application.publication.metier.Article;
+import application.publication.metier.Commentaire;
 
 public class PanelAfficheCommentaires extends JPanel {
 	private List<Commentaire> ListComentaires = new ArrayList<Commentaire>();
@@ -68,8 +62,8 @@ public class PanelAfficheCommentaires extends JPanel {
 
 
 		PanelCommentaire pc;
-		for (Commentaire i : a.getCommentaireList() ) {
-			pc = new PanelCommentaire(i);
+		for (Commentaire c : a.getLesCommentaires() ) {
+			pc = new PanelCommentaire(c);
 			PanelListCommentaire.add(pc);
 			panelCommentaires.add(pc);
 		}

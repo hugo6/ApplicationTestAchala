@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import application.frames.FrameAffichageArticle;
-import application.utils.Article;
+import application.publication.metier.*;
 
 public class PanelAppercuArticle extends JPanel {
 
@@ -76,7 +76,7 @@ public class PanelAppercuArticle extends JPanel {
 		panelTitre.add(panelAuteur);
 		panelAuteur.setLayout(new BoxLayout(panelAuteur, BoxLayout.Y_AXIS));
 		
-				JLabel lblAuteur = new JLabel("Auteur : " + a.getNomAuteur() + " " + a.getPrenomAuteur());
+				JLabel lblAuteur = new JLabel("Auteur : " + a.getNomAuteur());
 				panelAuteur.add(lblAuteur);
 				lblAuteur.setHorizontalAlignment(SwingConstants.CENTER);
 				
