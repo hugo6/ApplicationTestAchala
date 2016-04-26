@@ -1,11 +1,11 @@
-package achala.modules.publication.metier;
+package application.publication.metier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import achala.modules.publication.dao.ManagerDAO;
+import application.publication.dao.ManagerDAO;
 
 public class ManagerApp {
 	

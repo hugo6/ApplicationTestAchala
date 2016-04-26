@@ -51,6 +51,7 @@ public class PanelPrincipal extends JPanel {
 		add(lblUser);
 
 		String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
+		//Date Date = 
 		JLabel lblDate = new JLabel(txtDate);
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDate.setBounds(567, 16, 103, 14);
@@ -70,11 +71,12 @@ public class PanelPrincipal extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JButton Publier = new JButton("Publier");
+		int id = 20 ;
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				Article nouvelArticle = new Article(int id, nomUser, prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,new ArrayList<Commentaire>());
 				
+				Article nouvelArticle = new Article(id, nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),date,new ArrayList<Commentaire>());
+				id++;
 				ManagerApp.Instance().getListArticles().add(nouvelArticle);
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
