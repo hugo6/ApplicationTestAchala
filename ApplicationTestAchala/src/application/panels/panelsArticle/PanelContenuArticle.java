@@ -16,7 +16,7 @@ public class PanelContenuArticle extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelContenuArticle(String nom, String titre, String contenu, Date date) {
+	public PanelContenuArticle(String nom, String titre, String contenu, String date) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblTitre = new JLabel(titre);

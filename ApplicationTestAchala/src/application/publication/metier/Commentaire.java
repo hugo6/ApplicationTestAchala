@@ -1,6 +1,4 @@
 package application.publication.metier;
-
-import java.sql.Date;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
@@ -15,20 +13,23 @@ public class Commentaire {
 	private int id;
 	private String contenu;
 	private String nomAuteur;
-	private Date date;
+	private String date;
 	private int idArticle;
 	
 	/**
 	 * Constructeur
 	 */
-	public Commentaire(int unId, String unContenu, String unAuteur, Date uneDate, int idArticle) {
+	public Commentaire(int unId, String unContenu, String unAuteur, String uneDate, int idArticle, boolean alreadyInBase) {
 		this.id = unId;
 		this.contenu = unContenu;
 		this.nomAuteur = unAuteur;
 		this.date = uneDate;
 		this.idArticle = idArticle;
 		try{
-			Article.getArticleById(idArticle).ajouterCommentaire(this);
+			if(!alreadyInBase){
+				this.creer();
+				Article.getArticleById(idArticle).ajouterCommentaire(this);
+			}
 		} catch(PublicationException e) {
 			e.getMessage();
 		}
@@ -38,9 +39,10 @@ public class Commentaire {
 	 * Méthodes
 	 */
 	public void creer() {
-		//APPEL DAO
+		//Mise à jour des données BD + Context
 		try {
-			ManagerDAO.getDAOCommentaire().insert(this.id, this.date, this.contenu, this.nomAuteur, this.idArticle);
+			//Exécution requête
+			ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().insert(this.id, this.date, this.contenu, this.nomAuteur, this.idArticle));
 			ManagerApp.Instance().getListCommentaires().add(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -48,9 +50,9 @@ public class Commentaire {
 	}
 
 	public void supprimer() {
-		//APPEL DAO
+		//Mise à jour des données BD + Context
 		try {
-			ManagerDAO.getDAOCommentaire().delete(this.id);
+			ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().delete(this.id));
 			ManagerApp.Instance().getListCommentaires().remove(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -87,13 +89,13 @@ public class Commentaire {
 		this.nomAuteur = auteur;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		HashMap<String, String> lstAttrsValues = new HashMap<>();
-		lstAttrsValues.put("date", TypeBD.syntaxe(date.toString(), TypeBD.DATE));
+		lstAttrsValues.put("date", TypeBD.syntaxe(date, TypeBD.DATE));
 		ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().update(lstAttrsValues, "WHERE id = " + this.id));
 		this.date = date;
 	}

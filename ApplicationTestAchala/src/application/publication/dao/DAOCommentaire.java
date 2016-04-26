@@ -1,6 +1,5 @@
 package application.publication.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +28,7 @@ public class DAOCommentaire extends DAOTable {
 		
 		Map<String, TypeBD> lstAttrs = new HashMap<>();
 		lstAttrs.put("id", TypeBD.INTEGER);
-		lstAttrs.put("date", TypeBD.DATE);
+		lstAttrs.put("dateC", TypeBD.DATE);
 		lstAttrs.put("contenu", TypeBD.STRING);
 		lstAttrs.put("auteur", TypeBD.STRING);
 		lstAttrs.put("article", TypeBD.INTEGER);
@@ -60,7 +59,7 @@ public class DAOCommentaire extends DAOTable {
 	 * @return La requete a executer (objet)
 	 */
 	public Requete update(HashMap<String, String> lstAttrsValues, String where) {		
-		return new Update(lstAttrsValues, ManagerDAO.getDAOArticle(), where);
+		return new Update(lstAttrsValues, ManagerDAO.getDAOCommentaire(), where);
 	}
 	
 	
@@ -72,10 +71,10 @@ public class DAOCommentaire extends DAOTable {
 	 * @param auteur Le troisieme attributt
 	 * @return La requete a executer (objet)
 	 */
-	public Requete insert(int id, Date date, String contenu, String nomAuteur, int idArticle) {
+	public Requete insert(int id, String date, String contenu, String nomAuteur, int idArticle) {
 		HashMap<String, String> lstAttrsValue = new HashMap<>();
 		lstAttrsValue.put("id", String.valueOf(id));
-		lstAttrsValue.put("date", TypeBD.syntaxe(date.toString(), TypeBD.DATE));
+		lstAttrsValue.put("dateC", date);
 		lstAttrsValue.put("contenu", contenu);
 		lstAttrsValue.put("auteur", nomAuteur);
 		lstAttrsValue.put("article", String.valueOf(idArticle));

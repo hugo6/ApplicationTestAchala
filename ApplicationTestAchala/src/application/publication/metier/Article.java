@@ -1,13 +1,10 @@
 package application.publication.metier;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
 import application.publication.dao.ManagerDAO;
 import application.publication.exception.PublicationException;
-
-//import achala.modules.publication.exception.PublicationException;
 
 
 public class Article {
@@ -19,29 +16,29 @@ public class Article {
 	private String titre;
 	private String contenu;
 	private String nomAuteur;
-	private Date date;
+	private String date;
 	private ArrayList<Commentaire> lesCommentaires;
 
 	/**
 	 * Constructeur complet
 	 */
-	public Article(int unId, String unTitre, String unContenu, String unNomAuteur, Date uneDate) {
+	public Article(int unId, String unTitre, String unContenu, String unNomAuteur, String uneDate, boolean alreadyInBase) {
 		this.id = unId;
 		this.titre = unTitre;
 		this.contenu = unContenu;
 		this.nomAuteur = unNomAuteur;
 		this.date = uneDate;
 		this.lesCommentaires = new ArrayList<Commentaire>();
-		creer();
+		if(!alreadyInBase) creer();
 	}
 	
 	/**
 	 * Methodes
 	 */
 	public void creer() {
-		//Mise à jour des données
+		//Mise à jour des données BD + Context
 		try {
-			ManagerDAO.getDAOArticle().insert(this.id,this.date, this.titre, this.contenu, this.nomAuteur );
+			ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().insert(this.id, this.date, this.titre, this.contenu, this.nomAuteur));
 			ManagerApp.Instance().getListArticles().add(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -49,12 +46,12 @@ public class Article {
 	}
 	
 	public void supprimer() {
-		//Mise à jour des données
+		//Mise à jour des données BD + Context
 		try {
 			for(Commentaire com : lesCommentaires) {
 				com.supprimer();
 			}
-			ManagerDAO.getDAOArticle().delete(this.id);
+			ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().delete(this.id));
 			ManagerApp.Instance().getListArticles().remove(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -63,7 +60,6 @@ public class Article {
 	
 	//Ajout du commentaire en base puis ajout dans la liste
 	public void ajouterCommentaire(Commentaire com) {
-		com.creer();
 		this.lesCommentaires.add(com);
 	}
 	
@@ -114,13 +110,13 @@ public class Article {
 		this.nomAuteur = nomAuteur;
 	}
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		HashMap<String, String> lstAttrsValues = new HashMap<>();
-		lstAttrsValues.put("date", TypeBD.syntaxe(date.toString(), TypeBD.DATE));
+		lstAttrsValues.put("date", TypeBD.syntaxe(date, TypeBD.DATE));
 		ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().update(lstAttrsValues, "WHERE id = " + this.id));
 		this.date = date;
 	}

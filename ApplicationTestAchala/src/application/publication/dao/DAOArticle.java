@@ -1,6 +1,5 @@
 package application.publication.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,10 +73,10 @@ public class DAOArticle extends DAOTable {
 	 * @param lescommentaires Le quatrieme attribut
 	 * @return La requete a executer (objet)
 	 */
-	public Requete insert(int id, Date date, String titre, String nomAuteur, String contenu) {		
+	public Requete insert(int id, String date, String titre, String nomAuteur, String contenu) {		
 		HashMap<String, String> lstAttrsValue = new HashMap<>();
 		lstAttrsValue.put("id", String.valueOf(id));
-		lstAttrsValue.put("date", TypeBD.syntaxe(date.toString(), TypeBD.DATE));
+		lstAttrsValue.put("dateA", date);
 		lstAttrsValue.put("titre", titre);
 		lstAttrsValue.put("contenu", contenu);
 		lstAttrsValue.put("auteur", nomAuteur);
