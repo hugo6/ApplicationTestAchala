@@ -16,6 +16,10 @@ public class Contact {
 		this.pseudo = pseudo;
 	}
 	
-	
+	@Override
+	public String toString(){
+		return this.pseudo;
+		
+	}
 
 }
