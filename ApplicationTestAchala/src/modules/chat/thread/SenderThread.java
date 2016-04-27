@@ -2,11 +2,11 @@ package modules.chat.thread;
 
 import java.util.Scanner;
 
+import modules.chat.util.Util.Cmd;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.utilisateur._Utilisateur;
-import achala.modules.chat.util.Util.Cmd;
 
 public class SenderThread extends Thread {
 

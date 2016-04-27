@@ -2,15 +2,16 @@ package modules.chat;
 
 import java.rmi.RemoteException;
 
+import modules.chat.exception.ChatException;
+import modules.chat.thread.ListenerThread;
+import modules.chat.thread.NotificationThread;
+import modules.chat.thread.SenderThread;
+import modules.chat.util.Util.Cmd;
 import achala.communication._Shared;
 import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur._Utilisateur;
-import achala.modules.chat.exception.ChatException;
-import achala.modules.chat.thread.ListenerThread;
-import achala.modules.chat.thread.NotificationThread;
-import achala.modules.chat.thread.SenderThread;
-import achala.modules.chat.util.Util.Cmd;
+import modules.chat.util.Util;;
 
 public class Chat {
 
@@ -124,7 +125,7 @@ public class Chat {
 	public void sender(_Utilisateur u, Cmd escape) throws RemoteException, ChatException {
 		if(!this.getCorrespondance().isAllowed(u)) throw new ChatException("Utilisateur non autorisé");
 		
-		SenderThread sender = new SenderThread(u, this.getCorrespondance(), escape);
+		SenderThread sender = new SenderThread(u, this.getCorrespondance(), Cmd.EXIT);
 		sender.start();
 	}
 	
