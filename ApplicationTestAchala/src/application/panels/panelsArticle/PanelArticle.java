@@ -16,15 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import modules.publication.metier.Article;
+import modules.publication.metier.Commentaire;
 import modules.publication.metier.ManagerApp;
-
-
 
 public class PanelArticle extends JPanel {
 
 	private JPanel panelArticles;
-	
-
 
 	private List<PanelAppercuArticle> paaList = new ArrayList<PanelAppercuArticle>(30);
 
@@ -58,7 +55,7 @@ public class PanelArticle extends JPanel {
 		panelArticles = new JPanel();
 		add(panelArticles);
 		panelArticles.setBackground(Color.LIGHT_GRAY);
-		panelArticles.setPreferredSize(new Dimension(0, 3000));
+		panelArticles.setPreferredSize(new Dimension(0, 1000));
 
 		JScrollPane scrollPane = new JScrollPane(panelArticles);
 		panelArticles.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
@@ -66,51 +63,36 @@ public class PanelArticle extends JPanel {
 
 		ManagerApp.Instance().initialisation();
 		
-		/*
-		 * initialisation des commentaires
-		 * 
-		 */
-	/*	List<Commentaire> ListComentaires1 = new ArrayList<Commentaire>();
-		Commentaire c = new Commentaire("Blandin", "Bob", "11/04/2056", " first!");
-		ListComentaires1.add(c);
-		Commentaire c1 = new Commentaire("Mathias", "Gandit", "11/04/2056", "fake");
-		ListComentaires1.add(c1);
-		Commentaire c2 = new Commentaire("Ortiz", "Luc", "11/04/2056", "Cette Article n'est pas pertinent");
-		ListComentaires1.add(c2);
-		c1 = new Commentaire("Vaillant", "Hugo", "11/04/2056", "Comment on fait pour ping?");
-		ListComentaires1.add(c1);
-
-		List<Commentaire> ListComentaires2 = new ArrayList<Commentaire>();
-		c = new Commentaire("Claude", "Audrey", "11/04/2556", "Commentaire inutile!");
-		ListComentaires2.add(c);
-		c = new Commentaire("Martinier", "Alexis", "11/04/2556", " fake!");
-		ListComentaires2.add(c);
-		*/
+		
 		/*
 		 * initialisation des Articles
 		 */
 		
-	/*	
 		
-		Article pa = new Article("Robinson", "Clarck", "Les allumettes",
-				" JE suis à l recherche d'une voiture volante rouge !!", "11/05/20154", ListComentaires1);
-		articlesList.getArticlesList().add(pa);
+		
+		Article pa = new Article( "Les allumettes",	" JE suis à l recherche d'une voiture volante rouge !!", "Robinson Clarck", "11-05-2154");
+		
+		Article pa1 = new Article( "Java c'est genial",
+				"J'aime bien java et je ne sais pas pourquoi... , Ce que j'apprecie le plus c'est le ping dans la console windows","Vaillant Hugo",
+				"11-05-2154");
+		Article pa2 = new Article( "Chef", "Je suis le chef... et taggle ","Ortiz Luc", "11-05-2154");
+		Article pa3 = new Article("BTP","du 7 au 17 je serai absent car je dois partir pour construire une maison avec ma truelle", "FernandeS Aurelien",
+				"11-05-2154");
+		Article pa4 = new Article("7h30","J'adore l imag .... c'est pour cela que je viens a 7h30", "Martinier Alexis" ,"11-05-2154");
 
-		Article pa1 = new Article("Vaillant", "Hugo", "Java c'est genial",
-				"J'aime bien java et je ne sais pas pourquoi... , Ce que j'apprecie le plus c'est le ping dans la console windows",
-				"11/05/20154", ListComentaires2);
-		articlesList.getArticlesList().add(pa1);
-		Article pa2 = new Article("Ortiz", "Luc", "Chef", "Je suis le chef... ", "11/05/20154", new ArrayList());
-		articlesList.getArticlesList().add(pa2);
-		Article pa3 = new Article("FernandeS", "Aurelien", "BTP",
-				"du 7 au 17 je serai absent car je dois partir pour construire une maison avec ma truelle",
-				"11/05/20154", new ArrayList());
-		articlesList.getArticlesList().add(pa3);
-		Article pa4 = new Article("Martinier", "Alexis", "7h30",
-				"J'adore l imag .... c'est pour cela que je viens a 7h30", "11/05/20154", ListComentaires1);
-		articlesList.getArticlesList().add(pa4);
-		*/
 		
+		
+		/*
+		 * initialisation des commentaires
+		 * 
+		 */
+		Commentaire c = new Commentaire( "first!", "Blandin Bob", "11-04-2056",pa.getId());
+		Commentaire c1 = new Commentaire("fake", "Mathias Gandit", "11-04-2056", pa.getId());
+		Commentaire c2 = new Commentaire("Cette Article n'est pas pertinent","Luc Ortiz", "11-04-2056",pa2.getId());
+		Commentaire c3 = new Commentaire( "Comment on fait pour ping?","Hugo Vaillant", "11-04-2056",pa3.getId());
+		Commentaire c4 = new Commentaire("Commentaire inutile!", "Claude Audrey", "11-04-2556", pa3.getId() );
+		Commentaire c5 = new Commentaire( " fake!", "Martinier Alexis", "11-04-2556",pa1.getId());
+
 		
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .

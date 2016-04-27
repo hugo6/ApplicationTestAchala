@@ -60,9 +60,9 @@ public class PanelPrincipal extends JPanel {
 		add(tabbedPaneMenu);
 
 		PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
-		JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		tabbedPaneMenu.add(scroll, "Article");
+		//JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+			//	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tabbedPaneMenu.addTab("Article",panelArticle);
 		
 		PanelEdition panelEdition = new PanelEdition(nom, prenom);
 		JScrollPane scrollEdition = new JScrollPane(panelEdition, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -72,7 +72,7 @@ public class PanelPrincipal extends JPanel {
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Article nouvelArticle = new Article( nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate);
+				Article nouvelArticle = new Article(panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(), nomUser + " "+ prenomUser,txtDate);
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();
