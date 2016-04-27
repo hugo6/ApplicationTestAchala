@@ -83,6 +83,7 @@ public class PanelAfficheCommentaires extends JPanel {
 				String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
 				Commentaire nouveauCom = new Commentaire(txtrLaisserUnCommentaire.getText(), nomUser + " "+ prenomUser,txtDate, a.getId());				
 				PanelCommentaire newPanelCom = new PanelCommentaire(nouveauCom);
+				panelCommentaires.add(newPanelCom);
 				txtrLaisserUnCommentaire.setText(null);
 				validate();
 				
