@@ -87,12 +87,12 @@ public class PanelArticle extends JPanel {
 		 * 
 		 */
 		/*
-		Commentaire c = new Commentaire( "first!", "Blandin Bob", "11-04-2056",pa.getId());
-		Commentaire c1 = new Commentaire("fake", "Mathias Gandit", "11-04-2056", pa.getId());
-		Commentaire c2 = new Commentaire("Cette Article n'est pas pertinent","Luc Ortiz", "11-04-2056",pa2.getId());
-		Commentaire c3 = new Commentaire( "Comment on fait pour ping?","Hugo Vaillant", "11-04-2056",pa3.getId());
-		Commentaire c4 = new Commentaire("Commentaire inutile!", "Claude Audrey", "11-04-2556", pa3.getId() );
-		Commentaire c5 = new Commentaire( " fake!", "Martinier Alexis", "11-04-2556",pa1.getId());
+		 new Commentaire( "first!", "Blandin Bob", "11-04-2056",pa.getId());
+		 new Commentaire("fake", "Mathias Gandit", "11-04-2056", pa.getId());
+		 new Commentaire("Cette Article n'est pas pertinent","Luc Ortiz", "11-04-2056",pa2.getId());
+		 new Commentaire( "Comment on fait pour ping?","Hugo Vaillant", "11-04-2056",pa3.getId());
+		 new Commentaire("Commentaire inutile!", "Claude Audrey", "11-04-2556", pa3.getId() );
+		 new Commentaire( " fake!", "Martinier Alexis", "11-04-2556",pa1.getId());
 */
 		
 		// Recuperation des differents elements de chaques articles + mise en
