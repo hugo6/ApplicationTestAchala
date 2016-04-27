@@ -81,7 +81,7 @@ public class PanelAfficheCommentaires extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
-				Commentaire nouveauCom = new Commentaire(nomUser,prenomUser,txtDate,txtrLaisserUnCommentaire.getText());
+				Commentaire nouveauCom = new Commentaire(id,nomUser,prenomUser,txtDate,txtrLaisserUnCommentaire.getText(), idArticle);
 				a.getCommentaireList().add(nouveauCom);				
 				PanelCommentaire newPanelCom = new PanelCommentaire(nouveauCom);
 				panelCommentaires.add(newPanelCom);
