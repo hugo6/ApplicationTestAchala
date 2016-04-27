@@ -68,7 +68,7 @@ public class PanelArticle extends JPanel {
 		 * initialisation des Articles
 		 */
 		
-		
+		/*
 		
 		Article pa = new Article( "Les allumettes",	" JE suis à l recherche d'une voiture volante rouge !!", "Robinson Clarck", "11-05-2154");
 		
@@ -80,19 +80,20 @@ public class PanelArticle extends JPanel {
 				"11-05-2154");
 		Article pa4 = new Article("7h30","J'adore l imag .... c'est pour cela que je viens a 7h30", "Martinier Alexis" ,"11-05-2154");
 
-		
+		*/
 		
 		/*
 		 * initialisation des commentaires
 		 * 
 		 */
+		/*
 		Commentaire c = new Commentaire( "first!", "Blandin Bob", "11-04-2056",pa.getId());
 		Commentaire c1 = new Commentaire("fake", "Mathias Gandit", "11-04-2056", pa.getId());
 		Commentaire c2 = new Commentaire("Cette Article n'est pas pertinent","Luc Ortiz", "11-04-2056",pa2.getId());
 		Commentaire c3 = new Commentaire( "Comment on fait pour ping?","Hugo Vaillant", "11-04-2056",pa3.getId());
 		Commentaire c4 = new Commentaire("Commentaire inutile!", "Claude Audrey", "11-04-2556", pa3.getId() );
 		Commentaire c5 = new Commentaire( " fake!", "Martinier Alexis", "11-04-2556",pa1.getId());
-
+*/
 		
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
