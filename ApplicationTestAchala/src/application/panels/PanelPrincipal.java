@@ -27,7 +27,7 @@ import application.utils.Message;
 
 public class PanelPrincipal extends JPanel {
 
-	private String nom = "inconnu", prenom = "inconnu";
+	private String nom = "Onyme", prenom = "Anne";
 
 	public String getNom() {
 		return nom;
@@ -51,17 +51,17 @@ public class PanelPrincipal extends JPanel {
 		add(lblUser);
 
 		String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
-		//Date Date = 
+
 		JLabel lblDate = new JLabel(txtDate);
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDate.setBounds(567, 16, 103, 14);
+		lblDate.setBounds(825, 16, 103, 14);
 		add(lblDate);
 
 		JTabbedPane tabbedPaneMenu = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneMenu.setBounds(10, 41, 918, 368);
 		add(tabbedPaneMenu);
 
-		/*PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
+		PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
 		JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tabbedPaneMenu.add(scroll, "Article");
@@ -75,9 +75,9 @@ public class PanelPrincipal extends JPanel {
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Article nouvelArticle = new Article(id, nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),date,new ArrayList<Commentaire>());
-				id++;
-				ManagerApp.Instance().getListArticles().add(nouvelArticle);
+				Article nouvelArticle = new Article(id, nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,false);
+				//id++;
+				nouvelArticle.creer();
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();
@@ -86,13 +86,13 @@ public class PanelPrincipal extends JPanel {
 				panelEdition.getTextAreaArticle().setText(null);
 				panelEdition.validate();
 				tabbedPaneMenu.validate();
-
+			
 			}
 		});
 		panelEdition.add(Publier, BorderLayout.SOUTH);
 		tabbedPaneMenu.add(scrollEdition,"Edition");
 
-*/
+
 
 		tabbedPaneMenu.addTab("Chat", new PanelChat(nomUser, prenomUser, new ArrayList<Message>()));
 		tabbedPaneMenu.setPreferredSize(new Dimension(1000,460));

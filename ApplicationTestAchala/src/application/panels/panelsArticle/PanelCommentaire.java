@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
+import application.publication.metier.Commentaire;
+
 
 
 public class PanelCommentaire extends JPanel {
@@ -20,7 +22,7 @@ public class PanelCommentaire extends JPanel {
 		setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		setLayout(new BorderLayout(0, 0));
 
-		JLabel lblDeNom = new JLabel("De : " + c.getNom() + " "+ c.getPrenom() + " , le " + c.getDate() + " a ecrit : ");
+		JLabel lblDeNom = new JLabel("De : " + c.getAuteur() +  " , le " + c.getDate() + " a ecrit : ");
 		add(lblDeNom, BorderLayout.NORTH);
 
 		JTextPane textPaneContenu = new JTextPane();

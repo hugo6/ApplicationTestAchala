@@ -58,35 +58,35 @@ public class ApplicationAchala {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 460);
+		frame.setBounds(100, 100, 955, 460);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panelConnexion.setLayout(null);
 
 		JLabel lblBienvenue = new JLabel("Bienvenue dans l'application ACHALA");
-		lblBienvenue.setBounds(329, 0, 335, 22);
+		lblBienvenue.setBounds(283, 0, 335, 22);
 		lblBienvenue.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelConnexion.add(lblBienvenue);
 
 
 		JLabel lblNom = new JLabel("NOM");
-		lblNom.setBounds(350, 110, 29, 17);
+		lblNom.setBounds(308, 110, 29, 17);
 		lblNom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelConnexion.add(lblNom);
 
 		textFieldNom = new JTextField();
-		textFieldNom.setBounds(349, 130, 315, 20);
+		textFieldNom.setBounds(303, 138, 315, 20);
 		lblNom.setLabelFor(textFieldNom);
 		panelConnexion.add(textFieldNom);
 		textFieldNom.setColumns(10);
 
 		JLabel lblPrenom = new JLabel("PRENOM");
-		lblPrenom.setBounds(349, 182, 54, 17);
+		lblPrenom.setBounds(302, 183, 54, 17);
 		lblPrenom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelConnexion.add(lblPrenom);
 
 		textFieldPrenom = new JTextField();
-		textFieldPrenom.setBounds(349, 206, 315, 20);
+		textFieldPrenom.setBounds(303, 211, 315, 20);
 		lblPrenom.setLabelFor(textFieldPrenom);
 		panelConnexion.add(textFieldPrenom);
 		textFieldPrenom.setColumns(10);
@@ -106,7 +106,7 @@ public class ApplicationAchala {
 			}
 		});
 		
-		btnValider.setBounds(466, 289, 81, 23);
+		btnValider.setBounds(398, 290, 81, 23);
 		panelConnexion.add(btnValider);
 	
 		frame.getContentPane().add(panelConnexion);

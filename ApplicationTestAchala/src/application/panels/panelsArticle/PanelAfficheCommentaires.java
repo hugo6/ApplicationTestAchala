@@ -64,7 +64,7 @@ public class PanelAfficheCommentaires extends JPanel {
 		PanelCommentaire pc;
 		for (Commentaire c : a.getLesCommentaires() ) {
 			pc = new PanelCommentaire(c);
-			PanelListCommentaire.add(pc);
+			c.creer();
 			panelCommentaires.add(pc);
 		}
 
@@ -75,14 +75,16 @@ public class PanelAfficheCommentaires extends JPanel {
 		txtrLaisserUnCommentaire.setTabSize(150);
 		txtrLaisserUnCommentaire.setRows(4);
 		panelNewCom.add(txtrLaisserUnCommentaire);
-
+		int id = 20;
+		
 		// ajout d'un nouveau commentaire
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
-				Commentaire nouveauCom = new Commentaire(id,nomUser,prenomUser,txtDate,txtrLaisserUnCommentaire.getText(), idArticle);
-				a.getCommentaireList().add(nouveauCom);				
+				Commentaire nouveauCom = new Commentaire(id,nomUser,txtDate,txtrLaisserUnCommentaire.getText(), a.getId() ,false);
+				
+				a.getLesCommentaires().add(nouveauCom);				
 				PanelCommentaire newPanelCom = new PanelCommentaire(nouveauCom);
 				panelCommentaires.add(newPanelCom);
 				txtrLaisserUnCommentaire.setText(null);
