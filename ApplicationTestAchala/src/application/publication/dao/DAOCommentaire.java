@@ -102,7 +102,7 @@ public class DAOCommentaire extends DAOTable {
 	
 	
 	/**
-	 * Permet de récupperer tout les commentaires
+	 * Permet de recuperer tout les commentaires
 	 * @return La requete a executer (objet)
 	 */
 	public Requete selectAll() {
@@ -111,6 +111,20 @@ public class DAOCommentaire extends DAOTable {
 		
 		List<String> lstAttrs = new ArrayList<>();
 		lstAttrs.add("*");
+		
+		return new Select(lstAttrs, lstTables);
+	}
+	
+	/**
+	 * Permet de recuperer l'id max courante des commentaires
+	 * @return La requete a executer (objet)
+	 */
+	public Requete selectMaxId() {
+		List<DAOTable> lstTables = new ArrayList<>();
+		lstTables.add(ManagerDAO.getDAOCommentaire());
+		
+		List<String> lstAttrs = new ArrayList<>();
+		lstAttrs.add("MAX(id)");
 		
 		return new Select(lstAttrs, lstTables);
 	}

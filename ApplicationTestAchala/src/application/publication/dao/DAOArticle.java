@@ -103,7 +103,7 @@ public class DAOArticle extends DAOTable {
 	
 	
 	/**
-	 * Permet de sélectionner tous les articles de la BDD
+	 * Permet de selectionner tous les articles de la BDD
 	 * @return La requete a executer (objet)
 	 */
 	public Requete selectAll() {
@@ -112,6 +112,20 @@ public class DAOArticle extends DAOTable {
 		
 		List<String> lstAttrs = new ArrayList<>();
 		lstAttrs.add("*");
+		
+		return new Select(lstAttrs, lstTables);
+	}
+	
+	/**
+	 * Permet de selectionner l'id max courante des articles
+	 * @return La requete a executer (objet)
+	 */
+	public Requete selectMaxId() {
+		List<DAOTable> lstTables = new ArrayList<>();
+		lstTables.add(ManagerDAO.getDAOArticle());
+		
+		List<String> lstAttrs = new ArrayList<>();
+		lstAttrs.add("MAX(id)");
 		
 		return new Select(lstAttrs, lstTables);
 	}

@@ -71,11 +71,10 @@ public class PanelPrincipal extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JButton Publier = new JButton("Publier");
-		int id = 20 ;
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Article nouvelArticle = new Article(id, nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate,false);
+				Article nouvelArticle = new Article( nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate);
 				//id++;
 				nouvelArticle.creer();
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);

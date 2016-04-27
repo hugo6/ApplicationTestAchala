@@ -1,4 +1,6 @@
 package application.publication.metier;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,16 +22,28 @@ public class Article {
 	private ArrayList<Commentaire> lesCommentaires;
 
 	/**
+	 * Constructeur sans id
+	 */
+	public Article(String unTitre, String unContenu, String unNomAuteur, String uneDate) {
+		this.id = Article.getIdCourant();
+		this.titre = unTitre;
+		this.contenu = unContenu;
+		this.nomAuteur = unNomAuteur;
+		this.date = uneDate;
+		this.lesCommentaires = new ArrayList<Commentaire>();
+		creer();
+	}
+	
+	/**
 	 * Constructeur complet
 	 */
-	public Article(int unId, String unTitre, String unContenu, String unNomAuteur, String uneDate, boolean alreadyInBase) {
+	public Article(int unId, String unTitre, String unContenu, String unNomAuteur, String uneDate) {
 		this.id = unId;
 		this.titre = unTitre;
 		this.contenu = unContenu;
 		this.nomAuteur = unNomAuteur;
 		this.date = uneDate;
 		this.lesCommentaires = new ArrayList<Commentaire>();
-		if(!alreadyInBase) creer();
 	}
 	
 	/**
@@ -72,6 +86,18 @@ public class Article {
 	/**
 	 * Getteurs / Accesseurs
 	 */
+	private static int getIdCourant() {
+		ResultSet rs = ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().selectMaxId());
+		try {
+			if(rs.next()) {
+				return rs.getInt(1)+1;
+			}
+		} catch(SQLException e){
+			e.getMessage();
+		}
+		return 1;
+	}
+	
 	//Pas de setId possible
 	public int getId() {
 		return id;

@@ -27,7 +27,7 @@ public class ManagerApp {
 		
 		try {
 			while (rs.next()) {
-				listArticles.add(new Article(rs.getInt("id"),rs.getString("titre"),rs.getString("contenu"),rs.getString("auteur"),rs.getString("dateA"),true));
+				listArticles.add(new Article(rs.getInt("id"),rs.getString("titre"),rs.getString("contenu"),rs.getString("auteur"),rs.getString("dateA")));
 			}
 		
 			rs = ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().selectAll());
@@ -37,7 +37,7 @@ public class ManagerApp {
 				for(Article art : listArticles) {
 					// Si l'article correspond bien
 					if (art.getId() == rs.getInt("article")) {
-						com = new Commentaire(rs.getInt("id"),rs.getString("contenu"),rs.getString("auteur"),rs.getString("dateC"),rs.getInt("article"),true);
+						com = new Commentaire(rs.getInt("id"),rs.getString("contenu"),rs.getString("auteur"),rs.getString("dateC"),rs.getInt("article"));
 						if(listCommentaires.add(com)) {
 							art.ajouterCommentaire(com);
 						}

@@ -114,8 +114,6 @@ public class PanelArticle extends JPanel {
 		PanelAppercuArticle paa;
 		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
-			
-			//paaList.add(paa);
 			panelArticles.add(paa);
 
 		}

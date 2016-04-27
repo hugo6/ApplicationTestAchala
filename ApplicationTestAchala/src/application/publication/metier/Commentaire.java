@@ -1,4 +1,6 @@
 package application.publication.metier;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
@@ -19,20 +21,27 @@ public class Commentaire {
 	/**
 	 * Constructeur
 	 */
-	public Commentaire(int unId, String unContenu, String unAuteur, String uneDate, int idArticle, boolean alreadyInBase) {
-		this.id = unId;
+	public Commentaire(String unContenu, String unAuteur, String uneDate, int idArticle) {
+		this.id = Commentaire.getIdCourant();
 		this.contenu = unContenu;
 		this.nomAuteur = unAuteur;
 		this.date = uneDate;
 		this.idArticle = idArticle;
 		try{
-			if(!alreadyInBase){
-				this.creer();
-				Article.getArticleById(idArticle).ajouterCommentaire(this);
-			}
+			this.creer();
+			Article.getArticleById(idArticle).ajouterCommentaire(this);
 		} catch(PublicationException e) {
 			e.getMessage();
 		}
+
+	}
+	
+	public Commentaire(int unId, String unContenu, String unAuteur, String uneDate, int idArticle) {
+		this.id = unId;
+		this.contenu = unContenu;
+		this.nomAuteur = unAuteur;
+		this.date = uneDate;
+		this.idArticle = idArticle;
 	}
 	
 	/**
@@ -62,6 +71,18 @@ public class Commentaire {
 	/**
 	 * Getteurs / Accesseurs
 	 */
+	private static int getIdCourant() {
+		ResultSet rs = ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().selectMaxId());
+		try {
+			if(rs.next()) {
+				return rs.getInt(1)+1;
+			}
+		} catch(SQLException e){
+			e.getMessage();
+		}
+		return 1;
+	}
+	
 	//Pas de setId possible
 	public int getId() {
 		return id;
