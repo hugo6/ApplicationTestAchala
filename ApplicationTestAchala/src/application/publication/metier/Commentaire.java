@@ -5,6 +5,7 @@ import achala.datamanager.bdd.TypeBD;
 import application.publication.dao.ManagerDAO;
 import application.publication.exception.PublicationException;
 
+
 public class Commentaire {
 	
 	/**

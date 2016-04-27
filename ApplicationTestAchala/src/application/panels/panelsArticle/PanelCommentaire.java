@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-import application.utils.Commentaire;
+
 
 public class PanelCommentaire extends JPanel {
 
