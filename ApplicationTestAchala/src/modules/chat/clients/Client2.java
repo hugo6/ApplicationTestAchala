@@ -1,6 +1,8 @@
 package modules.chat.clients;
 
 import java.rmi.RMISecurityManager;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import modules.chat.Chat;
@@ -26,18 +28,19 @@ public class Client2 {
 			
 			_Utilisateur luc = new Utilisateur("Ortiz", "Luc");
 			
-			_Server srv = Server.getServer("192.168.56.1");
+			_Server srv = Server.getServer("130.190.30.214");
 			luc.connect(srv);
 			
 			System.out.println("Start ?");
 			read.next();
 			
 			_Utilisateur alexis = srv.getUtilisateur("Martinier", "Alexis");
+			List<_Utilisateur> users = new ArrayList<_Utilisateur>();
+			users.add(alexis);
+			Chat c = new Chat(srv, luc, users, "Luc_Alexis");
 			
-			Chat c = new Chat(srv, luc, alexis);
-			
-			c.listener(luc);
-			c.sender(luc, Cmd.EXIT);
+			c.listener();
+			c.sender(Cmd.EXIT);
 		}
 		catch(Exception e)
 		{
