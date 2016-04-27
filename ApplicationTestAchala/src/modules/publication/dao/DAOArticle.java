@@ -1,4 +1,4 @@
-package application.publication.dao;
+package modules.publication.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,23 +15,25 @@ import achala.datamanager.bdd.Select;
 import achala.datamanager.bdd.TypeBD;
 import achala.datamanager.bdd.Update;
 
-public class DAOCommentaire extends DAOTable {
 
-	protected DAOCommentaire(Map<DAOTable, String> jointures) {
+public class DAOArticle extends DAOTable {
+
+	protected DAOArticle(Map<DAOTable, String> jointures) {
 		super(jointures);
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
 	public void initialisation() {
 		
-		this.setNomTable("Commentaire");
+		this.setNomTable("Article");
 		
 		Map<String, TypeBD> lstAttrs = new HashMap<>();
 		lstAttrs.put("id", TypeBD.INTEGER);
-		lstAttrs.put("dateC", TypeBD.DATE);
+		lstAttrs.put("dateA", TypeBD.DATE);
+		lstAttrs.put("titre", TypeBD.STRING);
 		lstAttrs.put("contenu", TypeBD.STRING);
 		lstAttrs.put("auteur", TypeBD.STRING);
-		lstAttrs.put("article", TypeBD.INTEGER);
 		
 		this.setAttributs(lstAttrs);
 	}
@@ -40,46 +42,45 @@ public class DAOCommentaire extends DAOTable {
 	/** Creation de la requete */
 	@Override
 	protected Requete createTable() {
-		return new Create("CREATE TABLE Commentaire ("
+		return new Create("CREATE TABLE Article ("
 							+ "id INTEGER PRIMARY KEY,"
-							+ "dateC DATE,"
-							+ "contenu VARCHAR2(250),"
-							+ "auteur VARCHAR2(250), "
-							+ "article INTEGER NOT NULL, "
-							+ "CONSTRAINT fk FOREIGN KEY (article) REFERENCES Article(id)"
+							+ "dateA DATE,"
+							+ "titre VARCHAR2(50),"
+							+ "contenu VARCHAR2(2500),"
+							+ "auteur VARCHAR2 (250)"
 						+ ")");
 	}
 
 	
 	
 	/**
-	 * Permet de modifier une ou plusieurs lignes dans la table "Commentaire"
+	 * Permet de modifier une ou plusieurs lignes dans la table "Article"
 	 * @param lstAttrsValues La liste des attributs et leurs valeurs pour modification
 	 * @param where La clause WHERE de la requete
 	 * @return La requete a executer (objet)
 	 */
 	public Requete update(HashMap<String, String> lstAttrsValues, String where) {		
-		return new Update(lstAttrsValues, ManagerDAO.getDAOCommentaire(), where);
+		return new Update(lstAttrsValues, ManagerDAO.getDAOArticle(), where);
 	}
 	
 	
 	
 	/**
-	 * Permet d'inserer une ligne dans la table "Commentaire"
+	 * Permet d'inserer une ligne dans la table "Article"
 	 * @param id Le premier attribut
-	 * @param contenu Le second attribut
-	 * @param auteur Le troisieme attributt
+	 * @param titre Le second attribut
+	 * @param auteur Le troisieme attribut
+	 * @param lescommentaires Le quatrieme attribut
 	 * @return La requete a executer (objet)
 	 */
-	public Requete insert(int id, String date, String contenu, String nomAuteur, int idArticle) {
+	public Requete insert(int id, String date, String titre, String nomAuteur, String contenu) {		
 		HashMap<String, String> lstAttrsValue = new HashMap<>();
 		lstAttrsValue.put("id", String.valueOf(id));
-		lstAttrsValue.put("dateC", date);
+		lstAttrsValue.put("dateA", date);
+		lstAttrsValue.put("titre", titre);
 		lstAttrsValue.put("contenu", contenu);
 		lstAttrsValue.put("auteur", nomAuteur);
-		lstAttrsValue.put("article", String.valueOf(idArticle));
-		
-		return new Insert(lstAttrsValue, ManagerDAO.getDAOCommentaire());
+		return new Insert(lstAttrsValue, ManagerDAO.getDAOArticle());
 	}
 
 	
@@ -88,7 +89,7 @@ public class DAOCommentaire extends DAOTable {
 	 * @return La requete a executer (objet)
 	 */
 	public Requete drop() {		
-		return new Drop(ManagerDAO.getDAOCommentaire());
+		return new Drop(ManagerDAO.getDAOArticle());
 	}
 
 	
@@ -97,17 +98,17 @@ public class DAOCommentaire extends DAOTable {
 	 * @return La requete a executer (objet)
 	 */
 	public Requete delete(int id) {		
-		return new Delete(ManagerDAO.getDAOCommentaire(), "WHERE id = " + id);
+		return new Delete(ManagerDAO.getDAOArticle(), "WHERE id = " + id);
 	}
 	
 	
 	/**
-	 * Permet de recuperer tout les commentaires
+	 * Permet de selectionner tous les articles de la BDD
 	 * @return La requete a executer (objet)
 	 */
 	public Requete selectAll() {
 		List<DAOTable> lstTables = new ArrayList<>();
-		lstTables.add(ManagerDAO.getDAOCommentaire());
+		lstTables.add(ManagerDAO.getDAOArticle());
 		
 		List<String> lstAttrs = new ArrayList<>();
 		lstAttrs.add("*");
@@ -116,18 +117,26 @@ public class DAOCommentaire extends DAOTable {
 	}
 	
 	/**
-	 * Permet de recuperer l'id max courante des commentaires
+	 * Permet de selectionner l'id max courante des articles
 	 * @return La requete a executer (objet)
 	 */
 	public Requete selectMaxId() {
 		List<DAOTable> lstTables = new ArrayList<>();
-		lstTables.add(ManagerDAO.getDAOCommentaire());
+		lstTables.add(ManagerDAO.getDAOArticle());
 		
 		List<String> lstAttrs = new ArrayList<>();
 		lstAttrs.add("MAX(id)");
 		
 		return new Select(lstAttrs, lstTables);
 	}
+	
+	
+	/** creation de requete */
+	
+	public Requete update(HashMap<String, String> lstAttrsValue, int id) {
+		return new Update(lstAttrsValue,ManagerDAO.getDAOArticle(), "WHERE id = " + id);
+	}
+	
 	
 
 //	public Requete selectSomething() {
@@ -137,10 +146,9 @@ public class DAOCommentaire extends DAOTable {
 //		
 //		List<String> lstAttrs = new ArrayList<>();
 //		lstAttrs.add("Article.titre");
-//		lstAttrs.add("Utilisateur.prenom");
-//		lstAttrs.add("Article.libelle");
+//		lstAttrs.add("Commentaire.contenu");
 //		
-//		return new Select(lstAttrs, lstTables, "WHERE Utilisateur.id = 1");
+//		return new Select(lstAttrs, lstTables, "WHERE Article.id = 1");
 //	}
 	
 }

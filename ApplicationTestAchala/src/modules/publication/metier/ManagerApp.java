@@ -1,11 +1,11 @@
-package application.publication.metier;
+package modules.publication.metier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.publication.dao.ManagerDAO;
+import modules.publication.dao.ManagerDAO;
 
 public class ManagerApp {
 	

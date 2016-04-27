@@ -16,14 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
-import application.publication.metier.Article;
-import application.publication.metier.ManagerApp;
 import application.panels.panelsArticle.PanelAppercuArticle;
 import application.panels.panelsArticle.PanelArticle;
 import application.panels.panelsArticle.PanelEdition;
 import application.panels.panelsChat.PanelChat;
-
 import application.utils.Message;
+import modules.publication.metier.Article;
 
 public class PanelPrincipal extends JPanel {
 
@@ -75,8 +73,6 @@ public class PanelPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				Article nouvelArticle = new Article( nomUser + " "+ prenomUser, panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(),txtDate);
-				//id++;
-				nouvelArticle.creer();
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();

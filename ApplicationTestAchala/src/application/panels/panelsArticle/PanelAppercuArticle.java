@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import application.frames.FrameAffichageArticle;
-import application.publication.metier.*;
+import modules.publication.metier.Article;
 
 public class PanelAppercuArticle extends JPanel {
 

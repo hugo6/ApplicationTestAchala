@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import application.publication.metier.*;
+import modules.publication.metier.Article;
+import modules.publication.metier.ManagerApp;
 
 
 
@@ -63,6 +64,8 @@ public class PanelArticle extends JPanel {
 		panelArticles.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		add(scrollPane);
 
+		ManagerApp.Instance().initialisation();
+		
 		/*
 		 * initialisation des commentaires
 		 * 
@@ -115,7 +118,6 @@ public class PanelArticle extends JPanel {
 		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
 			panelArticles.add(paa);
-
 		}
 
 	}

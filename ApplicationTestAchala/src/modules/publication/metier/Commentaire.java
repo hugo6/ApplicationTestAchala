@@ -1,11 +1,11 @@
-package application.publication.metier;
+package modules.publication.metier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
-import application.publication.dao.ManagerDAO;
-import application.publication.exception.PublicationException;
+import modules.publication.dao.ManagerDAO;
+import modules.publication.exception.PublicationException;
 
 public class Commentaire {
 	

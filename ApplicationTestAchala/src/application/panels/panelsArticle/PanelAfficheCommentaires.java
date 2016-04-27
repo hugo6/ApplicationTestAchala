@@ -21,8 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import application.publication.metier.Article;
-import application.publication.metier.Commentaire;
+import modules.publication.metier.Article;
+import modules.publication.metier.Commentaire;
 
 public class PanelAfficheCommentaires extends JPanel {
 	private List<Commentaire> ListComentaires = new ArrayList<Commentaire>();
@@ -64,7 +64,6 @@ public class PanelAfficheCommentaires extends JPanel {
 		PanelCommentaire pc;
 		for (Commentaire c : a.getLesCommentaires() ) {
 			pc = new PanelCommentaire(c);
-			c.creer();
 			panelCommentaires.add(pc);
 		}
 
@@ -82,10 +81,8 @@ public class PanelAfficheCommentaires extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
-				Commentaire nouveauCom = new Commentaire(nomUser,txtDate,txtrLaisserUnCommentaire.getText(), a.getId());				
-				a.getLesCommentaires().add(nouveauCom);				
+				Commentaire nouveauCom = new Commentaire(txtrLaisserUnCommentaire.getText(), nomUser + " "+ prenomUser,txtDate, a.getId());				
 				PanelCommentaire newPanelCom = new PanelCommentaire(nouveauCom);
-				panelCommentaires.add(newPanelCom);
 				txtrLaisserUnCommentaire.setText(null);
 				validate();
 				

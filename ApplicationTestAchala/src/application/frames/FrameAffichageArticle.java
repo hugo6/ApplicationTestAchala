@@ -8,7 +8,7 @@ import javax.swing.JTabbedPane;
 
 import application.panels.panelsArticle.PanelAfficheCommentaires;
 import application.panels.panelsArticle.PanelContenuArticle;
-import application.publication.metier.Article;
+import modules.publication.metier.Article;
 
 public class FrameAffichageArticle extends JFrame {
 	private JFrame affichage;
