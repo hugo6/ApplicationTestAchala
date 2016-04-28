@@ -20,7 +20,6 @@ public class DAOArticle extends DAOTable {
 
 	protected DAOArticle(Map<DAOTable, String> jointures) {
 		super(jointures);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -113,14 +112,6 @@ public class DAOArticle extends DAOTable {
 		lstAttrs.add("*");
 		
 		return new Select(lstAttrs, lstTables);
-	}
-	
-	/**
-	 * Permet de selectionner tous les articles de la BDD ordonnés par titres
-	 * @return La requete a executer (objet)
-	 */
-	public Requete selectAllOrderByTitre() {
-		return new Select("SELECT * FROM Article ORDER BY Titre");
 	}
 	
 	/**

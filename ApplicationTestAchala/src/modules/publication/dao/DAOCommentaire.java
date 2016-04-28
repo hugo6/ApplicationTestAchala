@@ -19,7 +19,6 @@ public class DAOCommentaire extends DAOTable {
 
 	protected DAOCommentaire(Map<DAOTable, String> jointures) {
 		super(jointures);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void initialisation() {

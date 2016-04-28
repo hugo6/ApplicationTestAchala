@@ -23,6 +23,10 @@ import java.awt.event.ActionEvent;
 
 public class PanelArticle extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel panelArticles;
 
 
@@ -58,7 +62,7 @@ public class PanelArticle extends JPanel {
 		btnTitre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelArticles.removeAll();
-				ManagerApp.Instance().tri(false);
+				ManagerApp.Instance().triParTitre();
 				affichageApercuArticles(nomUser,prenomUser);
 				panelArticles.validate();
 			}
@@ -69,13 +73,23 @@ public class PanelArticle extends JPanel {
 		btnDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelArticles.removeAll();
-				// plus l'ID est grand plus l article est recent
-				ManagerApp.Instance().tri(true);
+				ManagerApp.Instance().triParId();
 				affichageApercuArticles(nomUser,prenomUser);
 				panelArticles.validate();
 			}
 		});
 		panelGlue.add(btnDate);
+		
+		JButton btnAuteur = new JButton("Auteur");
+		btnAuteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelArticles.removeAll();
+				ManagerApp.Instance().triParAuteur();
+				affichageApercuArticles(nomUser,prenomUser);
+				panelArticles.validate();
+			}
+		});
+		panelGlue.add(btnAuteur);
 
 		panelArticles = new JPanel();
 		add(panelArticles);

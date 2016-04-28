@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
+import modules.publication.metier.Article;
+import modules.publication.metier.Commentaire;
+import modules.publication.metier.ManagerApp;
 import modules.publication.dao.ManagerDAO;
 import modules.publication.exception.PublicationException;
-
-
 public class Article implements Comparable<Article> {
 
 	/**
@@ -164,12 +165,21 @@ public class Article implements Comparable<Article> {
 	//Comparable méthode retourne -1 si < / 0 si = / 1 si >
 	@Override
 	public int compareTo(Article o) {
-		if(this.getId() < o.getId()) {
-			return -1;
-		} else if (this.getId() > o.getId()) {
-			return 1;
-		} else {
-			return 0;
+		switch(ManagerApp.Instance().getTypeTri()) {
+			case "id" : 
+				if(this.getId() < o.getId()) {
+					return -1;
+				} else if (this.getId() > o.getId()) {
+					return 1;
+				} else {
+					return 0;
+				}
+			case "titre" : 
+				return this.getTitre().compareTo(o.getTitre());
+			case "auteur" : 
+				return this.getAuteur().compareTo(o.getAuteur());
+			default :
+				return 0;
 		}
 	}
 }

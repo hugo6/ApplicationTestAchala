@@ -20,6 +20,11 @@ import modules.publication.metier.Article;
 public class PanelAppercuArticle extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Create the panel.
 	 */
 	public PanelAppercuArticle(Article a, String nomUser, String prenomUser) {

@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import achala.datamanager.bdd.TypeBD;
+import modules.publication.metier.Article;
+import modules.publication.metier.Commentaire;
+import modules.publication.metier.ManagerApp;
 import modules.publication.dao.ManagerDAO;
 import modules.publication.exception.PublicationException;
 

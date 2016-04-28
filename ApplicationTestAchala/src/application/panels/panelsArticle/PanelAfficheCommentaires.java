@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -26,6 +25,11 @@ import modules.publication.metier.Article;
 import modules.publication.metier.Commentaire;
 
 public class PanelAfficheCommentaires extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creation du panel qui va afficher les commentaires + possibilité de publication d'un nouveau commentaire (non vide).
@@ -65,18 +69,6 @@ public class PanelAfficheCommentaires extends JPanel {
 		// Affichage des commentaires existant deja en base 
 		PanelCommentaire pc;
 		for (Commentaire c : a.getLesCommentaires() ) {
-			String oldstring = c.getDate();
-			Date date;
-			try {
-				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
-				String newstring = new SimpleDateFormat("dd MMMM yyyy").format(date);
-				System.out.println(newstring); // 2011-01-18
-				c.setDate(newstring);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			pc = new PanelCommentaire(c);
 			panelCommentaires.add(pc);
 		}
