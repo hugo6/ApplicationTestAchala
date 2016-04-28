@@ -39,11 +39,10 @@ public class Chat {
 			this.setServer(Server.getServer(ipSrv));
 			this.setCurrent(current);
 			this.setOther(others);
-			this.getOther().add(this.getCurrent());
 			
 			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
+			correspondance.addUsers(others);
 			this.setShared(correspondance);
-			this.getShared().addUsers(getOther());
 		}
 		catch (Exception e)
 		{
@@ -55,18 +54,18 @@ public class Chat {
 	 * Constructeur d'un chat entre utilisateurs u1 et u2 sur le serveur
 	 * @param srv _Server : serveur de communication
 	 * @param curent _Utilisateur : utilisateur souhaitant communiquer avec u2
-	 * @param other List<_Utilisateur> : utilisateur a contacter
+	 * @param others List<_Utilisateur> : utilisateur a contacter
 	 */
-	public Chat(_Server srv, _Utilisateur curent, List<_Utilisateur> other, String chatName) {
+	public Chat(_Server srv, _Utilisateur curent, List<_Utilisateur> others, String chatName) {
 		
 		try
 		{
 			this.setServer(srv);
 			this.setCurrent(curent);
-			this.setOther(other);
+			this.setOther(others);
 			
 			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
-			correspondance.addUsers(other);
+			correspondance.addUsers(others);
 			this.setShared(correspondance);
 		}
 		catch (Exception e)

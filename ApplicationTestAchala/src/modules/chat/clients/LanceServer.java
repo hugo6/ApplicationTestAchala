@@ -16,6 +16,7 @@ public class LanceServer {
 			_Utilisateur user = new Utilisateur("test", "test1");
 			user.connect(srv);
 			srv.getSharedZone(user, "chatTest");
+			srv.getSharedZone(user, "zoneTest");
 		}
 		catch(Exception e)
 		{

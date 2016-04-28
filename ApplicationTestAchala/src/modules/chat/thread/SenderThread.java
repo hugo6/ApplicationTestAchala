@@ -38,6 +38,8 @@ public class SenderThread extends Thread {
 			while(!message.equals(this.getEscape().toString()))
 			{
 				sleep(2000);
+				System.out.println();
+				System.out.println("Votre message : ");
 				message = read.nextLine();
 				
 				if(message.equals(Cmd.HELP.toString())){
