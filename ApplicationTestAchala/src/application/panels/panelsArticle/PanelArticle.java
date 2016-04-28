@@ -29,7 +29,6 @@ public class PanelArticle extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel panelArticles;
 
-
 	/**
 	 * Creation d'un panel qui va afficher les appercu des differents articles.
 	 * Chaque article ainsi que ces commentaires correspondant sont consultable
@@ -54,38 +53,38 @@ public class PanelArticle extends JPanel {
 		panelGlue.setBackground(Color.LIGHT_GRAY);
 		add(panelGlue);
 		panelGlue.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JLabel lblTrierLesArticles = new JLabel("Trier les articles par : ");
 		panelGlue.add(lblTrierLesArticles);
-		
+
 		JButton btnTitre = new JButton("Titre");
 		btnTitre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelArticles.removeAll();
 				ManagerApp.Instance().triParTitre();
-				affichageApercuArticles(nomUser,prenomUser);
+				affichageApercuArticles(nomUser, prenomUser);
 				panelArticles.validate();
 			}
 		});
 		panelGlue.add(btnTitre);
-		
+
 		JButton btnDate = new JButton("Date");
 		btnDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelArticles.removeAll();
 				ManagerApp.Instance().triParId();
-				affichageApercuArticles(nomUser,prenomUser);
+				affichageApercuArticles(nomUser, prenomUser);
 				panelArticles.validate();
 			}
 		});
 		panelGlue.add(btnDate);
-		
+
 		JButton btnAuteur = new JButton("Auteur");
 		btnAuteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelArticles.removeAll();
 				ManagerApp.Instance().triParAuteur();
-				affichageApercuArticles(nomUser,prenomUser);
+				affichageApercuArticles(nomUser, prenomUser);
 				panelArticles.validate();
 			}
 		});
@@ -100,7 +99,7 @@ public class PanelArticle extends JPanel {
 		panelArticles.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		add(scrollPane);
 
-	ManagerApp.Instance().initialisation();
+		ManagerApp.Instance().initialisation();
 
 		/*
 		 * initialisation des Articles
@@ -142,14 +141,18 @@ public class PanelArticle extends JPanel {
 
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
-	
-	affichageApercuArticles(nomUser, prenomUser);
+
+		affichageApercuArticles(nomUser, prenomUser);
 
 	}
+
 	/**
-	 * Permet d'afficher les differents apercu des articles a l ecran 
-	 * @param nomUser : nom de l'utilisateur connecte
-	 * @param prenomUser : prenom de l'utilisateur connecte
+	 * Permet d'afficher les differents apercu des articles a l ecran
+	 * 
+	 * @param nomUser
+	 *            : nom de l'utilisateur connecte
+	 * @param prenomUser
+	 *            : prenom de l'utilisateur connecte
 	 * 
 	 */
 	private void affichageApercuArticles(String nomUser, String prenomUser) {
@@ -158,9 +161,9 @@ public class PanelArticle extends JPanel {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
 			panelArticles.add(paa);
 		}
-		
+
 	}
-	
+
 	public JPanel getPanelArticles() {
 		return panelArticles;
 	}
