@@ -6,11 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.swing.BoxLayout;
@@ -24,12 +24,6 @@ import javax.swing.border.LineBorder;
 
 import modules.publication.metier.Article;
 import modules.publication.metier.Commentaire;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class PanelAfficheCommentaires extends JPanel {
 
@@ -71,6 +65,18 @@ public class PanelAfficheCommentaires extends JPanel {
 		// Affichage des commentaires existant deja en base 
 		PanelCommentaire pc;
 		for (Commentaire c : a.getLesCommentaires() ) {
+			String oldstring = c.getDate();
+			Date date;
+			try {
+				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
+				String newstring = new SimpleDateFormat("dd MMMM yyyy").format(date);
+				System.out.println(newstring); // 2011-01-18
+				c.setDate(newstring);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			pc = new PanelCommentaire(c);
 			panelCommentaires.add(pc);
 		}
