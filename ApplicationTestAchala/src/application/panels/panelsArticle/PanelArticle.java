@@ -74,7 +74,7 @@ public class PanelArticle extends JPanel {
 		panelArticles.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		add(scrollPane);
 
-		ManagerApp.Instance().initialisation();
+//		ManagerApp.Instance().initialisation();
 
 		/*
 		 * initialisation des Articles
@@ -117,11 +117,11 @@ public class PanelArticle extends JPanel {
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
 	
-		PanelAppercuArticle paa;
-		for (Article a : ManagerApp.Instance().getListArticles()) {
-			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
-			panelArticles.add(paa);
-		}
+//		PanelAppercuArticle paa;
+//		for (Article a : ManagerApp.Instance().getListArticles()) {
+//			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
+//			panelArticles.add(paa);
+//		}
 
 	}
 
