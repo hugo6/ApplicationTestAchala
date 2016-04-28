@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.utilisateur._Utilisateur;
-import application.panels.panelsChat.PanelMessage;
-import modules.chat.util.Util.Cmd;
 
 public class ListenerThread extends Thread {
 
@@ -44,33 +42,50 @@ public class ListenerThread extends Thread {
 	/**
 	 * Lance le thread permettant d'affichier les messages
 	 */
+//	public void run(){
+//		System.out.println("ListenerThread running");
+//		List<_RemotableObject> objs;
+//		while(this.isRun()) {
+//			try
+//			{
+//				sleep(2000);
+//				objs = this.getU().receive(this.getS());
+//				System.out.println("Nb objets : " + objs.size());
+//				for(_RemotableObject o : objs) {
+//					System.out.println("Remotable : " + o.getObject().toString());
+//					System.out.println("Sender : " + o.getSender().toStringRemote());
+////					
+////					if(this.getComponent() != null){
+////						PanelMessage m = new PanelMessage(o);
+////						this.getComponent().add(m);
+////						this.getComponent().validate();
+////					}
+////					else{
+//						System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
+//						System.out.println(o.getObject().toString());
+////					}
+//				}
+//			}
+//			catch(Exception e)
+//			{
+//				e.printStackTrace();
+//				break;
+//			}
+//		}
+//		System.out.println("Exit Listener");
+//	}
+	
 	public void run(){
-		System.out.println("ListenerThread running");
 		List<_RemotableObject> objs;
 		while(this.isRun()) {
 			try
 			{
 				sleep(2000);
 				objs = this.getU().receive(this.getS());
-				System.out.println("Nb objets : " + objs.size());
-				for(_RemotableObject o : objs) {
-					System.out.println("Remotable : " + o.getObject().toString());
-					System.out.println("Sender : " + o.getSender().toStringRemote());
-					
-					if(this.getComponent() != null){
-						PanelMessage m = new PanelMessage(o);
-						this.getComponent().add(m);
-						this.getComponent().validate();
-					}
-					else{
-						if(o.getObject().toString().equals(Cmd.EXIT.toString())){
-							System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
-							System.out.println(Cmd.message(Cmd.EXIT, o.getSender()));
-							System.out.println(o.getObject().toString());
-						}
-						System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
-						System.out.println(o.getObject().toString());
-					}
+				for(_RemotableObject o : objs) 
+				{
+					System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
+					System.out.println(o.getObject().toString());
 				}
 			}
 			catch(Exception e)

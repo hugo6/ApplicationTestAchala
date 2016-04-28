@@ -342,7 +342,8 @@ public class PanelChat extends JPanel {
 		try 
 		{
 			message = new achala.communication.Message(connectedUser, txtmessage.getText());
-			currentChat.send(message);
+			//currentChat.send(message);
+			connectedUser.send(currentChat.getShared(), message);
 		} 
 		catch (RemoteException e1)
 		{
