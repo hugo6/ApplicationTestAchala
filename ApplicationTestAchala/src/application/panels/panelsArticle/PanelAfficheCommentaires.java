@@ -23,6 +23,12 @@ import javax.swing.border.LineBorder;
 
 import modules.publication.metier.Article;
 import modules.publication.metier.Commentaire;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PanelAfficheCommentaires extends JPanel {
 	private List<Commentaire> ListComentaires = new ArrayList<Commentaire>();
@@ -69,17 +75,33 @@ public class PanelAfficheCommentaires extends JPanel {
 
 
 		panelNewCom.setLayout(new BoxLayout(panelNewCom, BoxLayout.X_AXIS));
-
+		
+		JButton btnNewButton = new JButton("Envoyer");
+		btnNewButton.setEnabled(false);
+		
 		JTextArea txtrLaisserUnCommentaire = new JTextArea();
+
+		txtrLaisserUnCommentaire.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				btnNewButton.setEnabled(true);
+
+			}
+		});
+		//txtrLaisserUnCommentaire.getLineWrap() : pour la redaction d'un article
+		
+		
 		txtrLaisserUnCommentaire.setTabSize(150);
 		txtrLaisserUnCommentaire.setRows(4);
 		panelNewCom.add(txtrLaisserUnCommentaire);
-		int id = 20;
-		
+
 		// ajout d'un nouveau commentaire
-		JButton btnNewButton = new JButton("Envoyer");
+
+		
+
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(txtrLaisserUnCommentaire.getText().isEmpty()) return ;
 				String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
 				Commentaire nouveauCom = new Commentaire(txtrLaisserUnCommentaire.getText(), nomUser + " "+ prenomUser,txtDate, a.getId());				
 				PanelCommentaire newPanelCom = new PanelCommentaire(nouveauCom);
