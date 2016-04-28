@@ -10,7 +10,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
@@ -28,8 +30,15 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import achala.communication.Message;
+import achala.communication._RemotableObject;
+import achala.communication._Shared;
+import achala.communication.server.Server;
 import achala.communication.server._Server;
+import achala.communication.utilisateur.Utilisateur;
+import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
+import modules.chat.Chat;
 
 
 public class PanelChat extends JPanel {
@@ -42,7 +51,10 @@ public class PanelChat extends JPanel {
 
 	private JTextField txtMessage;
 	
+	private _Utilisateur connectedUser;
 	private _Server server;
+	private Map<String, Chat> chatRooms;
+	private Chat currentChat;
 	
 	/**
 	 * graphical components
@@ -55,6 +67,27 @@ public class PanelChat extends JPanel {
 	 * @param prenom
 	 */
 	public PanelChat(String nom, String prenom) {
+		
+		try
+		{
+			connectedUser = new Utilisateur(nom, prenom);
+			server = null;
+			chatRooms = new HashMap<String, Chat>();
+			currentChat = null;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		 * graphical panelChat settings
@@ -139,6 +172,7 @@ public class PanelChat extends JPanel {
 		btnEnvoyer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO Send message
+				sendMessage(txtMessage.getText());
 			}
 		});
 		
@@ -170,8 +204,17 @@ public class PanelChat extends JPanel {
 //			}
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				// TODO select chat
-				
+				try
+				{
+					//Recuperation du chat + listener sur celui-ci
+					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
+					currentChat = chatRooms.get(zoneName);
+					currentChat.listener();
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+				}
 			}
 		});
 			
@@ -208,7 +251,7 @@ public class PanelChat extends JPanel {
 		/*COMBOX SERVER*/
 		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
-		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
+		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.52", "192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
 		comboxIpServer.setBounds(568, 79, 154, 34);
 		add(comboxIpServer);
 		
@@ -220,17 +263,30 @@ public class PanelChat extends JPanel {
 				System.out.println("Connection au server ip :" + comboxIpServer.getSelectedItem().toString());
 
 				try
-				{		
-					server = 
+				{
+					//Recuperation du serveur
+					server = Server.getServer(comboxIpServer.getSelectedItem().toString());
+					//Connexion du client au serveur
+					connectedUser.connect(server);
+					
+					//Gestion de toutes les Rooms sur le serveur
+					for(_Shared s : server.getShares())
+					{
+						//Creation d'un chat avec la zone de partage
+						Chat c = new Chat(server, connectedUser, server.getUtilisateurs(), s.getZoneName());
+						chatRooms.put(s.getZoneName(), c);
+					}
+					
+					
 					jlistRoomchat.setCellRenderer(new MyRenderer());
 					jlistRoomchat.setModel(new AbstractListModel() {
-						
-						List<String> shares = null;
+						//Recupere le nom des zones de la HashMap
+						Object[] shares = chatRooms.keySet().toArray();
 						public int getSize() {
-							return shares.size();
+							return shares.length;
 						}
 						public Object getElementAt(int index) {
-							return shares.get(index);
+							return shares[index];
 						}
 					});
 					
@@ -249,4 +305,19 @@ public class PanelChat extends JPanel {
 		
 	}
 	
+	private void sendMessage(String message)
+	{
+		_RemotableObject objet = null;
+		try
+		{
+			objet = new Message(connectedUser, message);
+			currentChat.send(objet);
+			//PanelMessage m = new PanelMessage(objet);
+			System.out.println(objet.getSender().toStringRemote() +  " a envoye : " + objet.getObject().toString());
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();	
+		}
+	}
 }
