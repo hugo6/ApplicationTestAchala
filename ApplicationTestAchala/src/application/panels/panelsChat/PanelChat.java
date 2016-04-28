@@ -63,7 +63,7 @@ public class PanelChat extends JPanel {
 	/*chat map*/
 	private Map<String, Chat> _chats;
 	
-	private Chat currentChat;
+	private Chat currentChat = null;
 	
 	/**
 	 * graphical components
@@ -217,6 +217,9 @@ public class PanelChat extends JPanel {
 			 	
 				try
 				{
+					if(currentChat != null)
+						currentChat.stopListener();
+					
 					String chatName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 				 	currentChat = _chats.get(chatName);
 				 	
