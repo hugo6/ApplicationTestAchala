@@ -22,6 +22,8 @@ public class Chat {
 	private List<_Utilisateur> others;
 	private _Server server;
 	private _Shared shared;
+	private ListenerThread listenerThread = null;
+	private NotificationThread notifs = null;
 	
 	/**
 	 * Constructeur d'un chat entre utilisateurs u1 et u2 sur le serveur
@@ -111,21 +113,31 @@ public class Chat {
 	 */
 	public void listener() throws RemoteException {
 		
-		ListenerThread listener = new ListenerThread(this.getCurrent(), this.getShared());
-		listener.start();
+//		if(listenerThread == null)
+//			listenerThread = new ListenerThread(this.getCurrent(), this.getShared());
+//		if(notifs == null)
+//			notifs = new NotificationThread(this.getShared(), this.getCurrent());
 		
-		NotificationThread notif = new NotificationThread(this.getServer(), this.getCurrent());
-		notif.start();
+		new ListenerThread(this.getCurrent(), this.getShared()).start();
+		new NotificationThread(this.getShared(), this.getCurrent()).start();
 	}
 	
 	public void listener(JPanel panel) throws RemoteException {
 		
-		ListenerThread listener = new ListenerThread(this.getCurrent(), this.getShared(), panel);
-		listener.start();
+//		if(listenerThread == null)
+//			listenerThread = new ListenerThread(this.getCurrent(), this.getShared(), panel);
+//		if(notifs == null)
+//			notifs = new NotificationThread(this.getShared(), this.getCurrent());
 		
-		NotificationThread notif = new NotificationThread(this.getServer(), this.getCurrent());
-		notif.start();
+		new ListenerThread(this.getCurrent(), this.getShared(), panel).start();
+		new NotificationThread(this.getShared(), this.getCurrent()).start();
 	}
+	
+	public void stopListener() {
+		if(listenerThread != null)
+			listenerThread.stopListener();
+	}
+	
 	/**
 	 * Lance le thread d'envoi sur le chat
 	 * @param escape String : chaine de caractere mettant fin a la communication
