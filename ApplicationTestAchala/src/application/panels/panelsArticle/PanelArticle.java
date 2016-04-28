@@ -25,7 +25,6 @@ public class PanelArticle extends JPanel {
 
 	private JPanel panelArticles;
 
-	private List<PanelAppercuArticle> paaList = new ArrayList<PanelAppercuArticle>(30);
 
 	/**
 	 * Creation d'un panel qui va afficher les appercu des differents articles.
@@ -58,12 +57,25 @@ public class PanelArticle extends JPanel {
 		JButton btnTitre = new JButton("Titre");
 		btnTitre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// trie les articles par ordre alphabetique des titres 
-				// appelle d'une fonction qui va les afficher ....
+				panelArticles.removeAll();
+				ManagerApp.Instance().tri(false);
+				affichageApercuArticles(nomUser,prenomUser);
 				panelArticles.validate();
 			}
 		});
 		panelGlue.add(btnTitre);
+		
+		JButton btnDate = new JButton("Date");
+		btnDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelArticles.removeAll();
+				// plus l'ID est grand plus l article est recent
+				ManagerApp.Instance().tri(true);
+				affichageApercuArticles(nomUser,prenomUser);
+				panelArticles.validate();
+			}
+		});
+		panelGlue.add(btnDate);
 
 		panelArticles = new JPanel();
 		add(panelArticles);
@@ -117,14 +129,24 @@ public class PanelArticle extends JPanel {
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
 	
-		PanelAppercuArticle paa;
+		affichageApercuArticles(nomUser, prenomUser);
+
+	}
+	/**
+	 * Permet d'afficher les differents apercu des articles a l ecran 
+	 * @param nomUser : nom de l'utilisateur connecte
+	 * @param prenomUser : prenom de l'utilisateur connecte
+	 * 
+	 */
+	private void affichageApercuArticles(String nomUser, String prenomUser) {
+		PanelAppercuArticle paa = null;
 		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
 			panelArticles.add(paa);
 		}
-
+		
 	}
-
+	
 	public JPanel getPanelArticles() {
 		return panelArticles;
 	}
