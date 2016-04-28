@@ -3,6 +3,7 @@ package modules.publication.metier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import modules.publication.dao.ManagerDAO;
@@ -23,7 +24,7 @@ public class ManagerApp {
 		/*************************************************************/
 		/**				Création des objets Metier					**/
 		/*************************************************************/
-		ResultSet rs = ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().selectAll());
+		ResultSet rs = ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().selectAllOrderByTitre());
 		
 		try {
 			while (rs.next()) {
@@ -45,27 +46,28 @@ public class ManagerApp {
 					}	
 				}
 			}
-			
-			rs.close();
 
+			rs.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	public void tri(boolean triId) {
+		if(triId) {
+			Collections.sort(listArticles);
+		}
+		else {
+			this.initialisation();
+		}
+		Collections.sort(listCommentaires);
+	}
 
 	public static ManagerApp Instance() { return instance;	}
 
 	public List<Article> getListArticles() { return listArticles; }
-	
-	public Article getArticleById(int id) {
-		for(Article art:this.getListArticles()) {
-			if(id == art.getId()) {
-				return art;
-			}
-		}
-		return null;
-	}
 
 	public List<Commentaire> getListCommentaires() { return listCommentaires; }
 }

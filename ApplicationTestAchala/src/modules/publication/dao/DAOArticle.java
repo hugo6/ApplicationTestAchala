@@ -25,7 +25,6 @@ public class DAOArticle extends DAOTable {
 	
 	@Override
 	public void initialisation() {
-		
 		this.setNomTable("Article");
 		
 		Map<String, TypeBD> lstAttrs = new HashMap<>();
@@ -41,7 +40,7 @@ public class DAOArticle extends DAOTable {
 	
 	/** Creation de la requete */
 	@Override
-	protected Requete createTable() {
+	public Requete createTable() {
 		return new Create("CREATE TABLE Article ("
 							+ "id INTEGER PRIMARY KEY,"
 							+ "dateA DATE,"
@@ -73,13 +72,13 @@ public class DAOArticle extends DAOTable {
 	 * @param lescommentaires Le quatrieme attribut
 	 * @return La requete a executer (objet)
 	 */
-	public Requete insert(int id, String date, String titre, String nomAuteur, String contenu) {		
+	public Requete insert(int id, String date, String titre, String auteur, String contenu) {		
 		HashMap<String, String> lstAttrsValue = new HashMap<>();
 		lstAttrsValue.put("id", String.valueOf(id));
 		lstAttrsValue.put("dateA", date);
 		lstAttrsValue.put("titre", titre);
 		lstAttrsValue.put("contenu", contenu);
-		lstAttrsValue.put("auteur", nomAuteur);
+		lstAttrsValue.put("auteur", auteur);
 		return new Insert(lstAttrsValue, ManagerDAO.getDAOArticle());
 	}
 
@@ -117,6 +116,14 @@ public class DAOArticle extends DAOTable {
 	}
 	
 	/**
+	 * Permet de selectionner tous les articles de la BDD ordonnés par titres
+	 * @return La requete a executer (objet)
+	 */
+	public Requete selectAllOrderByTitre() {
+		return new Select("SELECT * FROM Article ORDER BY Titre");
+	}
+	
+	/**
 	 * Permet de selectionner l'id max courante des articles
 	 * @return La requete a executer (objet)
 	 */
@@ -136,19 +143,5 @@ public class DAOArticle extends DAOTable {
 	public Requete update(HashMap<String, String> lstAttrsValue, int id) {
 		return new Update(lstAttrsValue,ManagerDAO.getDAOArticle(), "WHERE id = " + id);
 	}
-	
-	
-
-//	public Requete selectSomething() {
-//		List<DAOTable> lstTables = new ArrayList<>();
-//		lstTables.add(ManagerDAO.getDAOCommentaire());
-//		lstTables.add(ManagerDAO.getDAOArticle());
-//		
-//		List<String> lstAttrs = new ArrayList<>();
-//		lstAttrs.add("Article.titre");
-//		lstAttrs.add("Commentaire.contenu");
-//		
-//		return new Select(lstAttrs, lstTables, "WHERE Article.id = 1");
-//	}
 	
 }
