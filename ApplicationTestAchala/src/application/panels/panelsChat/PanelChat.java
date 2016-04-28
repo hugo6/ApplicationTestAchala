@@ -1,5 +1,6 @@
 package application.panels.panelsChat;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -33,6 +34,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DefaultCaret;
 
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -42,6 +44,7 @@ import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
+import application.frames.FrameConnexionChatroom;
 import modules.chat.Chat;
 
 
@@ -63,7 +66,7 @@ public class PanelChat extends JPanel {
 	/*chat map*/
 	private Map<String, Chat> _chats;
 	
-	private Chat currentChat = null;
+	private Chat currentChat;
 	
 	/**
 	 * graphical components
@@ -128,13 +131,15 @@ public class PanelChat extends JPanel {
 		panelChat.setBounds(10, 11, 459, 345);
 		//TODO correction affichage + scroll automatique
 		panelChat.setLayout(new BoxLayout(panelChat, BoxLayout.Y_AXIS));
-		add(panelChat);
+		add(panelChat, BorderLayout.CENTER);
 		
 		
 		/*CHAT SCROLL*/
 		JScrollPane scrollPaneChat = new JScrollPane(panelChat);
+		
+		panelChat.setLayout(new BoxLayout(panelChat, BoxLayout.Y_AXIS));
 		scrollPaneChat.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPaneChat.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		//scrollPaneChat.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneChat.setBounds(40, 47, 478, 201);
 		add(scrollPaneChat);
 	
@@ -202,24 +207,20 @@ public class PanelChat extends JPanel {
 		jlistRoomchat = new JList<Component>();
 		jlistRoomchat.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				System.out.println(jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex()));
 				/**
 				 * connexion chatRoom frame oppening
 				 */
-//				 if (!arg0.getValueIsAdjusting())
-//				 {
-//					 String s = "" + jlistRoomchat.getSelectedValue().toString();
-//					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
-//				 }
+				 if (!arg0.getValueIsAdjusting())
+				 {
+					 String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
+					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
+				 }
 				//String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 			 	//_userList = new ArrayList<_Utilisateur>();
 			 	//_Utilisateur u = _userList.get(jlistRoomchat.getSelectedIndex());
 			 	
 				try
 				{
-					if(currentChat != null)
-						currentChat.stopListener();
-					
 					String chatName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 				 	currentChat = _chats.get(chatName);
 				 	
@@ -245,13 +246,12 @@ public class PanelChat extends JPanel {
 		JButton button = new JButton("+");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO open the frame add a chat room
 				FrameAjouterChatroom frame_add = new FrameAjouterChatroom();
 				//TODO faire la méthode getMapChat() et add des users ?
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
-		button.setBounds(845, 148, 41, 25);
+		button.setBounds(845, 144, 57, 29);
 		add(button);
 		
 		
@@ -268,7 +268,7 @@ public class PanelChat extends JPanel {
 		/*COMBOX SERVER*/
 		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
-		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"147.171.167.197", "147.171.167.132", "192.168.56.1", "192.168.12.55", "127.0.0.1"})); // prend une liste d'objets
+		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"147.171.167.198"})); // prend une liste d'objets
 		comboxIpServer.setBounds(568, 79, 154, 34);
 		add(comboxIpServer);
 		
@@ -342,8 +342,7 @@ public class PanelChat extends JPanel {
 		try 
 		{
 			message = new achala.communication.Message(connectedUser, txtmessage.getText());
-			//currentChat.send(message);
-			connectedUser.send(currentChat.getShared(), message);
+			currentChat.send(message);
 		} 
 		catch (RemoteException e1)
 		{

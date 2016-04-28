@@ -12,7 +12,7 @@ public class LanceServer {
 		
 		try
 		{
-			_Server srv = Server.getServer("192.168.43.84");
+			_Server srv = Server.getServer("147.171.167.198");
 			_Utilisateur user = new Utilisateur("test", "test1");
 			user.connect(srv);
 			srv.getSharedZone(user, "chatTest");

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.text.DefaultCaret;
 
 import achala.communication.Message;
 import achala.communication._RemotableObject;
@@ -19,7 +20,7 @@ public class PanelMessage extends JPanel {
 
 	private static final long serialVersionUID = -9176361023262059756L;
 	/**
-	 * Representation graphique d'un Commentaire
+	 * Representation graphique d'un Message
 	 */
 	public PanelMessage(Message m) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -32,10 +33,11 @@ public class PanelMessage extends JPanel {
 		JTextPane textPaneContenu = new JTextPane();
 		textPaneContenu.setEditable(false);
 		textPaneContenu.setText(m.getObject().toString());
-
+		
 		setPreferredSize(new Dimension(500,75));
 		add(textPaneContenu, BorderLayout.CENTER);
 	}
+	
 	public PanelMessage(_RemotableObject m) {
 		try
 		{
