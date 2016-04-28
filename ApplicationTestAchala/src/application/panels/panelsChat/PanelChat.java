@@ -34,6 +34,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import modules.chat.Chat;
 import achala.communication._RemotableObject;
@@ -42,28 +44,40 @@ import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
+import application.frames.FrameConnexionChatroom;
+
 
 public class PanelChat extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	
+	/*field for message sending*/
 	private JTextField txtmessage;
+	/*message list*/
 	private List<_RemotableObject> _listMessage;
+	/*user list*/
 	private List<_Utilisateur> _userList;
+	/*server*/
 	private _Server server;
-	private _Utilisateur user;
+	/*user*/
+	private _Utilisateur connectedUser;
+	/*chat map*/
 	private Map<_Utilisateur, Chat> _chats;
 	
-	/*Graphical component*/
-	 JList<Component> jlistContact;
-		
-		/**
-		 * Create the panel.
-		 * **/ 
-	
+	/**
+	 * graphical components
+	 */
+	 private JList<Component> jlistRoomchat;
+	 
+	/**
+	 * panel chat constructor
+	 * @param nom
+	 * @param prenom
+	 */
 	public PanelChat(String nom, String prenom) {
+		
 		try {
-			user = new Utilisateur(nom, prenom);
+			//Creating the connected user
+			connectedUser = new Utilisateur(nom, prenom);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -72,48 +86,44 @@ public class PanelChat extends JPanel {
 			e1.printStackTrace();
 		}
 		
+		/**
+		 * graphical panelChat settings
+		 */
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
 		
-		/*Initialisation de la liste des messages*/
-		//TODO LIRE DANS UN FICHIER les messages de la personne connectée
-		_listMessage = new ArrayList<_RemotableObject>();
-		
-		/*Initialisation de la liste des contacts*/
-		//TODO charger les contacts de la personne connectée
-		_userList = new ArrayList<_Utilisateur>();
-		
-		_chats = new HashMap<_Utilisateur, Chat>();
+		//TODO read from a file the user messages
 		
 		
 		/**
-		 * CHAT
+		 * CHAT Section---------------------------------------
 		*/
 		
-		/*LABEL CHAT*/
+		/*CHAT LABEL*/
 		JLabel lblChat = new JLabel("CHAT :");
 		lblChat.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChat.setBounds(110, 13, 84, 25);
 		add(lblChat);
 		
-		/*LABEL NAME TO CHAT*/
-		JLabel lblNametoChat = new JLabel("Veuillez selectionner un contact");
+		
+		/*CHAT NAME LABEL*/
+		JLabel lblNametoChat = new JLabel("Please select a chat room...");
 		lblNametoChat.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNametoChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNametoChat.setBounds(200, 13, 318, 25);
 		add(lblNametoChat);
 		
-		/*PANEL CHAT*/
+		
+		/*CHAT PANEL*/
 		JPanel panelChat = new JPanel();
-		panelChat.addKeyListener(new KeyAdapter() {
-		});
 		panelChat.setBounds(10, 11, 459, 345);
-		//panelChat.setPreferredSize(new Dimension(500, 3000));
+		//TODO correction affichage + scroll automatique
 		panelChat.setLayout(new BoxLayout(panelChat, BoxLayout.Y_AXIS));
 		add(panelChat);
 		
-		/*SCROLL CHAT*/
+		
+		/*CHAT SCROLL*/
 		JScrollPane scrollPaneChat = new JScrollPane(panelChat);
 		scrollPaneChat.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneChat.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -121,36 +131,33 @@ public class PanelChat extends JPanel {
 		add(scrollPaneChat);
 	
 		
-		/*FIELD SAISIE MESSAGE */
+		/*FIELD MESSAGE WRITING*/
 		txtmessage = new JTextField();
-		txtmessage.setText("Veuillez saisir votre message...");
+		txtmessage.setText("Please enter your message here...");
 		txtmessage.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
 				txtmessage.setText("");
 			}
 		});
-		
 		txtmessage.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 10){
-					envoyerMessage(panelChat);
+				if (e.getKeyCode() == 10){//press enter
+					sendMessage(panelChat);
 				}
 			}
 		});
 		txtmessage.setHorizontalAlignment(SwingConstants.CENTER);
 		txtmessage.setBounds(40, 259, 282, 71);
+		txtmessage.setColumns(10);//TODO test setColumns useless?
 		add(txtmessage);
-		txtmessage.setColumns(10);
 		
-		
-		
-		/*BOUTON FICHIER*/
+		/*FILE BUTTON*/
 		JButton btnFichier = new JButton("Fichier");
 		btnFichier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ouverture d'une fenêtre de selection fichier");
+				//TODO envoi de fichier a implémenter
 			}
 		});
 		btnFichier.setBounds(338, 264, 84, 60);
@@ -161,7 +168,7 @@ public class PanelChat extends JPanel {
 		JButton btnEnvoyer = new JButton("Envoyer");
 		btnEnvoyer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				envoyerMessage(panelChat);
+				sendMessage(panelChat);
 			}
 		});
 		
@@ -171,23 +178,33 @@ public class PanelChat extends JPanel {
 		
 		
 		/**
-		 * CONTACT
+		 * ROOMCHAT section---------------------------------------
 		*/
-		/*LABEL Contacts*/
-		JLabel lblContact = new JLabel("Contacts en ligne");
-		lblContact.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContact.setFont(new Font("Tahoma", Font.BOLD, 21));
-		lblContact.setBounds(570, 144, 265, 25);
-		add(lblContact);
 		
-		/*LISTE CONTACT*/
-		jlistContact = new JList();
-		jlistContact.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode() == 10){
-					String s = "" + jlistContact.getModel().getElementAt(jlistContact.getSelectedIndex());
-					_Utilisateur u = _userList.get(jlistContact.getSelectedIndex());
+		/*LABEL ROOMCHAT*/
+		JLabel lblRoomchat = new JLabel("Online chat rooms");
+		lblRoomchat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRoomchat.setFont(new Font("Tahoma", Font.BOLD, 21));
+		lblRoomchat.setBounds(570, 144, 265, 25);
+		add(lblRoomchat);
+		
+		/*LISTE ROOMCHAT*/
+		_chats = new HashMap<_Utilisateur, Chat>();
+		jlistRoomchat = new JList<Component>();
+		jlistRoomchat.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				/**
+				 * connexion chatRoom frame oppening
+				 */
+				 if (!arg0.getValueIsAdjusting()) {
+					 String s = "" + jlistRoomchat.getSelectedValue().toString();
+					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
+				 }
+					//String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
+				 	_userList = new ArrayList<_Utilisateur>();
+				 	_Utilisateur u = _userList.get(jlistRoomchat.getSelectedIndex());
+				 	
+					//TODO changer les contact par des chatroom
 					try {
 						lblNametoChat.setText(u.toStringRemote());
 					} catch (RemoteException e) {
@@ -195,26 +212,31 @@ public class PanelChat extends JPanel {
 						e.printStackTrace();
 					}
 					
-						Chat c;						
-						try {
-							List<_Utilisateur> users = new ArrayList<_Utilisateur>();
-							users.add(server.getUtilisateur(u.getNom(), u.getPrenom()));
-							c = new Chat(server, user, users, "...");
-							_chats.put(u, c);
-							_chats.get(u).listener(panelChat);
-							//c.sender(user, Cmd.EXIT);
-						} catch (RemoteException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				}
-						
+					Chat c;
+					//TODO
+					/**
+					 * chat.getShared().getUtilisateurs();
+					 * chat.getShared().getZoneName();
+					 */
+					try {
+						List<_Utilisateur> users = new ArrayList<_Utilisateur>();
+						users.add(server.getUtilisateur(u.getNom(), u.getPrenom()));
+
+						//TODO création du chat si il existe pas
+						c = new Chat(server, connectedUser, users, "...");
+						_chats.put(u, c);
+						_chats.get(u).listener(panelChat);
+						//c.sender(user, Cmd.EXIT);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
-			
 		});
-		jlistContact.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		jlistContact.setBounds(568, 180, 265, 150);
-		add(jlistContact);
+			
+		jlistRoomchat.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jlistRoomchat.setBounds(568, 180, 265, 150);
+		add(jlistRoomchat);
 		
 		
 		
@@ -223,7 +245,7 @@ public class PanelChat extends JPanel {
 		 * SERVER
 		*/
 		/*LABEL Server*/
-		JLabel lblipServer = new JLabel("Choix du serveur");
+		JLabel lblipServer = new JLabel("Server choice");
 		lblipServer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblipServer.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblipServer.setBounds(570, 31, 260, 25);
@@ -237,7 +259,7 @@ public class PanelChat extends JPanel {
 		add(comboxIpServer);
 		
 		
-		/*BOUTON CONNECTER*/		
+		/*BOUTON CONNECTER*/	
 		JButton btnConnecter = new JButton("Connecter");
 		btnConnecter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -246,14 +268,14 @@ public class PanelChat extends JPanel {
 				//seConnecter(comboxIpServer.getModel().getSelectedItem());
 				try {
 					server = (_Server)Server.getServer(comboxIpServer.getSelectedItem().toString());
-					user.connect(server);
+					connectedUser.connect(server);
 					_userList = server.getUtilisateurs();
 					for(_Utilisateur user : _userList){
 						System.out.println(user.getNom());
 					}
 					
-					jlistContact.setCellRenderer(new MyRenderer());
-					jlistContact.setModel(new AbstractListModel() {
+					jlistRoomchat.setCellRenderer(new MyRenderer());
+					jlistRoomchat.setModel(new AbstractListModel() {
 						List<_Utilisateur> values = new ArrayList<_Utilisateur>(_userList);
 						public int getSize() {
 							return values.size();
@@ -283,13 +305,13 @@ public class PanelChat extends JPanel {
 		
 	}
 	
-	public void envoyerMessage(JPanel panelChat){
+	public void sendMessage(JPanel panelChat){
 		if(txtmessage.getText().isEmpty())return;
 		String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
 		_RemotableObject message = null;
 		try {
-			Chat c = _chats.get(_userList.get(jlistContact.getSelectedIndex()));
-			message = new achala.communication.Message(user, txtmessage.getText());
+			Chat c = _chats.get(_userList.get(jlistRoomchat.getSelectedIndex()));
+			message = new achala.communication.Message(connectedUser, txtmessage.getText());
 			c.send(message);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
