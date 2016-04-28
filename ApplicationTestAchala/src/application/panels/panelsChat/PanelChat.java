@@ -208,8 +208,12 @@ public class PanelChat extends JPanel {
 				{
 					//Recuperation du chat + listener sur celui-ci
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
-					currentChat = chatRooms.get(zoneName);
-					currentChat.listener();
+					
+					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
+					{
+						currentChat = chatRooms.get(zoneName);
+						currentChat.listener();
+					}
 				}
 				catch(Exception ex)
 				{
@@ -313,7 +317,7 @@ public class PanelChat extends JPanel {
 			objet = new Message(connectedUser, message);
 			currentChat.send(objet);
 			//PanelMessage m = new PanelMessage(objet);
-			System.out.println(objet.getSender().toStringRemote() +  " a envoye : " + objet.getObject().toString());
+			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
 		}
 		catch(Exception ex)
 		{
