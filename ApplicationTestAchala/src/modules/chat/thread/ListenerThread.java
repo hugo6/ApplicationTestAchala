@@ -1,21 +1,21 @@
 package modules.chat.thread;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JPanel;
 
-import modules.chat.util.Util.Cmd;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.utilisateur._Utilisateur;
 import application.panels.panelsChat.PanelMessage;
+import modules.chat.util.Util.Cmd;
 
 public class ListenerThread extends Thread {
 
 	private _Utilisateur u;
 	private _Shared s;
 	private JPanel component = null;
+	private boolean run;
 	
 	/**
 	 * Construit un thread de reception de messages
@@ -25,6 +25,7 @@ public class ListenerThread extends Thread {
 	public ListenerThread(_Utilisateur u, _Shared s) {
 		this.setU(u);
 		this.setS(s);
+		this.setRun(true);
 	}
 	
 	public ListenerThread(_Utilisateur u, _Shared s, JPanel c){
@@ -45,7 +46,7 @@ public class ListenerThread extends Thread {
 	 */
 	public void run(){
 		List<_RemotableObject> objs;
-		while(true) {
+		while(this.isRun()) {
 			try
 			{
 				sleep(2000);
@@ -91,5 +92,17 @@ public class ListenerThread extends Thread {
 
 	private void setS(_Shared s) {
 		this.s = s;
+	}
+
+	private boolean isRun() {
+		return run;
+	}
+
+	private void setRun(boolean run) {
+		this.run = run;
+	}
+	
+	public void stopListener(){
+		this.setRun(false);
 	}
 }

@@ -2,17 +2,16 @@ package modules.chat.thread;
 
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
-import achala.communication.server._Server;
 import achala.communication.utilisateur._Utilisateur;
 
 public class NotificationThread extends Thread {
 
-	private _Server server;
+	private _Shared share;
 	private _Utilisateur user;
 
-	public NotificationThread(_Server s, _Utilisateur u)
+	public NotificationThread(_Shared s, _Utilisateur u)
 	{
-		this.setServer(s);
+		this.setShare(s);
 		this.setUser(u);
 	}
 	
@@ -22,15 +21,12 @@ public class NotificationThread extends Thread {
 		{
 			while(true)
 			{
-				for(_Shared s : this.getServer().getShares())
+				if(this.getShare().isAllowed(this.getUser()) && this.getShare().isWait())
 				{
-					if(s.isAllowed(this.getUser()) && s.isWait())
+					for(_RemotableObject rObj : this.getShare().getObjects())
 					{
-						for(_RemotableObject rObj : s.getObjects())
-						{
-							if(!rObj.getSender().equals(this.getUser()))
-								System.out.println("NOTIFICATION : " + rObj.getSender().toStringRemote());
-						}
+						if(!rObj.getSender().equals(this.getUser()))
+							System.out.println("NOTIFICATION : " + rObj.getSender().toStringRemote());
 					}
 				}
 				sleep(5000);
@@ -41,14 +37,6 @@ public class NotificationThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	private _Server getServer() {
-		return server;
-	}
-
-	private void setServer(_Server server) {
-		this.server = server;
-	}
 
 	private _Utilisateur getUser() {
 		return user;
@@ -56,5 +44,13 @@ public class NotificationThread extends Thread {
 
 	private void setUser(_Utilisateur user) {
 		this.user = user;
+	}
+
+	private _Shared getShare() {
+		return share;
+	}
+
+	private void setShare(_Shared share) {
+		this.share = share;
 	}
 }
