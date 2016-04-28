@@ -9,7 +9,7 @@ import modules.publication.dao.ManagerDAO;
 import modules.publication.exception.PublicationException;
 
 
-public class Article {
+public class Article implements Comparable<Article> {
 
 	/**
 	 * Attributs privés
@@ -17,18 +17,18 @@ public class Article {
 	private int id;
 	private String titre;
 	private String contenu;
-	private String nomAuteur;
+	private String auteur;
 	private String date;
 	private ArrayList<Commentaire> lesCommentaires;
 
 	/**
 	 * Constructeur sans id
 	 */
-	public Article(String unTitre, String unContenu, String unNomAuteur, String uneDate) {
+	public Article(String unTitre, String unContenu, String unAuteur, String uneDate) {
 		this.id = Article.getIdCourant();
 		this.titre = unTitre;
 		this.contenu = unContenu;
-		this.nomAuteur = unNomAuteur;
+		this.auteur = unAuteur;
 		this.date = uneDate;
 		this.lesCommentaires = new ArrayList<Commentaire>();
 		creer();
@@ -37,11 +37,11 @@ public class Article {
 	/**
 	 * Constructeur complet
 	 */
-	public Article(int unId, String unTitre, String unContenu, String unNomAuteur, String uneDate) {
+	public Article(int unId, String unTitre, String unContenu, String unAuteur, String uneDate) {
 		this.id = unId;
 		this.titre = unTitre;
 		this.contenu = unContenu;
-		this.nomAuteur = unNomAuteur;
+		this.auteur = unAuteur;
 		this.date = uneDate;
 		this.lesCommentaires = new ArrayList<Commentaire>();
 	}
@@ -52,7 +52,7 @@ public class Article {
 	public void creer() {
 		//Mise à jour des données BD + Context
 		try {
-			ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().insert(this.id, this.date, this.titre, this.nomAuteur, this.contenu));
+			ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().insert(this.id, this.date, this.titre, this.auteur, this.contenu));
 			ManagerApp.Instance().getListArticles().add(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -125,15 +125,15 @@ public class Article {
 		this.contenu = contenu;
 	}
 
-	public String getNomAuteur() {
-		return nomAuteur;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setNomAuteur(String nomAuteur) {
+	public void setAuteur(String auteur) {
 		HashMap<String, String> lstAttrsValues = new HashMap<>();
-		lstAttrsValues.put("nomAuteur", nomAuteur);
+		lstAttrsValues.put("auteur", auteur);
 		ManagerDAO.getBd().request(ManagerDAO.getDAOArticle().update(lstAttrsValues, "WHERE id = " + this.id));
-		this.nomAuteur = nomAuteur;
+		this.auteur = auteur;
 	}
 	
 	public String getDate() {
@@ -159,5 +159,17 @@ public class Article {
 			}
 		}
 		throw new PublicationException("L'article n'existe pas.");
+	}
+	
+	//Comparable méthode retourne -1 si < / 0 si = / 1 si >
+	@Override
+	public int compareTo(Article o) {
+		if(this.getId() < o.getId()) {
+			return -1;
+		} else if (this.getId() > o.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

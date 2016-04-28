@@ -7,14 +7,14 @@ import achala.datamanager.bdd.TypeBD;
 import modules.publication.dao.ManagerDAO;
 import modules.publication.exception.PublicationException;
 
-public class Commentaire {
+public class Commentaire implements Comparable<Commentaire> {
 	
 	/**
 	 * Attributs privés
 	 */
 	private int id;
 	private String contenu;
-	private String nomAuteur;
+	private String auteur;
 	private String date;
 	private int idArticle;
 	
@@ -24,7 +24,7 @@ public class Commentaire {
 	public Commentaire(String unContenu, String unAuteur, String uneDate, int idArticle) {
 		this.id = Commentaire.getIdCourant();
 		this.contenu = unContenu;
-		this.nomAuteur = unAuteur;
+		this.auteur = unAuteur;
 		this.date = uneDate;
 		this.idArticle = idArticle;
 		try{
@@ -39,7 +39,7 @@ public class Commentaire {
 	public Commentaire(int unId, String unContenu, String unAuteur, String uneDate, int idArticle) {
 		this.id = unId;
 		this.contenu = unContenu;
-		this.nomAuteur = unAuteur;
+		this.auteur = unAuteur;
 		this.date = uneDate;
 		this.idArticle = idArticle;
 	}
@@ -51,7 +51,7 @@ public class Commentaire {
 		//Mise à jour des données BD + Context
 		try {
 			//Exécution requête
-			ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().insert(this.id, this.date, this.contenu, this.nomAuteur, this.idArticle));
+			ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().insert(this.id, this.date, this.contenu, this.auteur, this.idArticle));
 			ManagerApp.Instance().getListCommentaires().add(this);
 		} catch(Exception e) {
 			e.getMessage();
@@ -100,14 +100,14 @@ public class Commentaire {
 	}
 
 	public String getAuteur() {
-		return nomAuteur;
+		return auteur;
 	}
 
 	public void setAuteur(String auteur) {
 		HashMap<String, String> lstAttrsValues = new HashMap<>();
 		lstAttrsValues.put("auteur", auteur);
 		ManagerDAO.getBd().request(ManagerDAO.getDAOCommentaire().update(lstAttrsValues, "WHERE id = " + this.id));
-		this.nomAuteur = auteur;
+		this.auteur = auteur;
 	}
 	
 	public String getDate() {
@@ -129,6 +129,18 @@ public class Commentaire {
 		}
 		return null;
 	}
+	
+	//Comparable méthode retourne -1 si < / 0 si = / 1 si >
+		@Override
+		public int compareTo(Commentaire o) {
+			if(this.getId() < o.getId()) {
+				return -1;
+			} else if (this.getId() > o.getId()) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 	
 
 }
