@@ -57,7 +57,7 @@ public class PanelPrincipal extends JPanel {
 		JTabbedPane tabbedPaneMenu = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneMenu.setBounds(10, 41, 918, 368);
 		add(tabbedPaneMenu);
-
+/*
 		PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
 		//JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			//	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -85,7 +85,7 @@ public class PanelPrincipal extends JPanel {
 		});
 		panelEdition.add(Publier, BorderLayout.SOUTH);
 		tabbedPaneMenu.add(scrollEdition,"Edition");
-
+*/
 
 
 		tabbedPaneMenu.addTab("Chat", new PanelChat(nomUser, prenomUser));
