@@ -25,7 +25,7 @@ public class PanelAppercuArticle extends JPanel {
 	public PanelAppercuArticle(Article a, String nomUser, String prenomUser) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		String titre = a.getTitre();
-		String premierMots = a.getContenu();
+		String premierMots = a.getContenu(); //
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -45,6 +45,8 @@ public class PanelAppercuArticle extends JPanel {
 		});
 		setLayout(new BorderLayout(0, 0));
 
+		// affichage des appercu du titre de l'article , n'afiche que les 15
+		// premiers caracteres
 		JPanel panelTitre = new JPanel();
 		panelTitre.setAlignmentX(Component.LEFT_ALIGNMENT);
 		add(panelTitre);
@@ -64,35 +66,35 @@ public class PanelAppercuArticle extends JPanel {
 		JPanel panelPremiers = new JPanel();
 		panelTitre.add(panelPremiers);
 		panelPremiers.setLayout(new BoxLayout(panelPremiers, BoxLayout.Y_AXIS));
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		panelPremiers.add(lblNewLabel);
-		
+
+		JLabel lblContenu = new JLabel("New label");
+		panelPremiers.add(lblContenu);
+
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		panelPremiers.add(verticalStrut_1);
 		
-
 		JPanel panelAuteur = new JPanel();
 		panelTitre.add(panelAuteur);
 		panelAuteur.setLayout(new BoxLayout(panelAuteur, BoxLayout.Y_AXIS));
-		
-				JLabel lblAuteur = new JLabel("Auteur : " + a.getNomAuteur());
-				panelAuteur.add(lblAuteur);
-				lblAuteur.setHorizontalAlignment(SwingConstants.CENTER);
-				
-						Component verticalStrut_2 = Box.createVerticalStrut(20);
-						panelAuteur.add(verticalStrut_2);
 
+		JLabel lblAuteur = new JLabel("Auteur : " + a.getNomAuteur());
+		panelAuteur.add(lblAuteur);
+		lblAuteur.setHorizontalAlignment(SwingConstants.CENTER);
+
+		Component verticalStrut_2 = Box.createVerticalStrut(20);
+		panelAuteur.add(verticalStrut_2);
+		
+		// affichage des 29 premiers caractere de l'article + "..."
 		if (premierMots.length() < 30) {
 			premierMots = premierMots.substring(0);
-			
+
 			// remplisage par des espaces ... Question esthetique mais en fait
 			// c'est tjrs un peu moche
 			for (int i = premierMots.length(); i < 30; i++)
 				premierMots += " ";
 		} else
 			premierMots = premierMots.substring(0, 30);
-		lblNewLabel.setText(premierMots);
+		lblContenu.setText(premierMots);
 		this.setPreferredSize(new Dimension(175, 110));
 
 	}

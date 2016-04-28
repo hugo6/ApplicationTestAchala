@@ -31,11 +31,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class PanelAfficheCommentaires extends JPanel {
-	private List<Commentaire> ListComentaires = new ArrayList<Commentaire>();
-	private List<PanelCommentaire> PanelListCommentaire = new ArrayList<PanelCommentaire>();
 
 	/**
-	 * Create the panel qui va aficher les commentaires.
+	 * Creation du panel qui va afficher les commentaires + possibilité de publication d'un nouveau commentaire (non vide).
 	 */
 	public PanelAfficheCommentaires(String nomUser, String prenomUser, Article a) {
 		this.setBackground(Color.LIGHT_GRAY);
@@ -52,6 +50,7 @@ public class PanelAfficheCommentaires extends JPanel {
 		lblArticles.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArticles.setFont(new Font("Tahoma", Font.BOLD, 21));
 
+		// Panel qui va afficher tous les commentaires deja publie
 		JPanel panelCommentaires = new JPanel();
 		add(panelCommentaires, BorderLayout.CENTER);
 		panelCommentaires.setBackground(Color.LIGHT_GRAY);
@@ -59,14 +58,16 @@ public class PanelAfficheCommentaires extends JPanel {
 		JScrollPane scrollPaneCommentaires = new JScrollPane(panelCommentaires);
 		panelCommentaires.setLayout(new BoxLayout(panelCommentaires, BoxLayout.Y_AXIS));
 		add(scrollPaneCommentaires);
-
+		
+		
+		//Panel d'edition d'un nouveau commentaire, pour etre envoyé la zone de texte ne doit pas etre vide
 		JPanel panelNewCom = new JPanel();
 		panelNewCom.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panelNewCom.setBackground(Color.LIGHT_GRAY);
 		add(panelNewCom, BorderLayout.SOUTH);
 
 
-
+		// Affichage des commentaires existant deja en base 
 		PanelCommentaire pc;
 		for (Commentaire c : a.getLesCommentaires() ) {
 			pc = new PanelCommentaire(c);
@@ -76,11 +77,12 @@ public class PanelAfficheCommentaires extends JPanel {
 
 		panelNewCom.setLayout(new BoxLayout(panelNewCom, BoxLayout.X_AXIS));
 		
+		// Bouton qui va envoyer le commentaire
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.setEnabled(false);
 		
+		// zone d'ecriture du commentaire
 		JTextArea txtrLaisserUnCommentaire = new JTextArea();
-
 		txtrLaisserUnCommentaire.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
@@ -96,9 +98,7 @@ public class PanelAfficheCommentaires extends JPanel {
 		panelNewCom.add(txtrLaisserUnCommentaire);
 
 		// ajout d'un nouveau commentaire
-
-		
-
+		panelNewCom.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtrLaisserUnCommentaire.getText().isEmpty()) return ;
@@ -111,7 +111,7 @@ public class PanelAfficheCommentaires extends JPanel {
 				
 			}
 		});
-		panelNewCom.add(btnNewButton);
+
 
 	}
 

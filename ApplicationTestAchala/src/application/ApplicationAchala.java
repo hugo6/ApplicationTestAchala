@@ -57,7 +57,7 @@ public class ApplicationAchala {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Application temoin Framework");
 		frame.setBounds(100, 100, 955, 460);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
