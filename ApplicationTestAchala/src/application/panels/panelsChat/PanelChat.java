@@ -41,6 +41,7 @@ import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
+import application.frames.FrameAjouterChatroom;
 import modules.chat.Chat;
 
 
@@ -235,12 +236,26 @@ public class PanelChat extends JPanel {
 		add(jlistRoomchat);
 		
 		
+		/**
+		 * BUTTON ADD ROOMCHAT
+		 */
+		JButton button = new JButton("+");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO open the frame add a chat room
+				FrameAjouterChatroom frame_add = new FrameAjouterChatroom();
+				//TODO faire la méthode getMapChat() et add des users ?
+			}
+		});
+		button.setFont(new Font("Tahoma", Font.BOLD, 11));
+		button.setBounds(845, 148, 41, 25);
+		add(button);
 		
 		
 		/**
 		 * SERVER
 		*/
-		/*LABEL Server*/
+		/*LABEL Server*/ 
 		JLabel lblipServer = new JLabel("Server choice");
 		lblipServer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblipServer.setFont(new Font("Tahoma", Font.BOLD, 21));
