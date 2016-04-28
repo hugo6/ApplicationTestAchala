@@ -28,7 +28,7 @@ public class PanelAppercuArticle extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelAppercuArticle(Article a, String nomUser, String prenomUser) {
-		setBorder(new LineBorder(new Color(0, 0, 0), 0));
+		setBorder(new LineBorder(Color.LIGHT_GRAY, 3));
 		String titre = a.getTitre();
 		String premierMots = a.getContenu(); //
 		addMouseListener(new MouseAdapter() {
@@ -39,7 +39,7 @@ public class PanelAppercuArticle extends JPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setBorder(null);
+				setBorder(new LineBorder(new Color(240, 240, 240), 3));
 			}
 
 			@Override

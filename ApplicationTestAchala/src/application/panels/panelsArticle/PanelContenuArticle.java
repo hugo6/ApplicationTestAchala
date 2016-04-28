@@ -22,7 +22,7 @@ public class PanelContenuArticle extends JPanel {
 		JLabel lblTitre = new JLabel(titre);
 		add(lblTitre, BorderLayout.NORTH);
 		
-		JLabel lblDe = new JLabel("De : " + nom + "le " + date);
+		JLabel lblDe = new JLabel("De : " + nom + " le " + date);
 		add(lblDe, BorderLayout.SOUTH);
 		
 		JEditorPane editorPaneContenu = new JEditorPane();
