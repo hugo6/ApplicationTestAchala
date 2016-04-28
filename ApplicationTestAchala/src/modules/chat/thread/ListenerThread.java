@@ -45,15 +45,18 @@ public class ListenerThread extends Thread {
 	 * Lance le thread permettant d'affichier les messages
 	 */
 	public void run(){
+		System.out.println("ListenerThread running");
 		List<_RemotableObject> objs;
 		while(this.isRun()) {
 			try
 			{
 				sleep(2000);
 				objs = this.getU().receive(this.getS());
+				System.out.println("Nb objets : " + objs.size());
 				for(_RemotableObject o : objs) {
 					System.out.println("Remotable : " + o.getObject().toString());
 					System.out.println("Sender : " + o.getSender().toStringRemote());
+					
 					if(this.getComponent() != null){
 						PanelMessage m = new PanelMessage(o);
 						this.getComponent().add(m);
