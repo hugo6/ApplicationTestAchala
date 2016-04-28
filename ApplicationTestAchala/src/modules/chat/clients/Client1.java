@@ -26,8 +26,8 @@ public class Client1 {
 
 			_Utilisateur alexis = new Utilisateur("Martinier", "Alexis");
 			
-			_Server srv = Server.getServer("192.168.43.84");
-//			_Server srv = (_Server) Naming.lookup("rmi://192.168.43.84/srv");
+			_Server srv = Server.getServer("192.168.43.52");
+//			_Server srv = (_Server) Naming.lookup("rmi://192.168.43.52/srv");
 			alexis.connect(srv);
 			
 			System.out.println("Start ?");
@@ -36,7 +36,7 @@ public class Client1 {
 			/*_Utilisateur luc = srv.getUtilisateur("Ortiz", "Luc");
 			List<_Utilisateur> users = new ArrayList<_Utilisateur>();
 			users.add(luc);*/
-			Chat c = new Chat(srv, alexis, srv.getUtilisateurs(), "...");
+			Chat c = new Chat(srv, alexis, srv.getUtilisateurs(), "zoneTest");
 			
 			c.listener();
 			c.sender(Cmd.EXIT);

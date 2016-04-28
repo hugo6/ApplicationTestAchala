@@ -212,7 +212,7 @@ public class PanelChat extends JPanel {
 					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
 					{
 						currentChat = chatRooms.get(zoneName);
-						currentChat.listener();
+						currentChat.listener(panelChat);
 					}
 				}
 				catch(Exception ex)
