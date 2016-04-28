@@ -77,7 +77,7 @@ public class PanelAppercuArticle extends JPanel {
 		panelTitre.add(panelAuteur);
 		panelAuteur.setLayout(new BoxLayout(panelAuteur, BoxLayout.Y_AXIS));
 
-		JLabel lblAuteur = new JLabel("Auteur : " + a.getNomAuteur());
+		JLabel lblAuteur = new JLabel("Auteur : " + a.getAuteur());
 		panelAuteur.add(lblAuteur);
 		lblAuteur.setHorizontalAlignment(SwingConstants.CENTER);
 
