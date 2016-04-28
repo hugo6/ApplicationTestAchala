@@ -212,6 +212,7 @@ public class PanelChat extends JPanel {
 					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
 					{
 						currentChat = chatRooms.get(zoneName);
+						currentChat.getShared().addUsers(server.getUtilisateurs());
 						currentChat.listener(panelChat);
 					}
 				}
@@ -255,7 +256,7 @@ public class PanelChat extends JPanel {
 		/*COMBOX SERVER*/
 		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
-		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.52", "192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
+		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.138", "192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
 		comboxIpServer.setBounds(568, 79, 154, 34);
 		add(comboxIpServer);
 		
