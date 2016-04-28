@@ -52,7 +52,8 @@ public class ListenerThread extends Thread {
 				sleep(2000);
 				objs = this.getU().receive(this.getS());
 				for(_RemotableObject o : objs) {
-					
+					System.out.println("Remotable : " + o.getObject().toString());
+					System.out.println("Sender : " + o.getSender().toStringRemote());
 					if(this.getComponent() != null){
 						PanelMessage m = new PanelMessage(o);
 						this.getComponent().add(m);
