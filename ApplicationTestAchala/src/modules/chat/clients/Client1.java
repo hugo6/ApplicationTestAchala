@@ -1,16 +1,14 @@
 package modules.chat.clients;
 
 import java.rmi.RMISecurityManager;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import modules.chat.Chat;
-import modules.chat.util.Util.Cmd;
 import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
+import modules.chat.Chat;
+import modules.chat.util.Util.Cmd;
 
 @SuppressWarnings("deprecation")
 public class Client1 {
@@ -34,10 +32,10 @@ public class Client1 {
 			System.out.println("Start ?");
 			read.next();
 			
-			_Utilisateur luc = srv.getUtilisateur("Ortiz", "Luc");
+			/*_Utilisateur luc = srv.getUtilisateur("Ortiz", "Luc");
 			List<_Utilisateur> users = new ArrayList<_Utilisateur>();
-			users.add(luc);
-			Chat c = new Chat(srv, alexis, users, "...");
+			users.add(luc);*/
+			Chat c = new Chat(srv, alexis, srv.getUtilisateurs(), "...");
 			
 			c.listener();
 			c.sender(Cmd.EXIT);

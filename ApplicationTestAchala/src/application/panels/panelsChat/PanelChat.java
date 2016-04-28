@@ -13,12 +13,9 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.AbstractListModel;
@@ -37,7 +34,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import modules.chat.Chat;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;
@@ -45,7 +41,7 @@ import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
-import application.frames.FrameConnexionChatroom;
+import modules.chat.Chat;
 
 
 public class PanelChat extends JPanel {
@@ -57,12 +53,16 @@ public class PanelChat extends JPanel {
 	private List<_RemotableObject> _listMessage;
 	/*user list*/
 	private List<_Utilisateur> _userList;
+	/*shared list on server*/
+	private List<_Shared> _sharedList;
 	/*server*/
 	private _Server server;
 	/*user*/
 	private _Utilisateur connectedUser;
 	/*chat map*/
 	private Map<String, Chat> _chats;
+	
+	private Chat currentChat;
 	
 	/**
 	 * graphical components
@@ -76,13 +76,19 @@ public class PanelChat extends JPanel {
 	 */
 	public PanelChat(String nom, String prenom) {
 		
-		try {
+		try 
+		{
 			//Creating the connected user
 			connectedUser = new Utilisateur(nom, prenom);
-		} catch (RemoteException e1) {
+			_listMessage = new ArrayList<_RemotableObject>();
+		} 
+		catch (RemoteException e1) 
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (UnknownHostException e1) {
+		} 
+		catch (UnknownHostException e1) 
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -195,29 +201,27 @@ public class PanelChat extends JPanel {
 		jlistRoomchat = new JList<Component>();
 		jlistRoomchat.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
+				System.out.println(jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex()));
 				/**
 				 * connexion chatRoom frame oppening
 				 */
-				 if (!arg0.getValueIsAdjusting())
-				 {
-					 String s = "" + jlistRoomchat.getSelectedValue().toString();
-					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
-				 }
+//				 if (!arg0.getValueIsAdjusting())
+//				 {
+//					 String s = "" + jlistRoomchat.getSelectedValue().toString();
+//					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
+//				 }
 				//String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 			 	//_userList = new ArrayList<_Utilisateur>();
 			 	//_Utilisateur u = _userList.get(jlistRoomchat.getSelectedIndex());
 			 	
-			 	
-			 	
-				//TODO changer les contact par des chatroom
 				try
 				{
-					String chatName = jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex()).toString();
-				 	Chat c = _chats.get(chatName);
+					String chatName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
+				 	currentChat = _chats.get(chatName);
 				 	
-					lblNametoChat.setText(c.getShared().getZoneName());
+					lblNametoChat.setText(currentChat.getShared().getZoneName());
 					
-					c.listener();
+					currentChat.listener(panelChat);
 				}
 				catch (RemoteException e)
 				{
@@ -258,18 +262,27 @@ public class PanelChat extends JPanel {
 				System.out.println("Connection au server ip :" + comboxIpServer.getSelectedItem().toString());
 				//listServeurip.add(comboxIpServer.getModel().getSelectedItem());
 				//seConnecter(comboxIpServer.getModel().getSelectedItem());
-				try {
+				try
+				{
 					server = (_Server)Server.getServer(comboxIpServer.getSelectedItem().toString());
 					connectedUser.connect(server);
-					_userList = server.getUtilisateurs();
-					for(_Utilisateur user : _userList){
-						System.out.println(user.getNom());
+					_sharedList = server.getShares();
+					List<String> zonesNames = new ArrayList<String>();
+					for(_Shared s : _sharedList)
+					{
+						Chat c = new Chat(server, connectedUser, server.getUtilisateurs(), s.getZoneName());
+						if(!_chats.containsKey(s.getZoneName()))
+						{
+							zonesNames.add(s.getZoneName());
+							_chats.put(s.getZoneName(), c);
+							System.out.println("Added : " + s.getZoneName());
+						}
 					}
 					
 					jlistRoomchat.setCellRenderer(new MyRenderer());
 					jlistRoomchat.setModel(new AbstractListModel() {
-						List<_Shared> shares = server.getShares();
-						//List<_Utilisateur> values = new ArrayList<_Utilisateur>(_userList);
+						
+						List<String> shares = zonesNames;
 						public int getSize() {
 							return shares.size();
 						}
@@ -279,13 +292,19 @@ public class PanelChat extends JPanel {
 					});
 					
 					validate();
-				} catch (MalformedURLException e1) {
+				}
+				catch (MalformedURLException e1)
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (RemoteException e1) {
+				}
+				catch (RemoteException e1)
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (NotBoundException e1) {
+				}
+				catch (NotBoundException e1)
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -304,9 +323,8 @@ public class PanelChat extends JPanel {
 		_RemotableObject message = null;
 		try 
 		{
-			Chat c = _chats.get(_userList.get(jlistRoomchat.getSelectedIndex()));
 			message = new achala.communication.Message(connectedUser, txtmessage.getText());
-			c.send(message);
+			currentChat.send(message);
 		} 
 		catch (RemoteException e1)
 		{
