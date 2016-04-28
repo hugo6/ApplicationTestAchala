@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,11 +19,11 @@ import application.panels.panelsArticle.PanelAppercuArticle;
 import application.panels.panelsArticle.PanelArticle;
 import application.panels.panelsArticle.PanelEdition;
 import application.panels.panelsChat.PanelChat;
-import application.utils.Message;
 import modules.publication.metier.Article;
 
 public class PanelPrincipal extends JPanel {
 
+	private static final long serialVersionUID = 6762676821660654248L;
 	private String nom = "Onyme", prenom = "Anne";
 
 	public String getNom() {

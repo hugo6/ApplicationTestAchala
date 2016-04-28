@@ -28,7 +28,7 @@ public class Client1 {
 
 			_Utilisateur alexis = new Utilisateur("Martinier", "Alexis");
 			
-			_Server srv = Server.getServer("147.171.167.132");
+			_Server srv = Server.getServer("147.171.167.197");
 			alexis.connect(srv);
 			
 			System.out.println("Start ?");

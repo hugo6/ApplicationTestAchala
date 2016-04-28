@@ -39,6 +39,7 @@ import javax.swing.event.ListSelectionListener;
 
 import modules.chat.Chat;
 import achala.communication._RemotableObject;
+import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;
 import achala.communication.server.Server;
 import achala.communication.server._Server;
@@ -61,7 +62,7 @@ public class PanelChat extends JPanel {
 	/*user*/
 	private _Utilisateur connectedUser;
 	/*chat map*/
-	private Map<_Utilisateur, Chat> _chats;
+	private Map<String, Chat> _chats;
 	
 	/**
 	 * graphical components
@@ -189,48 +190,39 @@ public class PanelChat extends JPanel {
 		add(lblRoomchat);
 		
 		/*LISTE ROOMCHAT*/
-		_chats = new HashMap<_Utilisateur, Chat>();
+		_chats = new HashMap<String, Chat>();
+		
 		jlistRoomchat = new JList<Component>();
 		jlistRoomchat.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				/**
 				 * connexion chatRoom frame oppening
 				 */
-				 if (!arg0.getValueIsAdjusting()) {
+				 if (!arg0.getValueIsAdjusting())
+				 {
 					 String s = "" + jlistRoomchat.getSelectedValue().toString();
 					 FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
 				 }
-					//String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
-				 	_userList = new ArrayList<_Utilisateur>();
-				 	_Utilisateur u = _userList.get(jlistRoomchat.getSelectedIndex());
+				//String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
+			 	//_userList = new ArrayList<_Utilisateur>();
+			 	//_Utilisateur u = _userList.get(jlistRoomchat.getSelectedIndex());
+			 	
+			 	
+			 	
+				//TODO changer les contact par des chatroom
+				try
+				{
+					String chatName = jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex()).toString();
+				 	Chat c = _chats.get(chatName);
 				 	
-					//TODO changer les contact par des chatroom
-					try {
-						lblNametoChat.setText(u.toStringRemote());
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					lblNametoChat.setText(c.getShared().getZoneName());
 					
-					Chat c;
-					//TODO
-					/**
-					 * chat.getShared().getUtilisateurs();
-					 * chat.getShared().getZoneName();
-					 */
-					try {
-						List<_Utilisateur> users = new ArrayList<_Utilisateur>();
-						users.add(server.getUtilisateur(u.getNom(), u.getPrenom()));
-
-						//TODO création du chat si il existe pas
-						c = new Chat(server, connectedUser, users, "...");
-						_chats.put(u, c);
-						_chats.get(u).listener(panelChat);
-						//c.sender(user, Cmd.EXIT);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					c.listener();
+				}
+				catch (RemoteException e)
+				{
+					e.printStackTrace();
+				}
 			}
 		});
 			
@@ -252,9 +244,9 @@ public class PanelChat extends JPanel {
 		add(lblipServer);
 
 		/*COMBOX SERVER*/
-		JComboBox comboxIpServer = new JComboBox();
+		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
-		comboxIpServer.setModel(new DefaultComboBoxModel(new Object[] {"147.171.167.132", "192.168.56.1", "192.168.12.55", "127.0.0.1"})); // prend une liste d'objets
+		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"147.171.167.197", "147.171.167.132", "192.168.56.1", "192.168.12.55", "127.0.0.1"})); // prend une liste d'objets
 		comboxIpServer.setBounds(568, 79, 154, 34);
 		add(comboxIpServer);
 		
@@ -276,12 +268,13 @@ public class PanelChat extends JPanel {
 					
 					jlistRoomchat.setCellRenderer(new MyRenderer());
 					jlistRoomchat.setModel(new AbstractListModel() {
-						List<_Utilisateur> values = new ArrayList<_Utilisateur>(_userList);
+						List<_Shared> shares = server.getShares();
+						//List<_Utilisateur> values = new ArrayList<_Utilisateur>(_userList);
 						public int getSize() {
-							return values.size();
+							return shares.size();
 						}
 						public Object getElementAt(int index) {
-							return values.get(index);
+							return shares.get(index);
 						}
 					});
 					
@@ -307,19 +300,25 @@ public class PanelChat extends JPanel {
 	
 	public void sendMessage(JPanel panelChat){
 		if(txtmessage.getText().isEmpty())return;
-		String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
+
 		_RemotableObject message = null;
-		try {
+		try 
+		{
 			Chat c = _chats.get(_userList.get(jlistRoomchat.getSelectedIndex()));
 			message = new achala.communication.Message(connectedUser, txtmessage.getText());
 			c.send(message);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (CommunicationException e1) {
+		} 
+		catch (RemoteException e1)
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		catch (CommunicationException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		_listMessage.add(message);
 		PanelMessage p1 = new PanelMessage(message);
 		panelChat.add(p1);

@@ -12,11 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
+import achala.communication.Message;
 import achala.communication._RemotableObject;
-import application.utils.Message;
 
 public class PanelMessage extends JPanel {
 
+	private static final long serialVersionUID = -9176361023262059756L;
 	/**
 	 * Representation graphique d'un Commentaire
 	 */
@@ -25,12 +26,12 @@ public class PanelMessage extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 
 		String dateheure = new SimpleDateFormat("dd MMMM yyyy hh:mm:ss", Locale.FRANCE).format(new Date());
-		JLabel lblDeNom = new JLabel("  le " +dateheure+ " " +m.getPseudo() + " a ecrit : ");
+		JLabel lblDeNom = new JLabel("  le " + dateheure + " " + m.getSender() + " a ecrit : ");
 		add(lblDeNom, BorderLayout.NORTH);
 
 		JTextPane textPaneContenu = new JTextPane();
 		textPaneContenu.setEditable(false);
-		textPaneContenu.setText(m.getContenu());
+		textPaneContenu.setText(m.getObject().toString());
 
 		setPreferredSize(new Dimension(500,75));
 		add(textPaneContenu, BorderLayout.CENTER);
