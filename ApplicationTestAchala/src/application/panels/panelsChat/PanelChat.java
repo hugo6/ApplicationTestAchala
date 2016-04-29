@@ -54,7 +54,7 @@ public class PanelChat extends JPanel {
 	private JTextField txtMessage;
 	
 	private _Utilisateur connectedUser;
-	private _Server server;
+	private static _Server server;
 //	private Map<String, Chat> chatRooms;
 	private static Chat currentChat;
 	
@@ -344,17 +344,12 @@ public class PanelChat extends JPanel {
 	public static boolean nameAlreadyTaken(String name)
 	{
 		try {
-			for (Chat chat : messageList.keySet()) {
-				if (chat.getShared().getZoneName().equals(name)) {
-					return true;
-				}
-			}
+			return server.alreadyExist(name);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return false;
+		return true;
 	}
 	
 	public static void changeChat(String zoneName)
