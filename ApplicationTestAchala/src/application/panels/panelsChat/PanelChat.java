@@ -55,7 +55,7 @@ public class PanelChat extends JPanel {
 	 * graphical components
 	 */
 	 private JList<Component> jlistRoomchat;
-	 
+	 private JPanel panelChat;
 	/**
 	 * panel chat constructor
 	 * @param nom
@@ -103,7 +103,7 @@ public class PanelChat extends JPanel {
 		
 		
 		/*CHAT PANEL*/
-		JPanel panelChat = new JPanel();
+		panelChat = new JPanel();
 		panelChat.setBounds(10, 11, 459, 345);
 		//TODO correction affichage + scroll automatique
 		panelChat.setLayout(new BoxLayout(panelChat, BoxLayout.Y_AXIS));
@@ -133,7 +133,7 @@ public class PanelChat extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10){//press enter
-					//TODO Send message
+					sendMessage(txtMessage.getText());
 				}
 			}
 		});
@@ -157,7 +157,6 @@ public class PanelChat extends JPanel {
 		JButton btnEnvoyer = new JButton("Envoyer");
 		btnEnvoyer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Send message
 				sendMessage(txtMessage.getText());
 			}
 		});
@@ -309,6 +308,10 @@ public class PanelChat extends JPanel {
 			currentChat.send(objet);
 			//PanelMessage m = new PanelMessage(objet);
 			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
+			// TODO afficher le message dans le panel
+			this.panelChat.add(new PanelMessage(objet));
+			this.panelChat.validate();
+			this.txtMessage.setText("");
 		}
 		catch(Exception ex)
 		{
