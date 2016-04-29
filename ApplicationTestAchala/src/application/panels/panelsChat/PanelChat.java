@@ -209,6 +209,7 @@ public class PanelChat extends JPanel {
 							}
 						}
 					}
+					affichagePanel(currentChat);
 				}
 				catch(Exception ex)
 				{
@@ -336,13 +337,13 @@ public class PanelChat extends JPanel {
 		}
 	}
 	
-	public static void affichagePanel(_Shared shared)
+	public static void affichagePanel(Chat chat)
 	{
-		if(shared != currentChat.getShared()) return;
+		if(chat != currentChat) return;
 		try
 		{
 			panelChat.removeAll();
-			for(_RemotableObject o : shared.getObjects())
+			for(_RemotableObject o : chat.getShared().getObjects())
 			{
 				PanelMessage pm = new PanelMessage(o);
 				panelChat.add(pm);
@@ -356,11 +357,11 @@ public class PanelChat extends JPanel {
 		
 	}
 	
-	public static void addMessage(_RemotableObject objet, _Shared share)
+	public static void addMessage(_RemotableObject objet, Chat chat)
 	{
-		if(messageList.containsKey(share)){
-			messageList.get(share).add(objet);
-			affichagePanel(share);
+		if(messageList.containsKey(chat)){
+			messageList.get(chat).add(objet);
+			affichagePanel(chat);
 		}
 	}
 }

@@ -9,8 +9,7 @@ import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;
 import achala.communication.utilisateur._Utilisateur;
 import application.panels.panelsChat.PanelChat;
-import application.panels.panelsChat.PanelMessage;
-import modules.chat.util.Util.Cmd;
+import modules.chat.Chat;
 
 public class ListenerThread extends Thread {
 
@@ -18,6 +17,7 @@ public class ListenerThread extends Thread {
 	private _Shared s;
 	private boolean run;
 	private JPanel panel;
+	private Chat c;
 
 	/**
 	 * Construit un thread de reception de messages
@@ -38,6 +38,11 @@ public class ListenerThread extends Thread {
 		this(u, s);
 		this.setPanel(panel);
 	}
+	
+	public ListenerThread(_Utilisateur u, _Shared s, Chat c) {
+		this(u, s);
+		this.setC(c);
+	}
 	/**
 	 * Lance le thread permettant d'affichier les messages
 	 */
@@ -49,7 +54,7 @@ public class ListenerThread extends Thread {
 				objs = this.getU().receive(this.getS());
 				for (_RemotableObject o : objs) {
 					
-					PanelChat.addMessage(o, this.getS());
+					PanelChat.addMessage(o, this.getC());
 					
 					System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
 					System.out.println(o.getObject().toString());
@@ -87,6 +92,14 @@ public class ListenerThread extends Thread {
 
 	private void setPanel(JPanel panel) {
 		this.panel = panel;
+	}
+
+	private Chat getC() {
+		return c;
+	}
+
+	private void setC(Chat c) {
+		this.c = c;
 	}
 
 	private boolean isRun() {

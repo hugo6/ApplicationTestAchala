@@ -168,7 +168,7 @@ public class Chat {
 		// if(notifs == null)
 		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
 
-		new ListenerThread(this.getCurrent(), this.getShared()).start();
+		new ListenerThread(this.getCurrent(), this.getShared(), this).start();
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
 		// listenerThread.start();
 		// notifs.start();
