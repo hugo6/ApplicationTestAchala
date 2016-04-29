@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class ApplicationArticle extends JFrame {
 
 	private JPanel contentPane;
-
+	private JFrame frame;
 	/**
 	 * Launch the application.
 	 */
@@ -24,8 +24,8 @@ public class ApplicationArticle extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ApplicationArticle frame = new ApplicationArticle();
-					frame.setVisible(true);
+					ApplicationArticle window = new ApplicationArticle();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,8 +37,9 @@ public class ApplicationArticle extends JFrame {
 	 * Create the frame.
 	 */
 	public ApplicationArticle() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 955, 460);
+		frame = new JFrame("Application de gestion d'article");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 955, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,15 +53,15 @@ public class ApplicationArticle extends JFrame {
 				String nomUser = pc.getTextFieldNom().getText();
 				String prenomUser = pc.getTextFieldPrenom().getText();
 				PanelPrincipalArticle ppa = new PanelPrincipalArticle(nomUser, prenomUser);
-				getContentPane().add(ppa);
-				setContentPane(ppa);
-				getContentPane();
-				validate();
+				frame.getContentPane().add(ppa);
+				frame.setContentPane(ppa);
+				frame.getContentPane();
+				frame.validate();
 				
 			}
 		});
 		btnConnexion.setBounds(292, 271, 89, 23);
 		pc.add(btnConnexion);
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 	}
 }

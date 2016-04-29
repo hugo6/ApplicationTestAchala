@@ -104,7 +104,7 @@ public class PanelChat extends JPanel {
 		
 		
 		/*CHAT NAME LABEL*/
-		JLabel lblNametoChat = new JLabel("Please select a chat room...");
+		JLabel lblNametoChat = new JLabel("Selectionner une salle de chat ...");
 		lblNametoChat.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNametoChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNametoChat.setBounds(200, 13, 318, 25);
@@ -131,7 +131,7 @@ public class PanelChat extends JPanel {
 		
 		/*FIELD MESSAGE WRITING*/
 		txtMessage = new JTextField();
-		txtMessage.setText("Please enter your message here...");
+		txtMessage.setText(" Entrer votre message ici");
 		txtMessage.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -146,7 +146,7 @@ public class PanelChat extends JPanel {
 				}
 			}
 		});
-		txtMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		txtMessage.setHorizontalAlignment(SwingConstants.LEFT);
 		txtMessage.setBounds(40, 259, 282, 71);
 		txtMessage.setColumns(10);
 		add(txtMessage);
@@ -180,7 +180,7 @@ public class PanelChat extends JPanel {
 		*/
 		
 		/*LABEL ROOMCHAT*/
-		JLabel lblRoomchat = new JLabel("Online chat rooms");
+		JLabel lblRoomchat = new JLabel("Salle de chat en ligne");
 		lblRoomchat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRoomchat.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblRoomchat.setBounds(570, 144, 265, 25);
@@ -250,7 +250,7 @@ public class PanelChat extends JPanel {
 		 * SERVER
 		*/
 		/*LABEL Server*/ 
-		JLabel lblipServer = new JLabel("Server choice");
+		JLabel lblipServer = new JLabel("Choix du serveur");
 		lblipServer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblipServer.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblipServer.setBounds(570, 31, 260, 25);
