@@ -289,8 +289,8 @@ public class PanelChat extends JPanel {
 						public int getSize() {
 							return shares.length;
 						}
-						public Object getElementAt(int index) {
-							return shares[index];
+						public _Shared getElementAt(int index) {
+							return (_Shared) shares[index];
 						}
 					});
 					
@@ -323,8 +323,8 @@ public class PanelChat extends JPanel {
 			//PanelMessage m = new PanelMessage(objet);
 			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
 			// TODO afficher le message dans le panel
-			this.panelChat.add(new PanelMessage(objet));
-			this.panelChat.validate();
+			panelChat.add(new PanelMessage(objet));
+			panelChat.validate();
 			this.txtMessage.setText("");
 		}
 		catch(Exception ex)

@@ -12,11 +12,14 @@ class MyRenderer extends DefaultListCellRenderer {
 
 	private static final long serialVersionUID = 1L;
 
-	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
-		JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-		Chat c = (Chat) value;
+	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+			boolean hasFocus) {
+		JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
+
 		try {
-			label.setText(c.getShared().getZoneName());
+			Chat c = (Chat) value;
+			String name = c.getShared().getZoneName();
+			label.setText(name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
