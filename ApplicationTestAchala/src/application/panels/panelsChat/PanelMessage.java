@@ -41,7 +41,7 @@ public class PanelMessage extends JPanel {
 	public PanelMessage(_RemotableObject m) {
 		try
 		{
-			setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+			//setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 			setLayout(new BorderLayout(0, 0));
 	
 			String dateheure = new SimpleDateFormat("dd MMMM yyyy hh:mm:ss", Locale.FRANCE).format(m.getDate());
