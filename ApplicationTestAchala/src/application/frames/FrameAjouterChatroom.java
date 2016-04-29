@@ -104,7 +104,7 @@ public class FrameAjouterChatroom extends JFrame {
 				if (!PanelChat.nameAlreadyTaken(textChatroomName.getText())) {
 					//TODO add the chatroom
 					List<_Utilisateur> users = PanelChat.getServer().getUtilisateurs();
-					//String rmiAdresse = "rmi://" + PanelChat.getServer().get
+					String zoneName = 
 					if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
 						PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, textChatroomName.getText(), textPassword.getText()));
 					else
