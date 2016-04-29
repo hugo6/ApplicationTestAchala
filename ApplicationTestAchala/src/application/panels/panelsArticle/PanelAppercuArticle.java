@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 
 import application.frames.FrameAffichageArticle;
 import modules.publication.metier.Article;
+import javax.swing.JButton;
 
 public class PanelAppercuArticle extends JPanel {
 
@@ -86,9 +87,6 @@ public class PanelAppercuArticle extends JPanel {
 		JLabel lblAuteur = new JLabel("Auteur : " + a.getAuteur());
 		panelAuteur.add(lblAuteur);
 		lblAuteur.setHorizontalAlignment(SwingConstants.CENTER);
-
-		Component verticalStrut_2 = Box.createVerticalStrut(20);
-		panelAuteur.add(verticalStrut_2);
 		
 		// affichage des 29 premiers caractere de l'article + "..."
 		if (premierMots.length() < 30) {
@@ -100,6 +98,9 @@ public class PanelAppercuArticle extends JPanel {
 		} else
 			premierMots = premierMots.substring(0, 30);
 		lblContenu.setText(premierMots);
+		
+		JButton btnSuppr = new JButton("Supprimer");
+		panelTitre.add(btnSuppr);
 		this.setPreferredSize(new Dimension(175, 110));
 
 	}
