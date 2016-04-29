@@ -200,8 +200,7 @@ public class PanelChat extends JPanel {
 					if(getSelectChat(zoneName).getShared() instanceof SecureCorrespondance){
 						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
 						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
-					}
-					else{				
+					} else {				
 						//sans password
 						changeChat(zoneName);
 					}
@@ -397,7 +396,7 @@ public class PanelChat extends JPanel {
 			ex.printStackTrace();
 		}
 		
-		return null;
+		return currentChat;
 	}
 	
 	/**

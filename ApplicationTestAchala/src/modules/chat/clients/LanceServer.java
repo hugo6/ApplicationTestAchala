@@ -13,7 +13,7 @@ public class LanceServer {
 		try
 		{
 			_Utilisateur user = new Utilisateur("Server", "Test");
-			_Server srv = Server.getServer("192.168.43.84");
+			_Server srv = Server.getServer("192.168.43.10");
 			
 			user.connect(srv);
 			
