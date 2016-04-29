@@ -236,5 +236,16 @@ public class Chat {
 		_RemotableObject msg = new Message(this.getCurrent(), message);
 		this.getCurrent().send(this.getShared(), msg);
 	}
+	
+	/**
+	 * Verifie l'egalite des chats
+	 * @param chat
+	 * @return boolean : true si les chats sont les meme, false dans le cas contraire
+	 * @throws RemoteException leve une exception en cas d'echec de communication
+	 */
+	public boolean equals(Chat chat) throws RemoteException {
+		if(this.getShared().getZoneName().equals(chat.getShared().getZoneName())) return true;
+		return false;
+	}
 
 }

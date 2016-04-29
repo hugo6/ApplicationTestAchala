@@ -200,19 +200,12 @@ public class PanelChat extends JPanel {
 					//Recuperation du chat + listener sur celui-ci
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
-					FrameConnexionChatroom frame_co = new FrameConnexionChatroom("");
-					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
-					{
-						for (Chat chat : messageList.keySet()) {
-							if (chat.getShared().getZoneName().equals(zoneName)) {
-								currentChat = chat;
-								if (!currentChat.isThreadRun())
-									currentChat.listener();
-								break;
-							}
-						}
-					}
-					affichagePanel(currentChat);
+					//avec password
+//					FrameConnexionChatroom frame_co = new FrameConnexionChatroom("");
+					
+					//sans password
+					changeChat(zoneName);
+					
 				}
 				catch(Exception ex)
 				{
@@ -280,41 +273,12 @@ public class PanelChat extends JPanel {
 
 				try
 				{
-					List<String> zonesNames = new ArrayList<String>();;
 					//Recuperation du serveur
 					server = Server.getServer(comboxIpServer.getSelectedItem().toString());
 					//Connexion du client au serveur
 					connectedUser.connect(server);
 					
-					//Gestion de toutes les Rooms sur le serveur
-					for(_Shared s : server.getShares())
-					{
-						//Creation d'un chat avec la zone de partage
-						Chat c = new Chat(server, connectedUser, server.getUtilisateurs(), s.getZoneName());
-						
-						if(!messageList.containsKey(c))
-						{
-							c.getShared().addUsers(server.getUtilisateurs());
-							messageList.put(c, new ArrayList<_RemotableObject>());
-						}
-						
-						zonesNames.add(s.getZoneName());
-					}
-					
-					
-					jlistRoomchat.setCellRenderer(new MyRenderer());
-					jlistRoomchat.setModel(new AbstractListModel() {
-						//Recupere le nom des zones de la HashMap
-						Object[] shares = zonesNames.toArray();
-						public int getSize() {
-							return shares.length;
-						}
-						public Object getElementAt(int index) {
-							return shares[index];
-						}
-					});
-					
-					validate();
+					refreshRooms(server);
 				}
 				catch (Exception ex)
 				{
@@ -380,6 +344,75 @@ public class PanelChat extends JPanel {
 		if(messageList.containsKey(chat)){
 			messageList.get(chat).add(objet);
 			affichagePanel(chat);
+		}
+	}
+	
+	public static void changeChat(String zoneName)
+	{
+		try
+		{
+			if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
+			{
+				for (Chat chat : messageList.keySet()) {
+					if (chat.getShared().getZoneName().equals(zoneName)) {
+						currentChat = chat;
+						if (!currentChat.isThreadRun())
+							currentChat.listener();
+						break;
+					}
+				}
+			}
+			affichagePanel(currentChat);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Rafraichi la liste des rooms sur le serveur
+	 * @param server _Server : serveur sur lequel chercher les rooms
+	 */
+	public void refreshRooms(_Server server)
+	{
+		try
+		{
+			List<String> zonesNames = new ArrayList<String>();
+			
+			//Gestion de toutes les Rooms sur le serveur
+			for(_Shared s : server.getShares())
+			{
+				//Creation d'un chat avec la zone de partage
+				Chat c = new Chat(server, connectedUser, server.getUtilisateurs(), s.getZoneName());
+				
+				if(!messageList.containsKey(c))
+				{
+					c.getShared().addUsers(server.getUtilisateurs());
+					messageList.put(c, new ArrayList<_RemotableObject>());
+				}
+				
+				zonesNames.add(s.getZoneName());
+			}
+			
+			
+			jlistRoomchat.setCellRenderer(new MyRenderer());
+			jlistRoomchat.setModel(new AbstractListModel() {
+				//Recupere le nom des zones de la HashMap
+				Object[] shares = zonesNames.toArray();
+				public int getSize() {
+					return shares.length;
+				}
+				public Object getElementAt(int index) {
+					return shares[index];
+				}
+			});
+			
+			validate();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 }
