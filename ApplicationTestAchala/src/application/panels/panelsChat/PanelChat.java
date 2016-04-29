@@ -43,6 +43,8 @@ import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
 import application.frames.FrameConnexionChatroom;
 import modules.chat.Chat;
+import modules.chat.SecureCorrespondance;
+import modules.chat._SecureCorrespondance;
 
 
 public class PanelChat extends JPanel {
@@ -195,10 +197,14 @@ public class PanelChat extends JPanel {
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
 					//avec password
-					FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, "");
-					
-					//sans password
-//					changeChat(zoneName);
+					if(getSelectChat(zoneName).getShared() instanceof SecureCorrespondance){
+						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
+						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
+					}
+					else{				
+						//sans password
+						changeChat(zoneName);
+					}
 					
 				}
 				catch(Exception ex)
@@ -364,23 +370,34 @@ public class PanelChat extends JPanel {
 	{
 		try
 		{
-			if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
-			{
-				for (Chat chat : messageList.keySet()) {
-					if (chat.getShared().getZoneName().equals(zoneName)) {
-						currentChat = chat;
-						if (!currentChat.isThreadRun())
-							currentChat.listener();
-						break;
-					}
-				}
-			}
+			currentChat = getSelectChat(zoneName);
 			affichagePanel(currentChat);
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	public static Chat getSelectChat(String zoneName)
+	{
+		try
+		{
+			if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
+			{
+				for (Chat chat : messageList.keySet()) {
+					if (chat.getShared().getZoneName().equals(zoneName)) {
+						return chat;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	/**

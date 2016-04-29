@@ -73,6 +73,7 @@ public class FrameConnexionChatroom extends JFrame {
 					PanelChat.changeChat(zoneName);
 				} else {
 					//TODO popup pwd wrong
+					System.out.println("Password errone");
 				}
 				
 			}

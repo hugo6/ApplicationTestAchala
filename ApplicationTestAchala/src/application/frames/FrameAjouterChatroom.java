@@ -103,14 +103,25 @@ public class FrameAjouterChatroom extends JFrame {
 				//TODO add the chatroom
 				if (!PanelChat.nameAlreadyTaken(textChatroomName.getText())) {
 					//TODO add the chatroom
-					List<_Utilisateur> users = PanelChat.getServer().getUtilisateurs();
-					String zoneName = 
-					if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
-						PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, textChatroomName.getText(), textPassword.getText()));
-					else
-						PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, textChatroomName.getText()));
+					try
+					{
+						List<_Utilisateur> users = PanelChat.getServer().getUtilisateurs();
+						String zoneName = textChatroomName.getText();
+						String rmiAdresse = PanelChat.getServer().getRMIAdresse(zoneName);
+						String password = textPassword.getText();
+						
+						if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
+							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
+						else
+							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, zoneName));
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+					}
 				} else {
 					//TODO popup nom deja pris
+					System.out.println("Deja pris !");
 				}
 			}
 		});
