@@ -60,7 +60,7 @@ public class ApplicationArticle extends JFrame {
 				
 			}
 		});
-		btnConnexion.setBounds(292, 271, 89, 23);
+		btnConnexion.setBounds(334, 308, 315, 23);
 		pc.add(btnConnexion);
 		frame.setContentPane(contentPane);
 	}

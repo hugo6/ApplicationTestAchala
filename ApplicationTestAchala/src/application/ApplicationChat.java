@@ -62,7 +62,7 @@ public class ApplicationChat {
 				frame.validate();
 			}
 		});
-		btnConnexion.setBounds(297, 292, 99, 23);
+		btnConnexion.setBounds(334, 311, 315, 23);
 		pc.add(btnConnexion);
 		
 		
