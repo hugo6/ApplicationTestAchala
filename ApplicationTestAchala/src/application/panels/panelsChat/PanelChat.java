@@ -52,7 +52,7 @@ public class PanelChat extends JPanel {
 	
 	private _Utilisateur connectedUser;
 	private _Server server;
-	private Map<String, Chat> chatRooms;
+//	private Map<String, Chat> chatRooms;
 	private static Chat currentChat;
 	
 	/**
@@ -71,7 +71,7 @@ public class PanelChat extends JPanel {
 		{
 			connectedUser = new Utilisateur(nom, prenom);
 			server = null;
-			chatRooms = new HashMap<String, Chat>();
+//			chatRooms = new HashMap<String, Chat>();
 			currentChat = null;
 		}
 		catch(Exception ex)
@@ -285,7 +285,7 @@ public class PanelChat extends JPanel {
 					jlistRoomchat.setCellRenderer(new MyRenderer());
 					jlistRoomchat.setModel(new AbstractListModel() {
 						//Recupere le nom des zones de la HashMap
-						Object[] shares = chatRooms.keySet().toArray();
+						Object[] shares = messageList.keySet().toArray();
 						public int getSize() {
 							return shares.length;
 						}
