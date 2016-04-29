@@ -41,6 +41,7 @@ import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
 import application.frames.FrameConnexionChatroom;
+import javax.swing.ImageIcon;
 
 
 public class PanelChat extends JPanel {
@@ -236,9 +237,22 @@ public class PanelChat extends JPanel {
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
-		button.setBounds(845, 144, 57, 29);
+		button.setBounds(843, 146, 49, 29);
 		add(button);
 		
+		/**
+		 * REFRESH BUTTON
+		 */
+		JButton btnRefresh = new JButton();
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO AURELIEN methode refresh
+			}
+		});
+		btnRefresh.setIcon(new ImageIcon(PanelChat.class.getResource("/com/sun/javafx/scene/web/skin/Undo_16x16_JFX.png")));
+		btnRefresh.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnRefresh.setBounds(843, 180, 49, 29);
+		add(btnRefresh);
 		
 		/**
 		 * SERVER
@@ -312,6 +326,8 @@ public class PanelChat extends JPanel {
 		});
 		btnConnecter.setBounds(732, 79, 98, 34);
 		add(btnConnecter);	
+		
+		
 		
 	}
 	
