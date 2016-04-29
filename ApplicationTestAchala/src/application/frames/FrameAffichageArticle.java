@@ -36,6 +36,8 @@ public class FrameAffichageArticle extends JFrame {
 		// creer le panel qui va afficher les commentaires correspondant a l article a
 		PanelAfficheCommentaires panelAfficheCom = new PanelAfficheCommentaires(prenomUser,nomUser,a);
 		
+		
+		
 		tabbedPane.addTab("Commentaires", panelAfficheCom );
 		affichage.getContentPane();
 		affichage.setVisible(true);
