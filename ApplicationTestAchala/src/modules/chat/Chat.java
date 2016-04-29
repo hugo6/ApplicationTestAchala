@@ -5,6 +5,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -144,6 +146,19 @@ public class Chat {
 		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
 
 		new ListenerThread(this.getCurrent(), this.getShared()).start();
+		new NotificationThread(this.getShared(), this.getCurrent()).start();
+		// listenerThread.start();
+		// notifs.start();
+	}
+	
+	public void listener(JPanel panel) throws RemoteException {
+
+		// if(listener == null)
+		// listener = new ListenerThread(this.getCurrent(), this.getShared());
+		// if(notifs == null)
+		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
+
+		new ListenerThread(this.getCurrent(), this.getShared() ,panel).start();
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
 		// listenerThread.start();
 		// notifs.start();

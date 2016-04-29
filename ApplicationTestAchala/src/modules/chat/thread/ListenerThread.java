@@ -2,10 +2,13 @@ package modules.chat.thread;
 
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;
 import achala.communication.utilisateur._Utilisateur;
+import application.panels.panelsChat.PanelMessage;
 import modules.chat.util.Util.Cmd;
 
 public class ListenerThread extends Thread {
@@ -13,6 +16,7 @@ public class ListenerThread extends Thread {
 	private _Utilisateur u;
 	private _Shared s;
 	private boolean run;
+	private JPanel panel;
 
 	/**
 	 * Construit un thread de reception de messages
@@ -26,8 +30,13 @@ public class ListenerThread extends Thread {
 		this.setU(u);
 		this.setS(s);
 		this.setRun(true);
+		this.setPanel(null);
 	}
 
+	public ListenerThread(_Utilisateur u, _Shared s, JPanel panel) {
+		this(u, s);
+		this.setPanel(panel);
+	}
 	/**
 	 * Lance le thread permettant d'affichier les messages
 	 */
@@ -38,6 +47,13 @@ public class ListenerThread extends Thread {
 				sleep(2000);
 				objs = this.getU().receive(this.getS());
 				for (_RemotableObject o : objs) {
+					
+					if(this.getPanel() != null){
+						PanelMessage pm = new PanelMessage(o);
+						this.getPanel().add(pm);
+						this.getPanel().validate();
+					}
+					
 					if (o.getObject().toString().equals(Cmd.EXIT.toString())) {
 						System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
 						System.out.println(Cmd.message(Cmd.EXIT, o.getSender()));
@@ -71,6 +87,14 @@ public class ListenerThread extends Thread {
 
 	private void setS(_Shared s) {
 		this.s = s;
+	}
+
+	private JPanel getPanel() {
+		return panel;
+	}
+
+	private void setPanel(JPanel panel) {
+		this.panel = panel;
 	}
 
 	private boolean isRun() {

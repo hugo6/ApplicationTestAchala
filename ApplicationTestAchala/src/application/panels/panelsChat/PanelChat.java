@@ -11,7 +11,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractListModel;
@@ -30,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import modules.chat.Chat;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -38,14 +38,9 @@ import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
-import modules.chat.Chat;
 
 
 public class PanelChat extends JPanel {
-	
-	/* TODO TDL
-	 * 
-	 */
 	
 	private static final long serialVersionUID = 1L;
 
@@ -79,15 +74,6 @@ public class PanelChat extends JPanel {
 		{
 			ex.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		/**
 		 * graphical panelChat settings
@@ -310,6 +296,10 @@ public class PanelChat extends JPanel {
 		
 	}
 	
+	/**
+	 * 
+	 * @param message : message to send
+	 */
 	private void sendMessage(String message)
 	{
 		_RemotableObject objet = null;
