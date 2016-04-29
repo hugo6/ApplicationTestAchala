@@ -14,7 +14,7 @@ import javax.swing.JEditorPane;
 public class PanelContenuArticle extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Panel qui va afficher le contenu de l article ( titre + contenu + auteur + date )
 	 */
 	public PanelContenuArticle(String nom, String titre, String contenu, String date) {
 		setLayout(new BorderLayout(0, 0));

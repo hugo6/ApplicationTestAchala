@@ -25,7 +25,7 @@ public class PanelAppercuArticle extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Create the panel.
+	 * Paenel qui affiche l'apercu d'un article 
 	 */
 	public PanelAppercuArticle(Article a, String nomUser, String prenomUser) {
 		setBorder(new LineBorder(Color.LIGHT_GRAY, 3));
@@ -71,13 +71,14 @@ public class PanelAppercuArticle extends JPanel {
 		JPanel panelPremiers = new JPanel();
 		panelTitre.add(panelPremiers);
 		panelPremiers.setLayout(new BoxLayout(panelPremiers, BoxLayout.Y_AXIS));
-
+		// affiche le debut du contenu de l article.
 		JLabel lblContenu = new JLabel("New label");
 		panelPremiers.add(lblContenu);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		panelPremiers.add(verticalStrut_1);
 		
+		// affiche l'auteur de l article
 		JPanel panelAuteur = new JPanel();
 		panelTitre.add(panelAuteur);
 		panelAuteur.setLayout(new BoxLayout(panelAuteur, BoxLayout.Y_AXIS));
@@ -93,8 +94,7 @@ public class PanelAppercuArticle extends JPanel {
 		if (premierMots.length() < 30) {
 			premierMots = premierMots.substring(0);
 
-			// remplisage par des espaces ... Question esthetique mais en fait
-			// c'est tjrs un peu moche
+			// remplisage par des espaces ... Question esthetique
 			for (int i = premierMots.length(); i < 30; i++)
 				premierMots += " ";
 		} else

@@ -34,7 +34,8 @@ public class PanelPrincipal extends JPanel {
 		return prenom;
 	}
 	/**
-	 * Create the panel.
+	 * Panel qui affiche les differents menu ( Article , Edition d'un nouvel article , Chat )
+	 *
 	 */
 	public PanelPrincipal(String nomUser, String prenomUser) {
 		this.nom = nomUser;
@@ -47,8 +48,9 @@ public class PanelPrincipal extends JPanel {
 		lblUser.setBounds(10, 16, 526, 14);
 		add(lblUser);
 
+		// Recuperation de la date du jour et affichage.
 		String txtDate = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date());
-
+		
 		JLabel lblDate = new JLabel(txtDate);
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDate.setBounds(825, 16, 103, 14);
@@ -57,21 +59,22 @@ public class PanelPrincipal extends JPanel {
 		JTabbedPane tabbedPaneMenu = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneMenu.setBounds(10, 41, 918, 368);
 		add(tabbedPaneMenu);
-/*
+	/*	
+		// Ajout des differents menu dans le tabbed pane menu
 		PanelArticle panelArticle = new PanelArticle(nomUser,prenomUser);
-		//JScrollPane scroll = new JScrollPane(panelArticle, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-			//	JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tabbedPaneMenu.addTab("Article",panelArticle);
 		
 		PanelEdition panelEdition = new PanelEdition(nom, prenom);
 		JScrollPane scrollEdition = new JScrollPane(panelEdition, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
+		// Bouton permettant de publier un article dans le panelEdition
 		JButton Publier = new JButton("Publier");
 		Publier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//Ajout de l'article en base 
 				Article nouvelArticle = new Article(panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(), nomUser + " "+ prenomUser,txtDate);
+				
 				PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
 				panelArticle.getPanelArticles().add(paa);
 				panelArticle.validate();
@@ -85,8 +88,8 @@ public class PanelPrincipal extends JPanel {
 		});
 		panelEdition.add(Publier, BorderLayout.SOUTH);
 		tabbedPaneMenu.add(scrollEdition,"Edition");
-*/
 
+*/
 
 		tabbedPaneMenu.addTab("Chat", new PanelChat(nomUser, prenomUser));
 		tabbedPaneMenu.setPreferredSize(new Dimension(1000,460));

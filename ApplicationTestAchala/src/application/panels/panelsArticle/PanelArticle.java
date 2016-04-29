@@ -49,14 +49,16 @@ public class PanelArticle extends JPanel {
 		lblArticles.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArticles.setFont(new Font("Tahoma", Font.BOLD, 21));
 
-		JPanel panelGlue = new JPanel();
-		panelGlue.setBackground(Color.LIGHT_GRAY);
-		add(panelGlue);
-		panelGlue.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		// Panel qui va afficher tous les boutons de tri
+		JPanel panelTri = new JPanel();
+		panelTri.setBackground(Color.LIGHT_GRAY);
+		add(panelTri);
+		panelTri.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JLabel lblTrierLesArticles = new JLabel("Trier les articles par : ");
-		panelGlue.add(lblTrierLesArticles);
+		panelTri.add(lblTrierLesArticles);
 
+		// tri des aticles par titre 
 		JButton btnTitre = new JButton("Titre");
 		btnTitre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -66,8 +68,9 @@ public class PanelArticle extends JPanel {
 				panelArticles.validate();
 			}
 		});
-		panelGlue.add(btnTitre);
-
+		panelTri.add(btnTitre);
+		
+		// tri des aticles par date
 		JButton btnDate = new JButton("Date");
 		btnDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -77,8 +80,9 @@ public class PanelArticle extends JPanel {
 				panelArticles.validate();
 			}
 		});
-		panelGlue.add(btnDate);
-
+		panelTri.add(btnDate);
+		
+		// tri des articles par nom d'auteur
 		JButton btnAuteur = new JButton("Auteur");
 		btnAuteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,8 +92,8 @@ public class PanelArticle extends JPanel {
 				panelArticles.validate();
 			}
 		});
-		panelGlue.add(btnAuteur);
-
+		panelTri.add(btnAuteur);
+		
 		panelArticles = new JPanel();
 		add(panelArticles);
 		panelArticles.setBackground(Color.LIGHT_GRAY);
@@ -98,13 +102,13 @@ public class PanelArticle extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(panelArticles);
 		panelArticles.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		add(scrollPane);
-
+		
+		//Initialisation du stockage en bdd
 		ManagerApp.Instance().initialisation();
 
 		/*
 		 * initialisation des Articles
 		 */
-
 		/*
 		 * 
 		 * Article pa = new Article( "Les allumettes",
@@ -142,6 +146,7 @@ public class PanelArticle extends JPanel {
 		// Recuperation des differents elements de chaques articles + mise en
 		// forme grace a Panel AppercuApercuArticle .
 
+		//affiche les differents panelApercuArticle.
 		affichageApercuArticles(nomUser, prenomUser);
 
 	}
@@ -161,7 +166,6 @@ public class PanelArticle extends JPanel {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
 			panelArticles.add(paa);
 		}
-
 	}
 
 	public JPanel getPanelArticles() {

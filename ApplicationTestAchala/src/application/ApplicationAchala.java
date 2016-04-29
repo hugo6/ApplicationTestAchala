@@ -61,8 +61,9 @@ public class ApplicationAchala {
 		frame.setBounds(100, 100, 955, 460);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//Panel qui permet la connection d'un nouvel utilisateur
 		panelConnexion.setLayout(null);
-
+		
 		JLabel lblBienvenue = new JLabel("Bienvenue dans l'application ACHALA");
 		lblBienvenue.setBounds(283, 0, 335, 22);
 		lblBienvenue.setFont(new Font("Tahoma", Font.BOLD, 18));
