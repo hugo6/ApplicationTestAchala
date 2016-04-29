@@ -1,23 +1,18 @@
 package application.frames;
 
-import javax.swing.JFrame;
-
-import modules.publication.metier.Article;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class FrameAjouterChatroom extends JFrame {
 	
@@ -100,6 +95,7 @@ public class FrameAjouterChatroom extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO add the chatroom
+				//TODO if chat already exist affichage de la popup
 			}
 		});
 		frameAjouter.getContentPane();

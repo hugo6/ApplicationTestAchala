@@ -31,6 +31,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import modules.chat.Chat;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -39,7 +40,7 @@ import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
-import modules.chat.Chat;
+import application.frames.FrameConnexionChatroom;
 
 
 public class PanelChat extends JPanel {
@@ -197,7 +198,8 @@ public class PanelChat extends JPanel {
 				{
 					//Recuperation du chat + listener sur celui-ci
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
-					
+
+					FrameConnexionChatroom frame_co = new FrameConnexionChatroom("");
 					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
 					{
 						for (Chat chat : messageList.keySet()) {

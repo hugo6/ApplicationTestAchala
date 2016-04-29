@@ -1,28 +1,24 @@
 package application.frames;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 public class FrameConnexionChatroom extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JFrame frameConnexion;
-	private JTextField textPassword;
+	private String pwdEntered;
+	private  JPasswordField textPassword;
 	
-	public FrameConnexionChatroom(String s) {
-		
+	public FrameConnexionChatroom(String validPwd) {
 		/**
 		 * set the frame properties
 		 */
@@ -66,12 +62,28 @@ public class FrameConnexionChatroom extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO Connect to the chatroom
+				
+				//Recuperation du chat + listener sur celui-ci
+				//TODO if pwd = pwd;
+				if(pwdEntered.equals(validPwd))
+				{
+					//TODO appel de la méthode 
+				}else 
+				{
+					//TODO popup pwd wrong
+				}
+				
 			}
 		});
 		
 		frameConnexion.getContentPane();
 		frameConnexion.getContentPane().add(panel);
 		frameConnexion.setVisible(true);
+	}
+
+	public boolean isTheSame() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
