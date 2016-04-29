@@ -263,6 +263,7 @@ public class PanelChat extends JPanel {
 
 				try
 				{
+					List<String> zonesNames = new ArrayList<String>();;
 					//Recuperation du serveur
 					server = Server.getServer(comboxIpServer.getSelectedItem().toString());
 					//Connexion du client au serveur
@@ -279,13 +280,15 @@ public class PanelChat extends JPanel {
 							c.getShared().addUsers(server.getUtilisateurs());
 							messageList.put(c, new ArrayList<_RemotableObject>());
 						}
+						
+						zonesNames.add(s.getZoneName());
 					}
 					
 					
 					jlistRoomchat.setCellRenderer(new MyRenderer());
 					jlistRoomchat.setModel(new AbstractListModel() {
 						//Recupere le nom des zones de la HashMap
-						Object[] shares = messageList.keySet().toArray();
+						Object[] shares = zonesNames.toArray();
 						public int getSize() {
 							return shares.length;
 						}
