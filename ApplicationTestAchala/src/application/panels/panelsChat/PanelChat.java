@@ -10,7 +10,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractListModel;
@@ -29,7 +31,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import modules.chat.Chat;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -38,24 +39,27 @@ import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
+import modules.chat.Chat;
 
 
 public class PanelChat extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static Map<Chat, List<_RemotableObject>> messageList = new HashMap<Chat, List<_RemotableObject>>();
 
 	private JTextField txtMessage;
 	
 	private _Utilisateur connectedUser;
 	private _Server server;
 	private Map<String, Chat> chatRooms;
-	private Chat currentChat;
+	private static Chat currentChat;
 	
 	/**
 	 * graphical components
 	 */
 	 private JList<Component> jlistRoomchat;
-	 private JPanel panelChat;
+	 private static JPanel panelChat;
 	/**
 	 * panel chat constructor
 	 * @param nom
@@ -196,9 +200,14 @@ public class PanelChat extends JPanel {
 					
 					if(currentChat == null || !currentChat.getShared().getZoneName().equals(zoneName))
 					{
-						currentChat = chatRooms.get(zoneName);
-						currentChat.getShared().addUsers(server.getUtilisateurs());
-						currentChat.listener(panelChat);
+						for (Chat chat : messageList.keySet()) {
+							if (chat.getShared().getZoneName().equals(zoneName)) {
+								currentChat = chat;
+								if (!currentChat.isThreadRun())
+									currentChat.listener();
+								break;
+							}
+						}
 					}
 				}
 				catch(Exception ex)
@@ -264,7 +273,12 @@ public class PanelChat extends JPanel {
 					{
 						//Creation d'un chat avec la zone de partage
 						Chat c = new Chat(server, connectedUser, server.getUtilisateurs(), s.getZoneName());
-						chatRooms.put(s.getZoneName(), c);
+						
+						if(!messageList.containsKey(c))
+						{
+							c.getShared().addUsers(server.getUtilisateurs());
+							messageList.put(c, new ArrayList<_RemotableObject>());
+						}
 					}
 					
 					
@@ -316,6 +330,34 @@ public class PanelChat extends JPanel {
 		catch(Exception ex)
 		{
 			ex.printStackTrace();	
+		}
+	}
+	
+	public static void affichagePanel(_Shared shared)
+	{
+		if(shared != currentChat.getShared()) return;
+		try
+		{
+			panelChat.removeAll();
+			for(_RemotableObject o : shared.getObjects())
+			{
+				PanelMessage pm = new PanelMessage(o);
+				panelChat.add(pm);
+			}
+			panelChat.validate();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	public static void addMessage(_RemotableObject objet, _Shared share)
+	{
+		if(messageList.containsKey(share)){
+			messageList.get(share).add(objet);
+			affichagePanel(share);
 		}
 	}
 }

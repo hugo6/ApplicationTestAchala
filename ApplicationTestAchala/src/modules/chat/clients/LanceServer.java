@@ -8,7 +8,7 @@ import achala.communication.utilisateur._Utilisateur;
 public class LanceServer {
 
 	public static void main(String[] args) {
-		Server.startServer("src/achala/modules/chat/clients/policy");
+		Server.startServer("src/modules/chat/clients/policy");
 		
 		try
 		{

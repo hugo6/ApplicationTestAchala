@@ -8,6 +8,7 @@ import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;
 import achala.communication.utilisateur._Utilisateur;
+import application.panels.panelsChat.PanelChat;
 import application.panels.panelsChat.PanelMessage;
 import modules.chat.util.Util.Cmd;
 
@@ -48,17 +49,8 @@ public class ListenerThread extends Thread {
 				objs = this.getU().receive(this.getS());
 				for (_RemotableObject o : objs) {
 					
-					if(this.getPanel() != null){
-						PanelMessage pm = new PanelMessage(o);
-						this.getPanel().add(pm);
-						this.getPanel().validate();
-					}
+					PanelChat.addMessage(o, this.getS());
 					
-					if (o.getObject().toString().equals(Cmd.EXIT.toString())) {
-						System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
-						System.out.println(Cmd.message(Cmd.EXIT, o.getSender()));
-						System.out.println(o.getObject().toString());
-					}
 					System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
 					System.out.println(o.getObject().toString());
 				}

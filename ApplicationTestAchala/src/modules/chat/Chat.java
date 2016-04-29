@@ -25,8 +25,9 @@ public class Chat {
 	private List<_Utilisateur> others;
 	private _Server server;
 	private _Shared shared;
-//	private ListenerThread listener;
-//	private NotificationThread notifs;
+	private boolean threadRun;
+	// private ListenerThread listener;
+	// private NotificationThread notifs;
 
 	/**
 	 * Constructeur d'un chat entre utilisateurs u1 et u2 sur le serveur
@@ -46,6 +47,7 @@ public class Chat {
 			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
 			correspondance.addUsers(others);
 			this.setShared(correspondance);
+			this.setThreadRun(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,6 +75,7 @@ public class Chat {
 			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
 			correspondance.addUsers(others);
 			this.setShared(correspondance);
+			this.setThreadRun(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,6 +101,18 @@ public class Chat {
 	public Chat(String ipSrv, _Utilisateur current, List<_Utilisateur> others, String chatName)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		this(Server.getServer(ipSrv), current, others, chatName);
+	}
+
+	/**
+	 * Copie le chat
+	 * 
+	 * @param c
+	 *            Chat : chat a copier
+	 * @throws RemoteException
+	 *             leve une excpetion en cas d'echec de communication
+	 */
+	public Chat(Chat c) throws RemoteException {
+		this(c.getServer(), c.getCurrent(), c.getShared().getZoneName());
 	}
 
 	public _Utilisateur getCurrent() {
@@ -132,6 +147,14 @@ public class Chat {
 		this.shared = shared;
 	}
 
+	public boolean isThreadRun() {
+		return threadRun;
+	}
+
+	public void setThreadRun(boolean threadRun) {
+		this.threadRun = threadRun;
+	}
+
 	/**
 	 * Lance le thread d'ecoute du chat
 	 * 
@@ -149,8 +172,10 @@ public class Chat {
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
 		// listenerThread.start();
 		// notifs.start();
+		
+		this.setThreadRun(true);
 	}
-	
+
 	public void listener(JPanel panel) throws RemoteException {
 
 		// if(listener == null)
@@ -158,7 +183,7 @@ public class Chat {
 		// if(notifs == null)
 		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
 
-		new ListenerThread(this.getCurrent(), this.getShared() ,panel).start();
+		new ListenerThread(this.getCurrent(), this.getShared(), panel).start();
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
 		// listenerThread.start();
 		// notifs.start();
