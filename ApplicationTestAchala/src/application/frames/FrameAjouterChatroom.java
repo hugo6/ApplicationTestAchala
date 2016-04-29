@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import achala.communication.Correspondance;
+import achala.communication.utilisateur._Utilisateur;
 import application.panels.panelsChat.PanelChat;
+import modules.chat.SecureCorrespondance;
 
 public class FrameAjouterChatroom extends JFrame {
 	
@@ -99,6 +103,12 @@ public class FrameAjouterChatroom extends JFrame {
 				//TODO add the chatroom
 				if (!PanelChat.nameAlreadyTaken(textChatroomName.getText())) {
 					//TODO add the chatroom
+					List<_Utilisateur> users = PanelChat.getServer().getUtilisateurs();
+					//String rmiAdresse = "rmi://" + PanelChat.getServer().get
+					if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
+						PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, textChatroomName.getText(), textPassword.getText()));
+					else
+						PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, textChatroomName.getText()));
 				} else {
 					//TODO popup nom deja pris
 				}

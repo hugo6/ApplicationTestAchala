@@ -26,8 +26,6 @@ public class Chat {
 	private _Server server;
 	private _Shared shared;
 	private boolean threadRun;
-	// private ListenerThread listener;
-	// private NotificationThread notifs;
 
 	/**
 	 * Constructeur d'un chat entre utilisateurs u1 et u2 sur le serveur
@@ -44,10 +42,13 @@ public class Chat {
 			this.setServer(srv);
 			this.setCurrent(current);
 			this.setOthers(this.getServer().getUtilisateurs());
+			
 			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
 			correspondance.addUsers(others);
 			this.setShared(correspondance);
+			
 			this.setThreadRun(false);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,19 +67,8 @@ public class Chat {
 	 *            String : nom du chat
 	 */
 	public Chat(_Server srv, _Utilisateur current, List<_Utilisateur> others, String chatName) {
-
-		try {
-			this.setServer(srv);
-			this.setCurrent(current);
-			this.setOthers(others);
-
-			_Shared correspondance = this.getServer().getSharedZone(this.getCurrent(), chatName);
-			correspondance.addUsers(others);
-			this.setShared(correspondance);
-			this.setThreadRun(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this(srv, current, chatName);
+		this.setOthers(others);
 	}
 
 	/**
@@ -163,35 +153,20 @@ public class Chat {
 	 */
 	public void listener() throws RemoteException {
 
-		// if(listener == null)
-		// listener = new ListenerThread(this.getCurrent(), this.getShared());
-		// if(notifs == null)
-		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
-
 		new ListenerThread(this.getCurrent(), this.getShared(), this).start();
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
-		// listenerThread.start();
-		// notifs.start();
 		
 		this.setThreadRun(true);
 	}
 
 	public void listener(JPanel panel) throws RemoteException {
 
-		// if(listener == null)
-		// listener = new ListenerThread(this.getCurrent(), this.getShared());
-		// if(notifs == null)
-		// notifs = new NotificationThread(this.getShared(), this.getCurrent());
-
 		new ListenerThread(this.getCurrent(), this.getShared(), panel).start();
 		new NotificationThread(this.getShared(), this.getCurrent()).start();
-		// listenerThread.start();
-		// notifs.start();
 	}
 
 	public void stopListener() {
-		// if(listener != null)
-		// listener.stopListener();
+		//TODO stop listener
 	}
 
 	/**

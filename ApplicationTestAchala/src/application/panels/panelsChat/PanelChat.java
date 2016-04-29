@@ -53,7 +53,7 @@ public class PanelChat extends JPanel {
 
 	private JTextField txtMessage;
 	
-	private _Utilisateur connectedUser;
+	private static _Utilisateur connectedUser;
 	private static _Server server;
 //	private Map<String, Chat> chatRooms;
 	private static Chat currentChat;
@@ -289,6 +289,14 @@ public class PanelChat extends JPanel {
 		
 	}
 	
+	public static _Server getServer() {
+		return server;
+	}
+
+	public static _Utilisateur getConnectedUser() {
+		return connectedUser;
+	}
+
 	/**
 	 * 
 	 * @param message : message to send
