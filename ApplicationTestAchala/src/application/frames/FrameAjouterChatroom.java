@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import application.panels.panelsChat.PanelChat;
+
 public class FrameAjouterChatroom extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -95,7 +97,11 @@ public class FrameAjouterChatroom extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO add the chatroom
-				//TODO if chat already exist affichage de la popup
+				if (!PanelChat.nameAlreadyTaken(textChatroomName.getText())) {
+					//TODO add the chatroom
+				} else {
+					//TODO popup nom deja pris
+				}
 			}
 		});
 		frameAjouter.getContentPane();

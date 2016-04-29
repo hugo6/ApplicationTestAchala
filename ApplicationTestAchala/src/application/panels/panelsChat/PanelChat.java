@@ -10,6 +10,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Map;
 import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -31,7 +33,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import modules.chat.Chat;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -41,7 +42,7 @@ import achala.communication.utilisateur.Utilisateur;
 import achala.communication.utilisateur._Utilisateur;
 import application.frames.FrameAjouterChatroom;
 import application.frames.FrameConnexionChatroom;
-import javax.swing.ImageIcon;
+import modules.chat.Chat;
 
 
 public class PanelChat extends JPanel {
@@ -186,13 +187,6 @@ public class PanelChat extends JPanel {
 		jlistRoomchat = new JList<Component>();
 		jlistRoomchat.addListSelectionListener(new ListSelectionListener() {
 			//open new window to paswword
-//			public void valueChanged(ListSelectionEvent arg0) {
-//				if (!arg0.getValueIsAdjusting())
-//				{
-//					String s = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
-//					FrameConnexionChatroom frame_co = new FrameConnexionChatroom(s);
-//				}
-//			}
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				try
@@ -201,10 +195,10 @@ public class PanelChat extends JPanel {
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
 					//avec password
-//					FrameConnexionChatroom frame_co = new FrameConnexionChatroom("");
+					FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, "");
 					
 					//sans password
-					changeChat(zoneName);
+//					changeChat(zoneName);
 					
 				}
 				catch(Exception ex)
@@ -239,7 +233,7 @@ public class PanelChat extends JPanel {
 		JButton btnRefresh = new JButton();
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO AURELIEN methode refresh
+				refreshRooms(server);
 			}
 		});
 		btnRefresh.setIcon(new ImageIcon(PanelChat.class.getResource("/com/sun/javafx/scene/web/skin/Undo_16x16_JFX.png")));
@@ -345,6 +339,22 @@ public class PanelChat extends JPanel {
 			messageList.get(chat).add(objet);
 			affichagePanel(chat);
 		}
+	}
+	
+	public static boolean nameAlreadyTaken(String name)
+	{
+		try {
+			for (Chat chat : messageList.keySet()) {
+				if (chat.getShared().getZoneName().equals(name)) {
+					return true;
+				}
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	public static void changeChat(String zoneName)

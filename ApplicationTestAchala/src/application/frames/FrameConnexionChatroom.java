@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
+import application.panels.panelsChat.PanelChat;
+
 public class FrameConnexionChatroom extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,7 @@ public class FrameConnexionChatroom extends JFrame {
 	private String pwdEntered;
 	private  JPasswordField textPassword;
 	
-	public FrameConnexionChatroom(String validPwd) {
+	public FrameConnexionChatroom(String zoneName, String validPwd) {
 		/**
 		 * set the frame properties
 		 */
@@ -62,14 +64,14 @@ public class FrameConnexionChatroom extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO Connect to the chatroom
+				pwdEntered = textPassword.getPassword().toString();
 				
 				//Recuperation du chat + listener sur celui-ci
 				//TODO if pwd = pwd;
 				if(pwdEntered.equals(validPwd))
 				{
-					//TODO appel de la méthode 
-				}else 
-				{
+					PanelChat.changeChat(zoneName);
+				} else {
 					//TODO popup pwd wrong
 				}
 				
@@ -79,11 +81,6 @@ public class FrameConnexionChatroom extends JFrame {
 		frameConnexion.getContentPane();
 		frameConnexion.getContentPane().add(panel);
 		frameConnexion.setVisible(true);
-	}
-
-	public boolean isTheSame() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 	
