@@ -6,15 +6,17 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+import modules.chat.Chat;
+
 class MyRenderer extends DefaultListCellRenderer {
 
 	private static final long serialVersionUID = 1L;
 
 	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
 		JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-		String name = value.toString();
+		Chat c = (Chat) value;
 		try {
-			label.setText(name);
+			label.setText(c.getShared().getZoneName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
