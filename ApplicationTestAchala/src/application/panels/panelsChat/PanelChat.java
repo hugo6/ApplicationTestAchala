@@ -289,8 +289,8 @@ public class PanelChat extends JPanel {
 						public int getSize() {
 							return shares.length;
 						}
-						public _Shared getElementAt(int index) {
-							return (_Shared) shares[index];
+						public Object getElementAt(int index) {
+							return shares[index];
 						}
 					});
 					
