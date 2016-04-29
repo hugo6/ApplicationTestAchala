@@ -370,6 +370,8 @@ public class PanelChat extends JPanel {
 		try
 		{
 			currentChat = getSelectChat(zoneName);
+			if(!currentChat.isThreadRun())
+				currentChat.listener();
 			affichagePanel(currentChat);
 		}
 		catch(Exception ex)
