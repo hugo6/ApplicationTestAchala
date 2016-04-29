@@ -1,5 +1,8 @@
 package modules.chat.clients;
 
+import java.rmi.RemoteException;
+
+import achala.communication._Shared;
 import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
@@ -19,6 +22,25 @@ public class LanceServer {
 			
 			srv.getSharedZone(user, "zoneTest");
 			srv.getSharedZone(user, "chatRoom");
+			
+			new Thread(){
+				public void run(){
+					try {
+						while(srv.getShares().size() != 5)
+						{
+							sleep(5000);
+							for(_Shared s : srv.getShares())
+							{
+								System.out.println(s.getZoneName());
+							}
+						}
+					} catch (RemoteException | InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}.start();
+			
 		}
 		catch(Exception ex)
 		{

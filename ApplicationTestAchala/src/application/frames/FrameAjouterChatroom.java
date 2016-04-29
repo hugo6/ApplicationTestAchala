@@ -114,6 +114,9 @@ public class FrameAjouterChatroom extends JFrame {
 							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
 						else
 							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, zoneName));
+						
+						//fermer();
+						dispose();
 					}
 					catch(Exception ex)
 					{
@@ -128,5 +131,13 @@ public class FrameAjouterChatroom extends JFrame {
 		frameAjouter.getContentPane();
 		frameAjouter.getContentPane().add(panel);
 		frameAjouter.setVisible(true);
+	}
+	
+	/**
+	 * Close la frame
+	 */
+	public void fermer()
+	{
+		this.dispose();
 	}
 }
