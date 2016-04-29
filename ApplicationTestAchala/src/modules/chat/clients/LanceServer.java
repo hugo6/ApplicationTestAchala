@@ -8,19 +8,21 @@ import achala.communication.utilisateur._Utilisateur;
 public class LanceServer {
 
 	public static void main(String[] args) {
-		Server.startServer("src/modules/chat/clients/policy");
+		Server.startServer("src/achala/modules/chat/clients/policy");
 		
 		try
 		{
+			_Utilisateur user = new Utilisateur("Server", "Test");
 			_Server srv = Server.getServer("192.168.43.84");
-			_Utilisateur user = new Utilisateur("test", "test1");
+			
 			user.connect(srv);
-			srv.getSharedZone(user, "chatTest");
+			
 			srv.getSharedZone(user, "zoneTest");
+			srv.getSharedZone(user, "chatRoom");
 		}
-		catch(Exception e)
+		catch(Exception ex)
 		{
-			e.printStackTrace();
+			ex.printStackTrace();	
 		}
 	}
 

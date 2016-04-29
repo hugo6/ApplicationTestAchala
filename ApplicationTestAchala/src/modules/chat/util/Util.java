@@ -44,13 +44,13 @@ public class Util {
 					strReturn = "Liste des commandes :\n"
 								+ "\t-/exit : quitte le chat\n"
 								+ "\t-/ip : obtient l'adresse IP du poste\n"
-								+ "\t-/wizz : envoyer un wizz à votre correspondant";
+								+ "\t-/wizz : envoyer un wizz a votre correspondant";
 					break;
 				case IP:
 					strReturn = "Votre adresse IP est " + user.getIp();
 					break;
 				case WIZZ:
-					strReturn = user.toStringRemote() + " vous a envoyé un wizz";
+					strReturn = user.toStringRemote() + " vous a envoye un wizz";
 					break;
 				default:
 					strReturn = "Command not found";

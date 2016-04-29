@@ -11,7 +11,7 @@ import modules.chat.Chat;
 import modules.chat.util.Util.Cmd;
 
 @SuppressWarnings("deprecation")
-public class Client2 {
+public class Client3 {
 
 	public static void main(String[] args) {
 
@@ -23,20 +23,22 @@ public class Client2 {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 			}
-			
-			_Utilisateur luc = new Utilisateur("Ortiz", "Luc");
+
+			_Utilisateur alexis = new Utilisateur("Ortiz", "Luc");
 			
 			_Server srv = Server.getServer("192.168.43.84");
-//			_Server srv = (_Server) Naming.lookup("rmi://192.168.43.84/srv");
-			luc.connect(srv);
+//			_Server srv = (_Server)Naming.lookup("rmi://192.168.43.84/srv");
+			alexis.connect(srv);
 			
 			System.out.println("Start ?");
 			read.next();
 			
-			Chat c = new Chat(srv, luc, srv.getUtilisateurs(), "zoneTest");
+			Chat c = new Chat(srv, alexis, srv.getUtilisateurs(), "zoneTest");
 			
 			c.listener();
 			c.sender(Cmd.EXIT);
+			
+			
 		}
 		catch(Exception e)
 		{
@@ -47,4 +49,5 @@ public class Client2 {
 		//read.close();
 
 	}
+
 }
