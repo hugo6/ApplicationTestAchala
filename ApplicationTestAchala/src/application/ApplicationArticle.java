@@ -39,7 +39,7 @@ public class ApplicationArticle extends JFrame {
 	public ApplicationArticle() {
 		frame = new JFrame("Application de gestion d'article");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 955, 460);
+		frame.setBounds(100, 100, 955, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

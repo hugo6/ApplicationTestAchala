@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -19,6 +20,7 @@ import application.panels.panelsArticle.PanelAppercuArticle;
 import application.panels.panelsArticle.PanelArticle;
 import application.panels.panelsArticle.PanelEdition;
 import modules.publication.metier.Article;
+import modules.publication.metier.ManagerApp;
 
 public class PanelPrincipalArticle extends JPanel {
 
@@ -83,8 +85,7 @@ public class PanelPrincipalArticle extends JPanel {
 							paa.add(btnSuppr, BorderLayout.PAGE_END);
 							panelArticle.getPanelArticles().add(paa);
 												
-							panelArticle.validate();
-									
+										
 							panelEdition.getTextFieldTitre().setText(null);
 							panelEdition.getTextAreaArticle().setText(null);
 							panelEdition.validate();
@@ -94,8 +95,22 @@ public class PanelPrincipalArticle extends JPanel {
 					});
 					panelEdition.add(Publier, BorderLayout.SOUTH);
 					tabbedPaneMenu.add(scrollEdition,"Edition");
+					
+					JButton btnRafraich = new JButton("Rafraichir");
+					btnRafraich.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							ManagerApp.Instance().getListArticles().clear();
+							ManagerApp.Instance().getListCommentaires().clear();
+							ManagerApp.Instance().initialisation();
+							panelArticle.getPanelArticles().removeAll();
+							panelArticle.getPanelArticles().repaint();
+							panelArticle.affichageApercuArticles(nomUser, prenomUser);
+							panelArticle.validate();
+						}
+					});
+					btnRafraich.setBounds(825, 420, 103, 23);
+					add(btnRafraich);
 
 				
 	}
-
 }
