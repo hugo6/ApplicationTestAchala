@@ -99,7 +99,7 @@ public class PanelPrincipalArticle extends JPanel {
 		panelEdition.add(Publier, BorderLayout.SOUTH);
 		tabbedPaneMenu.add(scrollEdition, "Edition");
 
-		// Bouton qui mets à jour l affichage
+		// Bouton qui met à jour l affichage
 		JButton btnRafraich = new JButton("Rafraichir");
 		btnRafraich.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

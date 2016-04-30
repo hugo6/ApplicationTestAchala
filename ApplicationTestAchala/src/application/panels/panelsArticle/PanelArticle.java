@@ -106,48 +106,6 @@ public class PanelArticle extends JPanel {
 		
 		//Initialisation du stockage en bdd
 		ManagerApp.Instance().initialisation();
-
-		/*
-		 * initialisation des Articles
-		 */
-		/*
-		 * 
-		 * Article pa = new Article( "Les allumettes",
-		 * " JE suis à l recherche d'une voiture volante rouge !!",
-		 * "Robinson Clarck", "11-05-2154");
-		 * 
-		 * Article pa1 = new Article( "Java c'est genial",
-		 * "J'aime bien java et je ne sais pas pourquoi... , Ce que j'apprecie le plus c'est le ping dans la console windows"
-		 * ,"Vaillant Hugo", "11-05-2154"); Article pa2 = new Article( "Chef",
-		 * "Je suis le chef... et taggle ","Ortiz Luc", "11-05-2154"); Article
-		 * pa3 = new Article("BTP",
-		 * "du 7 au 17 je serai absent car je dois partir pour construire une maison avec ma truelle"
-		 * , "FernandeS Aurelien", "11-05-2154"); Article pa4 = new
-		 * Article("7h30",
-		 * "J'adore l imag .... c'est pour cela que je viens a 7h30",
-		 * "Martinier Alexis" ,"11-05-2154");
-		 * 
-		 */
-
-		/*
-		 * initialisation des commentaires
-		 * 
-		 */
-		/*
-		 * new Commentaire( "first!", "Blandin Bob", "11-04-2056",pa.getId());
-		 * new Commentaire("fake", "Mathias Gandit", "11-04-2056", pa.getId());
-		 * new Commentaire("Cette Article n'est pas pertinent","Luc Ortiz",
-		 * "11-04-2056",pa2.getId()); new Commentaire(
-		 * "Comment on fait pour ping?","Hugo Vaillant",
-		 * "11-04-2056",pa3.getId()); new Commentaire("Commentaire inutile!",
-		 * "Claude Audrey", "11-04-2556", pa3.getId() ); new Commentaire(
-		 * " fake!", "Martinier Alexis", "11-04-2556",pa1.getId());
-		 */
-
-		// Recuperation des differents elements de chaques articles + mise en
-		// forme grace a Panel AppercuApercuArticle .
-
-		//affiche les differents panelApercuArticle.
 		affichageApercuArticles(nomUser, prenomUser);
 
 	}

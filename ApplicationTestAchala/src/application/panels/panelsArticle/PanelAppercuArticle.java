@@ -17,6 +17,7 @@ import javax.swing.border.LineBorder;
 import application.frames.FrameAffichageArticle;
 import modules.publication.metier.Article;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 public class PanelAppercuArticle extends JPanel {
 
@@ -26,12 +27,14 @@ public class PanelAppercuArticle extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Paenel qui affiche l'apercu d'un article 
+	 * Panel qui affiche l'apercu d'un article 
 	 */
 	public PanelAppercuArticle(Article a, String nomUser, String prenomUser) {
-		setBorder(new LineBorder(Color.LIGHT_GRAY, 3));
+		setForeground(SystemColor.menu);
+		setBorder(new LineBorder(null, 5, true));
+		
 		String titre = a.getTitre();
-		String premierMots = a.getContenu(); //
+		String premierMots = a.getContenu();
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -40,7 +43,7 @@ public class PanelAppercuArticle extends JPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setBorder(new LineBorder(new Color(240, 240, 240), 3));
+				setBorder(new LineBorder(new Color(240, 240, 240), 5));
 			}
 
 			@Override
