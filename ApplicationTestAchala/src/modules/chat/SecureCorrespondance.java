@@ -29,6 +29,9 @@ public class SecureCorrespondance extends Correspondance implements _SecureCorre
 		this.password = password;
 	}
 
+	public Class<?> getClassRemote() throws RemoteException{
+		return SecureCorrespondance.class;
+	}
 	
 
 }

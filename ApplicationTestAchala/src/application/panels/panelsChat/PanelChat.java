@@ -196,14 +196,25 @@ public class PanelChat extends JPanel {
 					//Recuperation du chat + listener sur celui-ci
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
-					//avec password
-					if(getSelectChat(zoneName).getShared() instanceof SecureCorrespondance){
-						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
+					try
+					{
+						String password = ((SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
 						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
-					} else {				
-						//sans password
+						
+					}
+					catch(Exception ex)
+					{
+						System.out.println("Chat non securise");
 						changeChat(zoneName);
 					}
+					//avec password
+//					if(getSelectChat(zoneName).getShared() instanceof SecureCorrespondance){
+//						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
+//						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
+//					} else {				
+//						//sans password
+//						changeChat(zoneName);
+//					}
 					
 				}
 				catch(Exception ex)
