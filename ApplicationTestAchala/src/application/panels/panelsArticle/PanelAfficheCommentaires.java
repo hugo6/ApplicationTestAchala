@@ -26,9 +26,6 @@ import modules.publication.metier.Commentaire;
 
 public class PanelAfficheCommentaires extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

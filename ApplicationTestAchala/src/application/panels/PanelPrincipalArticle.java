@@ -71,9 +71,20 @@ public class PanelPrincipalArticle extends JPanel {
 							Article nouvelArticle = new Article(panelEdition.getTextFieldTitre().getText(), panelEdition.getTextAreaArticle().getText(), nomUser + " "+ prenomUser,txtDate);
 							
 							PanelAppercuArticle paa = new PanelAppercuArticle(nouvelArticle, nomUser, prenomUser);
+							JButton btnSuppr = new JButton("Supprimer");
+							btnSuppr.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									nouvelArticle.supprimer();
+									panelArticle.getPanelArticles().removeAll();
+									panelArticle.getPanelArticles().repaint();
+									panelArticle.affichageApercuArticles(nomUser, prenomUser);
+								}
+							});
+							paa.add(btnSuppr, BorderLayout.PAGE_END);
 							panelArticle.getPanelArticles().add(paa);
+												
 							panelArticle.validate();
-							
+									
 							panelEdition.getTextFieldTitre().setText(null);
 							panelEdition.getTextAreaArticle().setText(null);
 							panelEdition.validate();
