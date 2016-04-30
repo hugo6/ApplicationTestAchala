@@ -101,9 +101,7 @@ public class FrameAjouterChatroom extends JFrame {
 		panel.add(btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO add the chatroom
 				if (!PanelChat.nameAlreadyTaken(textChatroomName.getText())) {
-					//TODO add the chatroom
 					try
 					{
 						List<_Utilisateur> users = PanelChat.getServer().getUtilisateurs();
@@ -122,7 +120,7 @@ public class FrameAjouterChatroom extends JFrame {
 					{
 						ex.printStackTrace();
 					}
-					lblChatroomName.setText("");
+					textChatroomName.setText("");
 					textPassword.setText("");
 					chckbxPassword.setSelected(false);
 				} else {

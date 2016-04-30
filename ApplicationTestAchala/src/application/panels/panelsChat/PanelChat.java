@@ -197,9 +197,9 @@ public class PanelChat extends JPanel {
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
 					//avec password
-					if(getSelectChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectChat(zoneName).isThreadRun()){
-						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
-						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
+					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
+						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
+						new FrameConnexionChatroom(zoneName, password);
 					} else {				
 						//sans password
 						changeChat(zoneName);
@@ -313,9 +313,7 @@ public class PanelChat extends JPanel {
 		{
 			objet = new Message(connectedUser, message);
 			currentChat.send(objet);
-			//PanelMessage m = new PanelMessage(objet);
 			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
-			// TODO afficher le message dans le panel
 			panelChat.add(new PanelMessage(objet));
 			panelChat.validate();
 			this.txtMessage.setText("");
@@ -370,7 +368,7 @@ public class PanelChat extends JPanel {
 	{
 		try
 		{
-			currentChat = getSelectChat(zoneName);
+			currentChat = getSelectedChat(zoneName);
 			if(!currentChat.isThreadRun())
 				currentChat.listener();
 			affichagePanel(currentChat);
@@ -381,7 +379,7 @@ public class PanelChat extends JPanel {
 		}
 	}
 	
-	public static Chat getSelectChat(String zoneName)
+	public static Chat getSelectedChat(String zoneName)
 	{
 		try
 		{
