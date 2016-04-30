@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
@@ -64,16 +65,16 @@ public class FrameConnexionChatroom extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO Connect to the chatroom
-				pwdEntered = textPassword.getPassword().toString();
+				pwdEntered = String.valueOf(textPassword.getPassword());
 				
 				//Recuperation du chat + listener sur celui-ci
 				//TODO if pwd = pwd;
 				if(pwdEntered.equals(validPwd))
 				{
 					PanelChat.changeChat(zoneName);
+					//TODO close frame
 				} else {
-					//TODO popup pwd wrong
-					System.out.println("Password errone");
+					JOptionPane.showMessageDialog(frameConnexion, "Mauvais mot de passe");
 				}
 				
 			}

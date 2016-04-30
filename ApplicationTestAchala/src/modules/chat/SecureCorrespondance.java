@@ -29,7 +29,8 @@ public class SecureCorrespondance extends Correspondance implements _SecureCorre
 		this.password = password;
 	}
 
-	public Class<?> getClassRemote() throws RemoteException{
+	@Override
+	public Class<?> getClassShared() throws RemoteException{
 		return SecureCorrespondance.class;
 	}
 	

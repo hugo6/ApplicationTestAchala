@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -115,29 +116,22 @@ public class FrameAjouterChatroom extends JFrame {
 						else
 							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, zoneName));
 						
-						//fermer();
-						dispose();
+						PanelChat.refreshRooms(PanelChat.getServer());
 					}
 					catch(Exception ex)
 					{
 						ex.printStackTrace();
 					}
+					lblChatroomName.setText("");
+					textPassword.setText("");
+					chckbxPassword.setSelected(false);
 				} else {
-					//TODO popup nom deja pris
-					System.out.println("Deja pris !");
+					JOptionPane.showMessageDialog(frameAjouter, "Ce nom est deja pris sur ce serveur.\nMerci d'en choisir un autre.");
 				}
 			}
 		});
 		frameAjouter.getContentPane();
 		frameAjouter.getContentPane().add(panel);
 		frameAjouter.setVisible(true);
-	}
-	
-	/**
-	 * Close la frame
-	 */
-	public void fermer()
-	{
-		this.dispose();
 	}
 }

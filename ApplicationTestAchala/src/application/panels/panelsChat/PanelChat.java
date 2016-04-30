@@ -63,7 +63,7 @@ public class PanelChat extends JPanel {
 	/**
 	 * graphical components
 	 */
-	 private JList<Component> jlistRoomchat;
+	 private static JList<Component> jlistRoomchat;
 	 private static JPanel panelChat;
 	/**
 	 * panel chat constructor
@@ -196,25 +196,14 @@ public class PanelChat extends JPanel {
 					//Recuperation du chat + listener sur celui-ci
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
-					try
-					{
-						String password = ((SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
+					//avec password
+					if(getSelectChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectChat(zoneName).isThreadRun()){
+						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
 						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
-						
-					}
-					catch(Exception ex)
-					{
-						System.out.println("Chat non securise");
+					} else {				
+						//sans password
 						changeChat(zoneName);
 					}
-					//avec password
-//					if(getSelectChat(zoneName).getShared() instanceof SecureCorrespondance){
-//						String password = ((_SecureCorrespondance)getSelectChat(zoneName).getShared()).getPassword();
-//						FrameConnexionChatroom frame_co = new FrameConnexionChatroom(zoneName, password);
-//					} else {				
-//						//sans password
-//						changeChat(zoneName);
-//					}
 					
 				}
 				catch(Exception ex)
@@ -340,21 +329,22 @@ public class PanelChat extends JPanel {
 	public static void affichagePanel(Chat chat)
 	{
 		if(chat != currentChat) return;
+		
+		panelChat.removeAll();
 		try
 		{
-			panelChat.removeAll();
 			for(_RemotableObject o : chat.getShared().getObjects())
 			{
 				PanelMessage pm = new PanelMessage(o);
 				panelChat.add(pm);
 			}
-			panelChat.validate();
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		
+
+		panelChat.validate();
 	}
 	
 	public static void addMessage(_RemotableObject objet, Chat chat)
@@ -416,7 +406,7 @@ public class PanelChat extends JPanel {
 	 * Rafraichi la liste des rooms sur le serveur
 	 * @param server _Server : serveur sur lequel chercher les rooms
 	 */
-	public void refreshRooms(_Server server)
+	public static void refreshRooms(_Server server)
 	{
 		try
 		{
@@ -450,7 +440,7 @@ public class PanelChat extends JPanel {
 				}
 			});
 			
-			validate();
+			jlistRoomchat.validate();
 		}
 		catch(Exception ex)
 		{
