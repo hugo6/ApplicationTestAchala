@@ -360,7 +360,7 @@ public class PanelChat extends JPanel {
 			if(messageList.containsKey(chat)){
 				messageList.get(chat).add(objet);
 				if (Commande.getCommandeByString(objet.getObject().toString()) != null)
-					Commande.getCommandeByString(objet.getObject().toString()).executeSender(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
+					Commande.getCommandeByString(objet.getObject().toString()).executeReciever(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
 				else
 					affichagePanel(chat);
 			}
