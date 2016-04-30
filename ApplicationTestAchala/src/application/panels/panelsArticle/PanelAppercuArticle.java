@@ -98,10 +98,7 @@ public class PanelAppercuArticle extends JPanel {
 		} else
 			premierMots = premierMots.substring(0, 30);
 		lblContenu.setText(premierMots);
-		
-		JButton btnSuppr = new JButton("Supprimer");
-		panelTitre.add(btnSuppr);
-		this.setPreferredSize(new Dimension(175, 110));
+		this.setPreferredSize(new Dimension(175, 125));
 
 	}
 

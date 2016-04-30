@@ -1,5 +1,6 @@
 package application.panels.panelsArticle;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -160,10 +161,20 @@ public class PanelArticle extends JPanel {
 	 *            : prenom de l'utilisateur connecte
 	 * 
 	 */
-	private void affichageApercuArticles(String nomUser, String prenomUser) {
+	public void affichageApercuArticles(String nomUser, String prenomUser) {
 		PanelAppercuArticle paa = null;
 		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
+			JButton btnSuppr = new JButton("Supprimer");
+			btnSuppr.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					a.supprimer();
+					panelArticles.removeAll();
+					panelArticles.repaint();
+					affichageApercuArticles(nomUser, prenomUser);
+				}
+			});
+			paa.add(btnSuppr, BorderLayout.PAGE_END);
 			panelArticles.add(paa);
 		}
 	}
