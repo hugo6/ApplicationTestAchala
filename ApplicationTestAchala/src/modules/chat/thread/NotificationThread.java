@@ -21,15 +21,13 @@ public class NotificationThread extends Thread {
 		{
 			while(true)
 			{
-				if(this.getShare().isAllowed(this.getUser()) && this.getShare().isWait())
+				if(this.getShare().isAllowed(this.getUser()))
 				{
-					for(_RemotableObject rObj : this.getShare().getObjects())
+					for(_RemotableObject o : this.getShare().getObjects())
 					{
-						if(!rObj.getSender().equals(this.getUser()))
-							System.out.println("NOTIFICATION : " + rObj.getSender().toStringRemote());
+						//if(this.getShare().ge)
 					}
 				}
-				sleep(5000);
 			}
 		}
 		catch(Exception e)
