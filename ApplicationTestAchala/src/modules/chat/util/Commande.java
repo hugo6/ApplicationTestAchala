@@ -40,7 +40,7 @@ public class Commande extends RemoteObject{
 	 * @param cmd La commande a executer
 	 * @param user L'utilisateur qui l'a envoyée
 	 */
-	public static void executeSender(Commande cmd, _Utilisateur user) {
+	public void executeSender(Commande cmd, _Utilisateur user) {
 		if (cmd.equals(Commande.EXIT)) {
 			
 		} else if (cmd.equals(Commande.HELP)) {
@@ -78,7 +78,7 @@ public class Commande extends RemoteObject{
 	 * @param cmd La commande a executer
 	 * @param user L'utilisateur qui l'a recu
 	 */
-	public static void executeReciever(Commande cmd, _Utilisateur user) {
+	public void executeReciever(Commande cmd, _Utilisateur user) {
 		if (cmd.equals(Commande.EXIT)) {
 			
 		} else if (cmd.equals(Commande.HELP)) {
@@ -107,7 +107,7 @@ public class Commande extends RemoteObject{
 				return commande;
 			}
 		}
-		return Commande.HELP;
+		return null;
 	}
 	
 	/**

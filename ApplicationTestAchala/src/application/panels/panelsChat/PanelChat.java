@@ -45,6 +45,7 @@ import application.frames.FrameConnexionChatroom;
 import modules.chat.Chat;
 import modules.chat.SecureCorrespondance;
 import modules.chat._SecureCorrespondance;
+import modules.chat.util.Commande;
 
 
 public class PanelChat extends JPanel {
@@ -315,6 +316,9 @@ public class PanelChat extends JPanel {
 		_RemotableObject objet = null;
 		try
 		{
+			if (Commande.getCommandeByString(message) != null)
+				Commande.getCommandeByString(message).executeSender(Commande.getCommandeByString(message), connectedUser);
+			
 			objet = new Message(connectedUser, message);
 			currentChat.send(objet);
 			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
@@ -346,14 +350,23 @@ public class PanelChat extends JPanel {
 			ex.printStackTrace();
 		}
 
-		panelChat.validate();
+		panelChat.revalidate();
 	}
 	
 	public static void addMessage(_RemotableObject objet, Chat chat)
 	{
-		if(messageList.containsKey(chat)){
-			messageList.get(chat).add(objet);
-			affichagePanel(chat);
+		try {
+
+			if(messageList.containsKey(chat)){
+				messageList.get(chat).add(objet);
+				if (Commande.getCommandeByString(objet.getObject().toString()) != null)
+					Commande.getCommandeByString(objet.getObject().toString()).executeSender(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
+				else
+					affichagePanel(chat);
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -443,7 +456,7 @@ public class PanelChat extends JPanel {
 				}
 			});
 			
-			jlistRoomchat.validate();
+			jlistRoomchat.revalidate();
 		}
 		catch(Exception ex)
 		{
