@@ -54,6 +54,9 @@ public class PanelChat extends JPanel {
 	private static Map<Chat, List<_RemotableObject>> messageList = new HashMap<Chat, List<_RemotableObject>>();
 
 	private JTextField txtMessage;
+	private static JLabel lblNametoChat;
+	
+	public static FrameConnexionChatroom frameConnexion = null;
 	
 	private static _Utilisateur connectedUser;
 	private static _Server server;
@@ -104,7 +107,7 @@ public class PanelChat extends JPanel {
 		
 		
 		/*CHAT NAME LABEL*/
-		JLabel lblNametoChat = new JLabel("Selectionner une salle de chat ...");
+		lblNametoChat = new JLabel("Selectionner une salle de chat ...");
 		lblNametoChat.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNametoChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNametoChat.setBounds(200, 13, 318, 25);
@@ -199,7 +202,8 @@ public class PanelChat extends JPanel {
 					//avec password
 					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
 						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
-						new FrameConnexionChatroom(zoneName, password);
+						if(frameConnexion == null)
+							frameConnexion = new FrameConnexionChatroom(zoneName, password);
 					} else {				
 						//sans password
 						changeChat(zoneName);
@@ -369,6 +373,7 @@ public class PanelChat extends JPanel {
 		try
 		{
 			currentChat = getSelectedChat(zoneName);
+			lblNametoChat.setText(zoneName);
 			if(!currentChat.isThreadRun())
 				currentChat.listener();
 			affichagePanel(currentChat);

@@ -64,19 +64,17 @@ public class FrameConnexionChatroom extends JFrame {
 		panel.add(btnConnect);
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO Connect to the chatroom
 				pwdEntered = String.valueOf(textPassword.getPassword());
 				
 				//Recuperation du chat + listener sur celui-ci
-				//TODO if pwd = pwd;
 				if(pwdEntered.equals(validPwd))
 				{
 					PanelChat.changeChat(zoneName);
-					//TODO close frame
+					frameConnexion.dispose();
 				} else {
 					JOptionPane.showMessageDialog(frameConnexion, "Mauvais mot de passe");
 				}
-				
+				PanelChat.frameConnexion = null;
 			}
 		});
 		
