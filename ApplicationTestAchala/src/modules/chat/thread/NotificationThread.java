@@ -23,9 +23,12 @@ public class NotificationThread extends Thread {
 			{
 				if(this.getShare().isAllowed(this.getUser()))
 				{
-					for(_RemotableObject o : this.getShare().getObjects())
+					for(_RemotableObject o : this.getShare().getRObjectList().keySet())
 					{
-						//if(this.getShare().ge)
+						if(this.getShare().getRObjectList().get(o).contains(this.getUser()))
+						{
+							System.out.println("Notification de " + o.getSender().toStringRemote() + " sur la zone " + this.getShare().getZoneName());
+						}
 					}
 				}
 			}
