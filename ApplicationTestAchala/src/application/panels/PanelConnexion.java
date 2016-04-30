@@ -56,7 +56,6 @@ public class PanelConnexion extends JPanel {
 		lblPrenom.setLabelFor(textFieldPrenom);
 		add(textFieldPrenom);
 		textFieldPrenom.setColumns(10);
-		//677*377
 		
 		setPreferredSize(new Dimension(955, 460));
 	

@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 
 public class PanelEdition extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JTextField textFieldTitre;
 	private JTextArea textAreaArticle ;

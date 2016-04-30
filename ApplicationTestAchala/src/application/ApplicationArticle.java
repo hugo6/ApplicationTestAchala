@@ -15,6 +15,10 @@ import java.awt.event.ActionEvent;
 
 public class ApplicationArticle extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3449430601847208397L;
 	private JPanel contentPane;
 	private JFrame frame;
 	/**

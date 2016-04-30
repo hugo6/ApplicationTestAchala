@@ -1,17 +1,17 @@
 package application.panels.panelsArticle;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
-import javax.swing.JTabbedPane;
-import java.awt.Color;
-import java.sql.Date;
 
-import javax.swing.JLabel;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PanelContenuArticle extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Panel qui va afficher le contenu de l article ( titre + contenu + auteur + date )

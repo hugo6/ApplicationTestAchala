@@ -16,6 +16,11 @@ import modules.publication.metier.Commentaire;
 public class PanelCommentaire extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Representation graphique d'un Commentaire
 	 */
 	public PanelCommentaire(Commentaire c) {

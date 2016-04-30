@@ -11,6 +11,10 @@ import application.panels.panelsArticle.PanelContenuArticle;
 import modules.publication.metier.Article;
 
 public class FrameAffichageArticle extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame affichage;
 
 

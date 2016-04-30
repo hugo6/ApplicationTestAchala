@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,8 +17,6 @@ import javax.swing.border.LineBorder;
 
 import application.frames.FrameAffichageArticle;
 import modules.publication.metier.Article;
-import javax.swing.JButton;
-import java.awt.SystemColor;
 
 public class PanelAppercuArticle extends JPanel {
 
@@ -48,7 +47,7 @@ public class PanelAppercuArticle extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				FrameAffichageArticle faa = new FrameAffichageArticle(a, nomUser, prenomUser);
+				new FrameAffichageArticle(a, nomUser, prenomUser);
 
 			}
 		});
