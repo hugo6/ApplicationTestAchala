@@ -4,7 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.RemoteObject;
 import java.util.ArrayList;
 
+import achala.communication.Message;
+import achala.communication._RemotableObject;
 import achala.communication.utilisateur._Utilisateur;
+import application.panels.panelsChat.PanelChat;
 
 public class Commande extends RemoteObject{
 	
@@ -42,7 +45,7 @@ public class Commande extends RemoteObject{
 	 */
 	public void executeSender(Commande cmd, _Utilisateur user) {
 		if (cmd.equals(Commande.EXIT)) {
-			
+			PanelChat.currentChat.stopListener();
 		} else if (cmd.equals(Commande.HELP)) {
 			String help = "Liste des commandes :\n"
 								+ "\t-/exit : Quitte le chat.\n"
@@ -52,7 +55,14 @@ public class Commande extends RemoteObject{
 								+ "\t-/save : Enregistre la conversation du chat dans un fichier en local.\n"
 								+ "\t-/clearsave : Supprimme la conversation du chat enregistré dans un fichier en local.\n"
 								+ "\t-/wizz : Envoi un wizz a tous les utilisateurs connectés dans le chat.";
-			System.out.println(help);
+			_RemotableObject msgHelp;
+			try {
+				msgHelp = new Message(user, help);
+				PanelChat.addMessage(msgHelp, PanelChat.currentChat);
+			} catch (RemoteException e) {
+				System.out.println(help);
+				e.printStackTrace();
+			}
 		} else if (cmd.equals(Commande.IP)) {
 			String ip = "";
 			try {

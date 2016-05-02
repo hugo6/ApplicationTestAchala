@@ -103,11 +103,11 @@ public class ListenerThread extends Thread {
 		this.c = c;
 	}
 
-	private boolean isRun() {
+	public boolean isRun() {
 		return run;
 	}
 
-	private void setRun(boolean run) {
+	public void setRun(boolean run) {
 		this.run = run;
 	}
 

@@ -26,6 +26,9 @@ public class Chat {
 	private _Server server;
 	private _Shared shared;
 	private boolean threadRun;
+	
+	private ListenerThread listen;
+	private NotificationThread notifs;
 
 	/**
 	 * Constructeur d'un chat entre utilisateurs u1 et u2 sur le serveur
@@ -144,6 +147,22 @@ public class Chat {
 	public void setThreadRun(boolean threadRun) {
 		this.threadRun = threadRun;
 	}
+	
+	private ListenerThread getListen() {
+		return listen;
+	}
+
+	private void setListen(ListenerThread listen) {
+		this.listen = listen;
+	}
+
+	private NotificationThread getNotifs() {
+		return notifs;
+	}
+
+	private void setNotifs(NotificationThread notifs) {
+		this.notifs = notifs;
+	}
 
 	/**
 	 * Lance le thread d'ecoute du chat
@@ -153,8 +172,11 @@ public class Chat {
 	 */
 	public void listener() throws RemoteException {
 
-		new ListenerThread(this.getCurrent(), this.getShared(), this).start();
-		new NotificationThread(this.getShared(), this.getCurrent()).start();
+		this.setListen(new ListenerThread(this.getCurrent(), this.getShared(), this));
+		this.getListen().start();
+		
+		this.setNotifs(new NotificationThread(this.getShared(), this.getCurrent()));
+		this.getNotifs().start();
 		
 		this.setThreadRun(true);
 	}
@@ -166,7 +188,8 @@ public class Chat {
 	}
 
 	public void stopListener() {
-		//TODO stop listener
+		this.getListen().setRun(false);
+		this.setThreadRun(false);
 	}
 
 	/**

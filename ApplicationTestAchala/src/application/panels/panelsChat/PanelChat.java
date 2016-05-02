@@ -12,12 +12,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +42,6 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import achala.communication.Fichier;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -68,7 +71,7 @@ public class PanelChat extends JPanel {
 	private static _Utilisateur connectedUser;
 	private static _Server server;
 //	private Map<String, Chat> chatRooms;
-	private static Chat currentChat;
+	public static Chat currentChat;
 	
 	/**
 	 * graphical components
@@ -258,9 +261,11 @@ public class PanelChat extends JPanel {
 		add(lblipServer);
 
 		/*COMBOX SERVER*/
+		String[] ip = new String[10];
 		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
 		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.138", "192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
+		//comboxIpServer.setModel(new DefaultComboBoxModel<String>(ip()));
 		comboxIpServer.setBounds(568, 79, 154, 34);
 		add(comboxIpServer);
 		
@@ -270,7 +275,6 @@ public class PanelChat extends JPanel {
 		btnConnecter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Connection au server ip :" + comboxIpServer.getSelectedItem().toString());
-
 				try
 				{
 					//Recuperation du serveur
@@ -337,13 +341,6 @@ public class PanelChat extends JPanel {
 		{
 			for(_RemotableObject o : chat.getShared().getObjects())
 			{
-				File f = (File)o.getObject();
-				String fileName = "F:/" + currentChat.getShared().getZoneName() + "_" + f.getName();
-				File to = new File(fileName);
-				if(!to.exists())
-					to.createNewFile();
-				Files.copy(new FileInputStream(f), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				Files.copy(f.toPath(), to.toPath());
 				PanelMessage pm = new PanelMessage(o);
 				panelChat.add(pm);
 			}
@@ -464,5 +461,38 @@ public class PanelChat extends JPanel {
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	
+	public String[] ip() {
+
+		HashSet<String> adresses = new HashSet<String>();
+		try
+		{
+			Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+			while (e.hasMoreElements()) {
+				Enumeration<InetAddress> i = e.nextElement().getInetAddresses();
+				while (i.hasMoreElements()) {
+					InetAddress a = i.nextElement();
+					if (a instanceof Inet4Address && !a.isLoopbackAddress()) {
+						adresses.add(a.getHostAddress());
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		String[] ip = new String[adresses.size()];
+		int i = 0;
+		for(String str : adresses)
+		{
+			ip[i] = str;
+			i++;
+		}
+		
+		return ip;
 	}
 }
