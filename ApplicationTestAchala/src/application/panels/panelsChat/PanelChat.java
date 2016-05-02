@@ -157,20 +157,9 @@ public class PanelChat extends JPanel {
 			}
 		});
 		txtMessage.setHorizontalAlignment(SwingConstants.LEFT);
-		txtMessage.setBounds(40, 259, 282, 71);
+		txtMessage.setBounds(40, 259, 384, 71);
 		txtMessage.setColumns(10);
 		add(txtMessage);
-		
-		/*FILE BUTTON*/
-		JButton btnFichier = new JButton("Fichier");
-		btnFichier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//TODO envoi de fichier a implémenter
-				sendFile(new File("F:/Documents/testRMI.txt"));
-			}
-		});
-		btnFichier.setBounds(338, 264, 84, 60);
-		add(btnFichier);
 		
 		
 		/*BOUTON ENVOYER*/
@@ -336,21 +325,6 @@ public class PanelChat extends JPanel {
 		catch(Exception ex)
 		{
 			ex.printStackTrace();	
-		}
-	}
-	
-	private void sendFile(File fichier)
-	{
-		_RemotableObject objet = null;
-		try
-		{
-			objet = new Fichier(connectedUser, fichier);
-			currentChat.send(objet);
-			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + ((File)objet.getObject()).getPath());
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
 		}
 	}
 	
