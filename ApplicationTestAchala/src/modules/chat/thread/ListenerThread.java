@@ -55,7 +55,7 @@ public class ListenerThread extends Thread {
 				objs = this.getU().receive(this.getS());
 				for (_RemotableObject o : objs) {
 
-					PanelChat.addMessage(o, this.getC());
+					PanelChat.addMessageRecieve(o, this.getC());
 
 					System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
 					System.out.println(o.getObject().toString());

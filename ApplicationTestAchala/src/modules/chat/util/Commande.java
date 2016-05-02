@@ -51,10 +51,10 @@ public class Commande extends RemoteObject{
 								+ "\t-/exit : Quitte le chat.\n"
 								+ "\t-/help : Affiche les aides pour commandes.\n"
 								+ "\t-/ip : Affiche l'adresse IP du poste\n"
-								+ "\t-/users : Affiche le nom de tous les utilisateurs connectés sur le chat.\n"
+								+ "\t-/users : Affiche le nom de tous les utilisateurs connectes sur le chat.\n"
 								+ "\t-/save : Enregistre la conversation du chat dans un fichier en local.\n"
-								+ "\t-/clearsave : Supprimme la conversation du chat enregistré dans un fichier en local.\n"
-								+ "\t-/wizz : Envoi un wizz a tous les utilisateurs connectés dans le chat.";
+								+ "\t-/clearsave : Supprimme la conversation du chat enregistre dans un fichier en local.\n"
+								+ "\t-/wizz : Envoi un wizz a tous les utilisateurs connectes dans le chat.";
 			_RemotableObject msgHelp;
 			try {
 				msgHelp = new Message(user, help);

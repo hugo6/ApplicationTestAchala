@@ -316,14 +316,10 @@ public class PanelChat extends JPanel {
 		_RemotableObject objet = null;
 		try
 		{
-			if (Commande.getCommandeByString(message) != null)
-				Commande.getCommandeByString(message).executeSender(Commande.getCommandeByString(message), connectedUser);
-			
 			objet = new Message(connectedUser, message);
 			currentChat.send(objet);
 			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + objet.getObject().toString());
-			panelChat.add(new PanelMessage(objet));
-			panelChat.validate();
+			addMessageSend(objet, currentChat);
 			this.txtMessage.setText("");
 		}
 		catch(Exception ex)
@@ -339,7 +335,7 @@ public class PanelChat extends JPanel {
 		panelChat.removeAll();
 		try
 		{
-			for(_RemotableObject o : chat.getShared().getObjects())
+			for(_RemotableObject o : messageList.get(chat))
 			{
 				PanelMessage pm = new PanelMessage(o);
 				panelChat.add(pm);
@@ -359,10 +355,39 @@ public class PanelChat extends JPanel {
 
 			if(messageList.containsKey(chat)){
 				messageList.get(chat).add(objet);
+				affichagePanel(chat);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addMessageSend(_RemotableObject objet, Chat chat)
+	{
+		try {
+
+			if(messageList.containsKey(chat)){
+				if (Commande.getCommandeByString(objet.getObject().toString()) != null)
+					Commande.getCommandeByString(objet.getObject().toString()).executeSender(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
+				else{
+					addMessage(objet, chat);
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addMessageRecieve(_RemotableObject objet, Chat chat)
+	{
+		try {
+
+			if(messageList.containsKey(chat)){
 				if (Commande.getCommandeByString(objet.getObject().toString()) != null)
 					Commande.getCommandeByString(objet.getObject().toString()).executeReciever(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
-				else
-					affichagePanel(chat);
+				else{
+					addMessage(objet, chat);
+				}
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
