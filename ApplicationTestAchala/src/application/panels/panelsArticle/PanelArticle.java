@@ -119,16 +119,18 @@ public class PanelArticle extends JPanel {
 		PanelAppercuArticle paa = null;
 		for (Article a : ManagerApp.Instance().getListArticles()) {
 			paa = new PanelAppercuArticle(a, nomUser, prenomUser);
-			JButton btnSuppr = new JButton("Supprimer");
-			btnSuppr.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					a.supprimer();
-					panelArticles.removeAll();
-					panelArticles.repaint();
-					affichageApercuArticles(nomUser, prenomUser);
-				}
-			});
-			paa.add(btnSuppr, BorderLayout.PAGE_END);
+			if(a.getAuteur().equalsIgnoreCase(nomUser+" "+prenomUser) || a.getAuteur().equalsIgnoreCase(prenomUser+" "+nomUser)) {
+				JButton btnSuppr = new JButton("Supprimer");
+				btnSuppr.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						a.supprimer();
+						panelArticles.removeAll();
+						panelArticles.repaint();
+						affichageApercuArticles(nomUser, prenomUser);
+					}
+				});
+				paa.add(btnSuppr, BorderLayout.PAGE_END);
+			}
 			panelArticles.add(paa);
 		}
 	}
