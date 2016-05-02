@@ -102,8 +102,6 @@ public class PanelPrincipalArticle extends JPanel {
 		JButton btnRafraich = new JButton("Rafraichir");
 		btnRafraich.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ManagerApp.Instance().getListArticles().clear();
-				ManagerApp.Instance().getListCommentaires().clear();
 				ManagerApp.Instance().initialisation();
 				panelArticle.getPanelArticles().removeAll();
 				panelArticle.affichageApercuArticles(nomUser, prenomUser);
