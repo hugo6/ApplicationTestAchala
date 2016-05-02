@@ -32,7 +32,7 @@ public class FrameAjouterChatroom extends JFrame {
 		/**
 		 * set the frame properties
 		 */
-		frameAjouter = new JFrame("Add a new Chat Room");
+		frameAjouter = new JFrame("Ajouter un salon");
 		frameAjouter.setResizable(false);
 		frameAjouter.setAlwaysOnTop(true);
 		frameAjouter.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,7 +49,7 @@ public class FrameAjouterChatroom extends JFrame {
 		/**
 		 * CHATROOM LABEL
 		 */
-		JLabel lblChatroomName = new JLabel("ChatRoom Name");
+		JLabel lblChatroomName = new JLabel("Nom du salon");
 		lblChatroomName.setBounds(39, 43, 123, 17);
 		panel.add(lblChatroomName);
 		lblChatroomName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -69,15 +69,13 @@ public class FrameAjouterChatroom extends JFrame {
 		JCheckBox chckbxPassword = new JCheckBox("Password ?");
 		chckbxPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxPassword.setBounds(39, 112, 123, 25);
-		panel.add(chckbxPassword);
+		//panel.add(chckbxPassword);							// ajout du check pour password
 		chckbxPassword.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				if(chckbxPassword.isSelected())
-				{
-					textPassword.setEnabled(true);//allow the field only if the box is checked
-				}else
-				{
-					textPassword.setEnabled(false);//disallow the field if the box is unchecked
+				if(chckbxPassword.isSelected()) {
+					textPassword.setEnabled(true);
+				}else {
+					textPassword.setEnabled(false);
 				}
 				
 			}
@@ -89,14 +87,14 @@ public class FrameAjouterChatroom extends JFrame {
 		 */
 		textPassword = new JTextField();
 		textPassword.setBounds(211, 116, 109, 20);
-		panel.add(textPassword);
+		//panel.add(textPassword); 								// ajout du textField pour password
 		textPassword.setEnabled(false);
 		textPassword.setColumns(10);
 		
 		/**
 		 * BUTTON ADD CHATROOM
 		 */
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Ajouter");
 		btnAdd.setBounds(324, 197, 100, 31);
 		panel.add(btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
@@ -109,9 +107,10 @@ public class FrameAjouterChatroom extends JFrame {
 						String rmiAdresse = PanelChat.getServer().getRMIAdresse(zoneName);
 						String password = textPassword.getText();
 						
-						if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
-							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
-						else
+						// Gestion creation de zone securisee
+//						if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
+//							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
+//						else
 							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, zoneName));
 						
 						PanelChat.refreshRooms(PanelChat.getServer());

@@ -10,13 +10,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -70,7 +66,6 @@ public class PanelChat extends JPanel {
 	
 	private static _Utilisateur connectedUser;
 	private static _Server server;
-//	private Map<String, Chat> chatRooms;
 	public static Chat currentChat;
 	
 	/**
@@ -89,7 +84,6 @@ public class PanelChat extends JPanel {
 		{
 			connectedUser = new Utilisateur(nom, prenom);
 			server = null;
-//			chatRooms = new HashMap<String, Chat>();
 			currentChat = null;
 		}
 		catch(Exception ex)
@@ -200,14 +194,14 @@ public class PanelChat extends JPanel {
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
 					//avec password
-					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
-						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
-						if(frameConnexion == null)
-							frameConnexion = new FrameConnexionChatroom(zoneName, password);
-					} else {				
+//					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
+//						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
+//						if(frameConnexion == null)
+//							frameConnexion = new FrameConnexionChatroom(zoneName, password);
+//					} else {				
 						//sans password
 						changeChat(zoneName);
-					}
+//					}
 					
 				}
 				catch(Exception ex)
@@ -229,7 +223,6 @@ public class PanelChat extends JPanel {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FrameAjouterChatroom frame_add = new FrameAjouterChatroom();
-				//TODO faire la méthode getMapChat() et add des users ?
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
