@@ -30,6 +30,16 @@ public class ListenerThread extends Thread {
 		this.setRun(true);
 	}
 
+	/**
+	 * Construit un thread de recepetion de messages
+	 * 
+	 * @param u
+	 *            _Utilisateur : utilisateur recevant les messages
+	 * @param s
+	 *            _Shared : zone dans laquelle lire les messages
+	 * @param c
+	 *            Chat : chat courrant
+	 */
 	public ListenerThread(_Utilisateur u, _Shared s, Chat c) {
 		this(u, s);
 		this.setC(c);

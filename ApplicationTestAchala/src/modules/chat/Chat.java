@@ -14,8 +14,6 @@ import achala.communication.server._Server;
 import achala.communication.utilisateur._Utilisateur;
 import modules.chat.thread.ListenerThread;
 import modules.chat.thread.NotificationThread;
-import modules.chat.thread.SenderThread;
-import modules.chat.util.Util.Cmd;
 
 public class Chat {
 
@@ -182,20 +180,6 @@ public class Chat {
 	public void stopListener() {
 		this.getListen().setRun(false);
 		this.setThreadRun(false);
-	}
-
-	/**
-	 * Lance le thread d'envoi sur le chat
-	 * 
-	 * @param escape
-	 *            String : chaine de caractere mettant fin a la communication
-	 * @throws RemoteException
-	 *             leve une exception en cas d'echec de communication
-	 */
-	public void sender(Cmd escape) throws RemoteException {
-
-		SenderThread sender = new SenderThread(this.getCurrent(), this.getShared(), escape);
-		sender.start();
 	}
 
 	/**
