@@ -2,8 +2,6 @@ package modules.chat.thread;
 
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
 import achala.communication.exception.CommunicationException;

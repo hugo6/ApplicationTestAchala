@@ -5,8 +5,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;

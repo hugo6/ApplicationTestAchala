@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
 
 import achala.communication.Message;
 import achala.communication._RemotableObject;
