@@ -1,4 +1,4 @@
-package modules.chat.clients;
+package modules.chat.server;
 
 import java.net.InetAddress;
 

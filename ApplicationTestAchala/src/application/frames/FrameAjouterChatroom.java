@@ -69,7 +69,7 @@ public class FrameAjouterChatroom extends JFrame {
 		JCheckBox chckbxPassword = new JCheckBox("Password ?");
 		chckbxPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxPassword.setBounds(39, 112, 123, 25);
-		//panel.add(chckbxPassword);							// ajout du check pour password
+		panel.add(chckbxPassword);							// ajout du check pour password
 		chckbxPassword.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(chckbxPassword.isSelected()) {
@@ -87,7 +87,7 @@ public class FrameAjouterChatroom extends JFrame {
 		 */
 		textPassword = new JTextField();
 		textPassword.setBounds(211, 116, 109, 20);
-		//panel.add(textPassword); 								// ajout du textField pour password
+		panel.add(textPassword); 								// ajout du textField pour password
 		textPassword.setEnabled(false);
 		textPassword.setColumns(10);
 		
@@ -108,9 +108,9 @@ public class FrameAjouterChatroom extends JFrame {
 						String password = textPassword.getText();
 						
 						// Gestion creation de zone securisee
-//						if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
-//							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
-//						else
+						if(chckbxPassword.isSelected() && !textPassword.getText().equals(""))
+							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new SecureCorrespondance(users, rmiAdresse, zoneName, password));
+						else
 							PanelChat.getServer().addSharedZone(PanelChat.getConnectedUser(), new Correspondance(users, rmiAdresse, zoneName));
 						
 						PanelChat.refreshRooms(PanelChat.getServer());

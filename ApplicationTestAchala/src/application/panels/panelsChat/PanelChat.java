@@ -194,14 +194,14 @@ public class PanelChat extends JPanel {
 					String zoneName = "" + jlistRoomchat.getModel().getElementAt(jlistRoomchat.getSelectedIndex());
 
 					//avec password
-//					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
-//						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
-//						if(frameConnexion == null)
-//							frameConnexion = new FrameConnexionChatroom(zoneName, password);
-//					} else {				
+					if(getSelectedChat(zoneName).getShared().getClassShared() == SecureCorrespondance.class && !getSelectedChat(zoneName).isThreadRun()){
+						String password = ((_SecureCorrespondance)getSelectedChat(zoneName).getShared()).getPassword();
+						if(frameConnexion == null)
+							frameConnexion = new FrameConnexionChatroom(zoneName, password);
+					} else {				
 						//sans password
 						changeChat(zoneName);
-//					}
+					}
 					
 				}
 				catch(Exception ex)
@@ -222,7 +222,7 @@ public class PanelChat extends JPanel {
 		JButton button = new JButton("+");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FrameAjouterChatroom frame_add = new FrameAjouterChatroom();
+				new FrameAjouterChatroom();
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -254,7 +254,6 @@ public class PanelChat extends JPanel {
 		add(lblipServer);
 
 		/*COMBOX SERVER*/
-		String[] ip = new String[10];
 		JComboBox<String> comboxIpServer = new JComboBox<String>();
 		comboxIpServer.setEditable(true);
 		comboxIpServer.setModel(new DefaultComboBoxModel<String>(new String[] {"192.168.43.138", "192.168.43.84", "147.171.167.198"})); // prend une liste d'objets
