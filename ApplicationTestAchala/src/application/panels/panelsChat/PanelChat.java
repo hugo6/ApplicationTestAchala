@@ -520,4 +520,9 @@ public class PanelChat extends JPanel {
 		
 		return ip;
 	}
+
+	public static void clearRoom(Chat chat) {
+		messageList.get(chat).clear();
+		affichagePanel(chat);
+	}
 }

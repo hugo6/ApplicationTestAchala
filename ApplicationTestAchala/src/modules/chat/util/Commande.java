@@ -46,6 +46,7 @@ public class Commande extends RemoteObject{
 	public void executeSender(Commande cmd, _Utilisateur user) {
 		if (cmd.equals(Commande.EXIT)) {
 			PanelChat.currentChat.stopListener();
+			PanelChat.clearRoom(PanelChat.currentChat);
 		} else if (cmd.equals(Commande.HELP)) {
 			String help = "Liste des commandes :\n"
 								+ "\t-/exit : Quitte le chat.\n"
@@ -55,10 +56,8 @@ public class Commande extends RemoteObject{
 								+ "\t-/save : Enregistre la conversation du chat dans un fichier en local.\n"
 								+ "\t-/clearsave : Supprimme la conversation du chat enregistre dans un fichier en local.\n"
 								+ "\t-/wizz : Envoi un wizz a tous les utilisateurs connectes dans le chat.";
-			_RemotableObject msgHelp;
 			try {
-				msgHelp = new Message(user, help);
-				PanelChat.addMessage(msgHelp, PanelChat.currentChat);
+				PanelChat.addMessage(new Message(user, help), PanelChat.currentChat);
 			} catch (RemoteException e) {
 				System.out.println(help);
 				e.printStackTrace();
@@ -72,6 +71,16 @@ public class Commande extends RemoteObject{
 			}
 			System.out.println(ip);
 		} else if (cmd.equals(Commande.USERS)) {
+			StringBuilder users = new StringBuilder();
+			users.append("Utilisateurs de la Room :\n");
+			try {
+				for(_Utilisateur u : PanelChat.currentChat.getShared().getUtilisateurs()){
+					users.append("\t").append(u.toStringRemote()).append("\n");
+				}
+				PanelChat.addMessage(new Message(user, users.toString()), PanelChat.currentChat);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 			
 		} else if (cmd.equals(Commande.SAVE)) {
 			
