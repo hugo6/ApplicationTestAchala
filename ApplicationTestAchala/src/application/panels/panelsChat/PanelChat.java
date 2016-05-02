@@ -109,7 +109,7 @@ public class PanelChat extends JPanel {
 		*/
 		
 		/*CHAT LABEL*/
-		JLabel lblChat = new JLabel("CHAT :");
+		JLabel lblChat = new JLabel("Salon :");
 		lblChat.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChat.setBounds(110, 13, 84, 25);
@@ -117,7 +117,7 @@ public class PanelChat extends JPanel {
 		
 		
 		/*CHAT NAME LABEL*/
-		lblNametoChat = new JLabel("Selectionner une salle de chat ...");
+		lblNametoChat = new JLabel("Selectionner un salon ...");
 		lblNametoChat.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblNametoChat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNametoChat.setBounds(200, 13, 318, 25);
@@ -183,7 +183,7 @@ public class PanelChat extends JPanel {
 		*/
 		
 		/*LABEL ROOMCHAT*/
-		JLabel lblRoomchat = new JLabel("Salle de chat en ligne");
+		JLabel lblRoomchat = new JLabel("salon en ligne");
 		lblRoomchat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRoomchat.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblRoomchat.setBounds(570, 144, 265, 25);
@@ -384,7 +384,7 @@ public class PanelChat extends JPanel {
 
 			if(messageList.containsKey(chat)){
 				if (Commande.getCommandeByString(objet.getObject().toString()) != null)
-					Commande.getCommandeByString(objet.getObject().toString()).executeReciever(Commande.getCommandeByString(objet.getObject().toString()), connectedUser);
+					Commande.getCommandeByString(objet.getObject().toString()).executeReciever(Commande.getCommandeByString(objet.getObject().toString()), objet.getSender());
 				else{
 					addMessage(objet, chat);
 				}

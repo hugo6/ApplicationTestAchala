@@ -181,12 +181,6 @@ public class Chat {
 		this.setThreadRun(true);
 	}
 
-	public void listener(JPanel panel) throws RemoteException {
-
-		new ListenerThread(this.getCurrent(), this.getShared(), panel).start();
-		new NotificationThread(this.getShared(), this.getCurrent()).start();
-	}
-
 	public void stopListener() {
 		this.getListen().setRun(false);
 		this.setThreadRun(false);

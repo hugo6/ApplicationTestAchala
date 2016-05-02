@@ -16,7 +16,6 @@ public class ListenerThread extends Thread {
 	private _Utilisateur u;
 	private _Shared s;
 	private boolean run;
-	private JPanel panel;
 	private Chat c;
 
 	/**
@@ -31,12 +30,6 @@ public class ListenerThread extends Thread {
 		this.setU(u);
 		this.setS(s);
 		this.setRun(true);
-		this.setPanel(null);
-	}
-
-	public ListenerThread(_Utilisateur u, _Shared s, JPanel panel) {
-		this(u, s);
-		this.setPanel(panel);
 	}
 
 	public ListenerThread(_Utilisateur u, _Shared s, Chat c) {
@@ -68,7 +61,6 @@ public class ListenerThread extends Thread {
 			}
 		}
 		System.out.println("Exit Listener");
-		this.stop();
 	}
 
 	private _Utilisateur getU() {
@@ -85,14 +77,6 @@ public class ListenerThread extends Thread {
 
 	private void setS(_Shared s) {
 		this.s = s;
-	}
-
-	private JPanel getPanel() {
-		return panel;
-	}
-
-	private void setPanel(JPanel panel) {
-		this.panel = panel;
 	}
 
 	private Chat getC() {
