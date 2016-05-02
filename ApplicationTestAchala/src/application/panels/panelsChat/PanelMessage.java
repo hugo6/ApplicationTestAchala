@@ -51,8 +51,12 @@ public class PanelMessage extends JPanel {
 			textPaneContenu.setEditable(false);
 			textPaneContenu.setText(m.getObject().toString());
 	
-			setPreferredSize(new Dimension(500,75));
+			textPaneContenu.setSize(500, Integer.MAX_VALUE);
+			//setPreferredSize(new Dimension(500,75));
+			
 			add(textPaneContenu, BorderLayout.CENTER);
+			
+			
 		}
 		catch(Exception e)
 		{

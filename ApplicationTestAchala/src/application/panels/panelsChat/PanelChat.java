@@ -102,7 +102,7 @@ public class PanelChat extends JPanel {
 		 */
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
-		
+		setAutoscrolls(true);
 		
 		/**
 		 * CHAT Section---------------------------------------
