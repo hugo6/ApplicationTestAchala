@@ -1,8 +1,7 @@
 package modules.chat.clients;
 
-import java.rmi.RemoteException;
+import java.net.InetAddress;
 
-import achala.communication._Shared;
 import achala.communication.server.Server;
 import achala.communication.server._Server;
 import achala.communication.utilisateur.Utilisateur;
@@ -15,8 +14,9 @@ public class LanceServer {
 		
 		try
 		{
+			String ip = InetAddress.getLocalHost().getHostAddress();
 			_Utilisateur user = new Utilisateur("Server", "Test");
-			_Server srv = Server.getServer("192.168.43.84");
+			_Server srv = Server.getServer(ip);
 			
 			user.connect(srv);
 			

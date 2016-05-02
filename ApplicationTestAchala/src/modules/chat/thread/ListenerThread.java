@@ -38,11 +38,12 @@ public class ListenerThread extends Thread {
 		this(u, s);
 		this.setPanel(panel);
 	}
-	
+
 	public ListenerThread(_Utilisateur u, _Shared s, Chat c) {
 		this(u, s);
 		this.setC(c);
 	}
+
 	/**
 	 * Lance le thread permettant d'affichier les messages
 	 */
@@ -53,9 +54,9 @@ public class ListenerThread extends Thread {
 				sleep(2000);
 				objs = this.getU().receive(this.getS());
 				for (_RemotableObject o : objs) {
-					
+
 					PanelChat.addMessage(o, this.getC());
-					
+
 					System.out.println(o.getDate().toString() + " " + o.getSender().toStringRemote() + " : ");
 					System.out.println(o.getObject().toString());
 				}

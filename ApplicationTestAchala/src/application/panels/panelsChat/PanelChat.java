@@ -10,6 +10,11 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +38,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import achala.communication.Fichier;
 import achala.communication.Message;
 import achala.communication._RemotableObject;
 import achala.communication._Shared;
@@ -160,6 +166,7 @@ public class PanelChat extends JPanel {
 		btnFichier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TODO envoi de fichier a implémenter
+				sendFile(new File("F:/Documents/testRMI.txt"));
 			}
 		});
 		btnFichier.setBounds(338, 264, 84, 60);
@@ -332,6 +339,21 @@ public class PanelChat extends JPanel {
 		}
 	}
 	
+	private void sendFile(File fichier)
+	{
+		_RemotableObject objet = null;
+		try
+		{
+			objet = new Fichier(connectedUser, fichier);
+			currentChat.send(objet);
+			System.out.println(objet.getSender().toStringRemote() +  " a envoye sur " + currentChat.getShared().getZoneName() + " " + ((File)objet.getObject()).getPath());
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
 	public static void affichagePanel(Chat chat)
 	{
 		if(chat != currentChat) return;
@@ -341,6 +363,13 @@ public class PanelChat extends JPanel {
 		{
 			for(_RemotableObject o : chat.getShared().getObjects())
 			{
+				File f = (File)o.getObject();
+				String fileName = "F:/" + currentChat.getShared().getZoneName() + "_" + f.getName();
+				File to = new File(fileName);
+				if(!to.exists())
+					to.createNewFile();
+				Files.copy(new FileInputStream(f), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(f.toPath(), to.toPath());
 				PanelMessage pm = new PanelMessage(o);
 				panelChat.add(pm);
 			}
@@ -365,7 +394,6 @@ public class PanelChat extends JPanel {
 					affichagePanel(chat);
 			}
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
