@@ -24,7 +24,7 @@ public class PanelEdition extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
 
-		JLabel lblEditionDunNouvelle = new JLabel("Edition d'un nouvelle article");
+		JLabel lblEditionDunNouvelle = new JLabel("Edition d'un nouvel article");
 		lblEditionDunNouvelle.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblEditionDunNouvelle.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblEditionDunNouvelle, BorderLayout.NORTH);
