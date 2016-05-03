@@ -476,7 +476,7 @@ public class PanelChat extends JPanel {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+//			ex.printStackTrace();
 		}
 	}
 	
